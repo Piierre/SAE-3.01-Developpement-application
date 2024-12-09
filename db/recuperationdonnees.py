@@ -16,7 +16,7 @@ def requete_sql(requete):
     conn.commit()
     conn.close()
 
-# Lien vers l'API et chemin relatif vers la bd
+# Lien vers l'API et chemin relatif vers la bd !
 url = r"https://hubeau.eaufrance.fr/api/v1/temperature/station?size=20000"
 chemin_db = r"stations.db"
 
