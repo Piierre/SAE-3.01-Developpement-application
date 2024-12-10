@@ -99,6 +99,7 @@ try {
                 ':code_dep' => $fields['code_dep'] ?? null
             ]);
         }
+        // salut
 
         // Insérer dans la table Station
         $stationQuery->execute([
