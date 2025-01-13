@@ -75,6 +75,6 @@ try {
 } catch (PDOException $e) {
     die("Erreur lors de l'insertion : " . $e->getMessage());
 } catch (Exception $e) {
-    die("Erreur : " . $e->getMessage());
+    die("Erreur : " . $e->getMessage()); 
 }
 ?>
