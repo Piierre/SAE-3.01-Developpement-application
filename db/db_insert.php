@@ -1,5 +1,4 @@
 <?php
-// Inclure le fichier de connexion
 require_once 'db_connection.php';
 
 // URL de base de l'API
@@ -71,7 +70,7 @@ try {
         echo "Page suivante, offset : $offset<br>";
     }
 
-    echo "Données insérées avec succès sans doublons.";
+    echo "Toutes les données ont été insérées ou mises à jour avec succès.";
 } catch (PDOException $e) {
     die("Erreur lors de l'insertion : " . $e->getMessage());
 } catch (Exception $e) {
