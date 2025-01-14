@@ -87,5 +87,6 @@ try {
 } catch (Exception $e) {
     $pdo->exec("SET FOREIGN_KEY_CHECKS = 1");
     die("Erreur : " . $e->getMessage());
+    die("Erreur : " . $e->getMessage());
 }
 ?>
