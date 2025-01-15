@@ -3,10 +3,13 @@ require_once 'db_connection.php';
 
 // URL de base de l'API
 $apiBaseUrl = 'https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/donnees-synop-essentielles-omm/records';
-$limit = 100; // Nombre de résultats par requête (maximum supporté par l'API)
+$limit = 100; // Nombre de résultats par requête
 $offset = 0;  // Décalage initial
 
 try {
+    // Désactiver temporairement les contraintes de clé étrangère
+    $pdo->exec("SET FOREIGN_KEY_CHECKS = 0");
+
     // Préparer la requête SQL pour insérer ou mettre à jour les stations
     $stationQuery = $pdo->prepare("
         INSERT INTO Station (id, nom, latitude, longitude, altitude, code_comm, code_dep, code_reg)
@@ -48,6 +51,9 @@ try {
                 continue; // Ignorer les stations sans ID
             }
 
+            // Assurer que les valeurs NULL pour code_comm ne posent pas de problème
+            $code_comm = isset($fields['codegeo']) && !empty($fields['codegeo']) ? $fields['codegeo'] : null;
+
             // Exécuter la requête SQL
             $stationQuery->execute([
                 ':id' => $fields['numer_sta'],
@@ -55,7 +61,7 @@ try {
                 ':latitude' => $fields['latitude'] ?? null,
                 ':longitude' => $fields['longitude'] ?? null,
                 ':altitude' => $fields['altitude'] ?? null,
-                ':code_comm' => $fields['codegeo'] ?? null,
+                ':code_comm' => $code_comm, // NULL accepté ici
                 ':code_dep' => $fields['code_dep'] ?? null,
                 ':code_reg' => $fields['code_reg'] ?? null
             ]);
@@ -70,10 +76,17 @@ try {
         echo "Page suivante, offset : $offset<br>";
     }
 
+    // Réactiver les contraintes de clé étrangère
+    $pdo->exec("SET FOREIGN_KEY_CHECKS = 1");
+
     echo "Toutes les données ont été insérées ou mises à jour avec succès.";
 } catch (PDOException $e) {
+    // Réactiver les contraintes en cas d'erreur
+    $pdo->exec("SET FOREIGN_KEY_CHECKS = 1");
     die("Erreur lors de l'insertion : " . $e->getMessage());
 } catch (Exception $e) {
+    $pdo->exec("SET FOREIGN_KEY_CHECKS = 1");
+    die("Erreur : " . $e->getMessage());
     die("Erreur : " . $e->getMessage());
 }
 ?>
