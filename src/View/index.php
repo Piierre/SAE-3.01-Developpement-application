@@ -1,6 +1,6 @@
 <?php
 // Inclure les fichiers nécessaires
-require_once 'config.php';
+require_once 'Conf.php';
 require_once 'Model/Database.php';
 require_once 'Controller/Controller.php';
 
