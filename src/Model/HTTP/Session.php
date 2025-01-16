@@ -1,8 +1,8 @@
 <?php
-namespace App\Covoiturage\Model\HTTP;
+namespace App\Meteo\Model\HTTP;
 
 use Exception;
-use App\Covoiturage\Config\Conf;
+use App\Meteo\Config\Conf;
 
 class Session {
 

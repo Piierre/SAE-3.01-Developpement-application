@@ -1,5 +1,5 @@
 <?php
-    namespace App\Covoiturage\Model\HTTP;
+    namespace App\Meteo\Model\HTTP;
 
     class Cookie {
 

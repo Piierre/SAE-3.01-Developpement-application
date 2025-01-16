@@ -1,7 +1,7 @@
 <?php
-namespace App\Covoiturage\Lib;
+namespace App\Meteo\Lib;
 
-use App\Covoiturage\Model\HTTP\Cookie;
+use App\Meteo\Model\HTTP\Cookie;
 
 class PreferenceControleur {
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Covoiturage\Lib;
+namespace App\Meteo\Lib;
 
-use App\Covoiturage\Model\HTTP\Session;
+use App\Meteo\Model\HTTP\Session;
 
 class MessageFlash {
     
