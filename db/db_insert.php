@@ -77,21 +77,13 @@ try {
         echo "Page suivante, offset : $offset<br>";
     }
 
-<<<<<<< HEAD
-    echo "Données insérées avec succès sans doublons.";
-=======
+    echo "Toutes les stations ont été insérées ou mises à jour avec succès.";
+
+} catch (PDOException $e) {
+    die("Erreur de base de données : " . $e->getMessage());
+} finally {
     // Réactiver les contraintes de clé étrangère
     $pdo->exec("SET FOREIGN_KEY_CHECKS = 1");
-
-    echo "Toutes les données ont été insérées ou mises à jour avec succès.";
->>>>>>> 2618f502287b41444f4b10c02184842290d67727
-} catch (PDOException $e) {
-    // Réactiver les contraintes en cas d'erreur
-    $pdo->exec("SET FOREIGN_KEY_CHECKS = 1");
-    die("Erreur lors de l'insertion : " . $e->getMessage());
-} catch (Exception $e) {
-    $pdo->exec("SET FOREIGN_KEY_CHECKS = 1");
-    die("Erreur : " . $e->getMessage());
-    die("Erreur : " . $e->getMessage());
 }
 ?>
+
