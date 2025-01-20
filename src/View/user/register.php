@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <h1 style="text-align: center;">Inscription</h1>
+        <h1>Inscription</h1>
     </header>
     <main>
         <section>
