@@ -3,28 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/404.css"> <!-- Lien vers le CSS -->
+
     <title>Page non trouvée</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-        }
-        h1 {
-            font-size: 3em;
-            color: #ff6347;
-        }
-        p {
-            font-size: 1.2em;
-        }
-        a {
-            text-decoration: none;
-            color: #3498db;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
     <h1>404 - Page non trouvée</h1>
