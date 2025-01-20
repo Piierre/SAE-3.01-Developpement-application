@@ -14,7 +14,7 @@
         // Sur votre machine, vous avez surement un compte 'root'
         'login' => 'root',
         // Sur votre machine, vous avez créé ou non ce mdp a l'installation
-        'password' => ''
+        'password' => '123'
         );
         
         static public function getHostname() : string {
@@ -35,5 +35,10 @@
         static public function getPassword() : string {
             return static::$databases["password"];
         }   
+
+        static public function getPDO() : \PDO {
+            $dsn = "mysql:host=" . static::getHostname() . ";dbname=" . static::getDatabase();
+            return new \PDO($dsn, static::getLogin(), static::getPassword());
+        }
     }
 ?>

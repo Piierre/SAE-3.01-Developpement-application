@@ -200,7 +200,7 @@
 
         <input 
             type="date" 
-            id="date" 
+            id="date"   
             placeholder="Sélectionner une date"
         >
         <button onclick="searchMeasures()">Rechercher</button>

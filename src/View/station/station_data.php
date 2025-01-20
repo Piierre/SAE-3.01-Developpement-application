@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../Controller/StationController.php";
+require_once __DIR__ . "/../../Controller/StationController.php";
 
 use App\Meteo\Controller\StationController;
 

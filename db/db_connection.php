@@ -2,7 +2,7 @@
 // Paramètres de connexion à la base de données
 $host = 'localhost';
 $username = 'root';
-$password = 'butinfo';
+$password = '123';
 $dbname = 'MeteoDB';
 
 try {

@@ -2,6 +2,9 @@
 // Définir la racine du projet
 define('ROOT', dirname(__DIR__));
 
+// Chargement de l'autoloader (si utilisé)
+require_once(ROOT . '/src/Lib/Psr4AutoloaderClass.php');
+
 // Charger les fichiers nécessaires
 require_once(ROOT . '/src/config/Conf.php');
 require_once(ROOT . '/src/Controller/CarteController.php');
@@ -12,14 +15,16 @@ $page = $_GET['page'] ?? 'home';
 
 switch ($page) {
     case 'carte':
-        require(ROOT . '/src/View/Carte.php');
+        require(ROOT . '/src/View/map/Carte.php');
         break;
     case 'station':
-        require(ROOT . '/src/View/station.php');
+        require(ROOT . '/src/View/station/station.php');
+        break;
+    case 'recherche':
+        require(ROOT . '/src/View/home/recherche.php');
         break;
     default:
-        echo "<h1>Bienvenue sur l'application météo !</h1>";
-        echo "<p><a href='?page=carte'>Voir la carte météo</a></p>";
+        require(ROOT . '/src/View/home/index.php');
         break;
 }
 ?>
