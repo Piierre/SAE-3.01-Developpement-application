@@ -38,7 +38,15 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
             text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
         }
 
-        .toggle-mode {
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .toggle-mode, .back-to-map {
             padding: 10px 20px;
             font-size: 1rem;
             background-color: #222;
@@ -47,20 +55,22 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
             border-radius: 5px;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-bottom: 20px;
+            text-decoration: none;
         }
 
-        .toggle-mode:hover {
+        .toggle-mode:hover, .back-to-map:hover {
             background-color: #444;
+            text-decoration: none;
         }
 
         form {
-            margin-bottom: 30px;
             background: rgba(255, 255, 255, 0.2);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            display: inline-block;
+            display: inline-flex;
+            gap: 10px;
+            align-items: center;
         }
 
         body.dark-mode form {
@@ -121,7 +131,7 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
         }
 
         .chart-container:hover {
-            transform: translateY(-50px);
+            transform: translateY(-5px);
         }
 
         canvas {
@@ -141,13 +151,15 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
 <body>
     <h1>Données de la station <?php echo htmlspecialchars($stationName); ?></h1>
 
-    <button class="toggle-mode" onclick="toggleDarkMode()">🌙 Mode sombre</button>
-
-    <form id="dateForm">
-        <label for="date">Choisir une date :</label>
-        <input type="date" id="date" required>
-        <button type="submit">Afficher les données</button>
-    </form>
+    <div class="controls">
+        <button class="toggle-mode" onclick="toggleDarkMode()">🌙 Mode sombre</button>
+        <form id="dateForm">
+            <label for="date">Choisir une date :</label>
+            <input type="date" id="date" required>
+            <button type="submit">Afficher les données</button>
+        </form>
+        <a href="http://localhost/SAE-3.01-Developpement-application/web/frontController.php?page=carte" class="back-to-map">🗺️ Retour à la carte</a>
+    </div>
 
     <div id="charts">
         <div class="chart-container">
@@ -189,16 +201,20 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
 
                     destroyCharts();
 
-                    createChart('temperatureChart', 'Température (°C)', hours, data.map(entry => entry.tc), 'red');
+                    createChart('temperatureChart', 'Température (°C)', hours, data.map(entry => entry.tc), 'red'); 
                     createChart('humidityChart', 'Humidité (%)', hours, data.map(entry => entry.u), 'blue');
-                    createChart('windChart', 'Vitesse du vent (m/s)', hours, data.map(entry => entry.ff), 'green');
+                    createChart('windChart', 'Vitesse du vent (m/s)', hours, data.map(entry => entry.ff), 'black');
                 })
                 .catch(error => console.error('Erreur:', error));
         };
 
         function createChart(canvasId, label, labels, data, color) {
             var ctx = document.getElementById(canvasId).getContext('2d');
-            let textColor = document.body.classList.contains('dark-mode') ? '#ecf0f1' : '#000'; 
+            let textColor = document.body.classList.contains('dark-mode') ? '#ecf0f1' : '#000';
+
+            if (charts[canvasId]) {
+                charts[canvasId].destroy();
+            }
 
             charts[canvasId] = new Chart(ctx, {
                 type: 'line',
@@ -214,17 +230,9 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
                     }]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
                     scales: {
-                        x: {
-                            ticks: { color: textColor },
-                            title: { display: true, text: 'Heures', color: textColor }
-                        },
-                        y: {
-                            ticks: { color: textColor },
-                            title: { display: true, text: label, color: textColor }
-                        }
+                        x: { ticks: { color: textColor } },
+                        y: { ticks: { color: textColor } }
                     }
                 }
             });
@@ -232,20 +240,13 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
 
         function destroyCharts() {
             for (let key in charts) {
-                if (charts[key]) {
-                    charts[key].destroy();
-                }
+                if (charts[key]) charts[key].destroy();
             }
             charts = {};
         }
 
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
-            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-        }
-
-        if (localStorage.getItem('darkMode') === 'true') {
-            document.body.classList.add('dark-mode');
         }
     </script>
 </body>

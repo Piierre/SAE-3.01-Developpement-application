@@ -1,4 +1,6 @@
 <?php
+namespace App\Meteo\Controller;
+
 use App\Meteo\Controller\CarteController;
 
 // Charger les données des stations depuis le contrôleur
