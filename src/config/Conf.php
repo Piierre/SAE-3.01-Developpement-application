@@ -35,5 +35,10 @@
         static public function getPassword() : string {
             return static::$databases["password"];
         }   
+
+        static public function getPDO() : \PDO {
+            $dsn = "mysql:host=" . static::getHostname() . ";dbname=" . static::getDatabase();
+            return new \PDO($dsn, static::getLogin(), static::getPassword());
+        }
     }
 ?>
