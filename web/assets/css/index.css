@@ -1,0 +1,85 @@
+/* Styles de base */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: #4CAF50;
+    color: white;
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre pour le header */
+}
+
+header h1 {
+    margin: 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Sections */
+main {
+    margin-top: 100px; /* Laisser de l'espace sous le header fixe */
+}
+
+section {
+    padding: 50px 20px;
+    margin: 0 auto;
+    width: 80%;
+    max-width: 1200px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre légère */
+    border-radius: 8px; /* Coins arrondis */
+    background: white;
+}
+
+/* Ajout de couleurs pour chaque section */
+#home {
+    background: #f4f4f4;
+}
+
+#search {
+    background: #e9ecef;
+}
+
+#map {
+    background: #d4edda;
+}
+
+#about {
+    background: #f8d7da;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    background: #4CAF50;
+    color: white;
+    padding: 15px 0;
+    margin-top: 50px;
+}

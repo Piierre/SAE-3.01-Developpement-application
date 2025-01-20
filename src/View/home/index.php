@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil - Données Météorologiques SYNOP</title>
-    <link rel="stylesheet" href="../../web/assets/css/styles.css">
+    <link rel="stylesheet" href="../../../web/assets/css/index.css">
 </head>
 <body>
     <header>
