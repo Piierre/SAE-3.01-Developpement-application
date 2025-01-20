@@ -25,26 +25,20 @@ $stations = CarteController::getStations();
     <div id="map"></div>
 
     <script>
-    // Initialisation de la carte Leaflet
-    var map = L.map('map').setView([48.8566, 2.3522], 6); // Centre initial sur la France
+        var map = L.map('map').setView([48.8566, 2.3522], 6);
 
-    // Ajouter une couche de tuiles (OpenStreetMap)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-    }).addTo(map);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
 
-    // Ajouter les stations de la base de données sur la carte
-    var stations = <?php echo json_encode($stations); ?>;
-    stations.forEach(function(station) {
-        var marker = L.marker([station.latitude, station.longitude]).addTo(map);
-        marker.bindPopup(
+        var stations = <?php echo json_encode($stations); ?>;
+        stations.forEach(function(station) {
+            var marker = L.marker([station.latitude, station.longitude]).addTo(map);
+            marker.bindPopup(
     `<b>${station.nom}</b><br>Altitude: ${station.altitude} m<br>
-     <a href="frontController.php?page=station&name=${encodeURIComponent(station.nom)}">Voir les détails</a>`
+     <a href="/SAE-3.01-Developpement-application/src/View/station.php?name=${encodeURIComponent(station.nom)}">Voir les détails</a>`
 );
-
-
-    });
-</script>
-
+        });
+    </script>
 </body>
 </html>
