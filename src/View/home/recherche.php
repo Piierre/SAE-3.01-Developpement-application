@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +9,7 @@
                 return;
             }
             const xhr = new XMLHttpRequest();
-            xhr.open("GET", "search.php?query=" + encodeURIComponent(query), true);
+            xhr.open("GET", "/SAE-3.01-Developpement-application/src/View/map/search.php?query=" + encodeURIComponent(query), true);
             xhr.onload = function() {
                 if (this.status === 200) {
                     document.getElementById("suggestions").innerHTML = this.responseText;
@@ -35,10 +33,12 @@
             }
 
             const xhr = new XMLHttpRequest();
-            xhr.open("GET", "search.php?station_name=" + encodeURIComponent(stationName) + "&date=" + encodeURIComponent(date), true);
+            xhr.open("GET", "/SAE-3.01-Developpement-application/src/View/map/search.php?station_name=" + encodeURIComponent(stationName) + "&date=" + encodeURIComponent(date), true);
             xhr.onload = function() {
                 if (this.status === 200) {
                     document.getElementById("results").innerHTML = this.responseText;
+                } else {
+                    document.getElementById("results").innerHTML = "<p class='error-msg'>Erreur lors de la récupération des données.</p>";
                 }
             };
             xhr.send();
@@ -57,6 +57,29 @@
             color: #fff;
             padding: 40px 20px;
             text-align: center;
+        }
+
+        .back-button {
+    width: 120px;  /* Définir une largeur fixe pour réduire la taille du bouton */
+    padding: 10px 0;  /* Ajustement du padding pour éviter un bouton trop grand */
+    font-size: 1rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-align: center;
+}
+
+
+
+        .back-button:hover {
+            background-color: #218838;
         }
 
         h1 {
@@ -188,6 +211,8 @@
     </style>
 </head>
 <body>
+<button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/index.php';">🏠 Accueil</button>
+    
     <h1>Recherche de Station Météo</h1>
     <div class="container">
         <input 
@@ -224,7 +249,7 @@
     </div>
 
     <footer>
-        © 2025 - Station météo | Design épuré et responsive 🌦️
+    SAE - Projet 3.01 - Développement d'application
     </footer>
 </body>
 </html>

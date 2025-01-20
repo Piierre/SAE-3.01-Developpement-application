@@ -1,5 +1,12 @@
 <?php
-require_once 'db_connection.php';
+
+namespace App\Meteo\Controller;
+require_once __DIR__ . '/../../config/Conf.php';
+
+use App\Meteo\Config\Conf;
+use PDO;
+
+$pdo = Conf::getPDO();
 
 // Recherche des stations par nom
 if (isset($_GET['query'])) {

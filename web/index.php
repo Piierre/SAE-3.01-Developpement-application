@@ -49,7 +49,6 @@
     <div class="container">
         <a href="frontController.php?page=carte" class="btn">Voir la carte</a>
         <a href="frontController.php?page=recherche" class="btn">Faire une recherche</a>
-        <a href="frontController.php?page=station" class="btn">Voir une station</a>
     </div>
 
 </body>
