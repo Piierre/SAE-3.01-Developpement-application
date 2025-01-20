@@ -30,7 +30,7 @@
             const date = document.getElementById("date").value.trim();
 
             if (stationName === "" || date === "") {
-                document.getElementById("results").innerHTML = "<p>Veuillez remplir tous les champs.</p>";
+                document.getElementById("results").innerHTML = "<p class='error-msg'>Veuillez remplir tous les champs.</p>";
                 return;
             }
 
@@ -45,52 +45,186 @@
         }
     </script>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 20px auto;
+            background: linear-gradient(to right, rgb(168, 172, 175), #00f2fe);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
         }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
         input, button {
-            padding: 10px;
-            margin: 5px;
-            width: 90%;
+            padding: 15px;
+            margin: 10px 0;
+            width: 100%;
+            max-width: 500px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            outline: none;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
+
+        input {
+            color: #333;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
         button {
             cursor: pointer;
             background-color: #28a745;
             color: white;
-            border: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
+
         button:hover {
             background-color: #218838;
+            transform: translateY(-2px);
         }
+
+        .suggestions {
+            max-width: 500px;
+            margin: 10px auto;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
         .suggestions div {
-            padding: 10px;
-            border: 1px solid #ddd;
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
             cursor: pointer;
+            color: #fff;
         }
+
         .suggestions div:hover {
-            background-color: #f0f0f0;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .results {
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 12px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        th {
+            background: rgba(0, 0, 0, 0.3);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        td {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .error-msg {
+            color: #ff5e57;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            input, button {
+                font-size: 0.9rem;
+                padding: 10px;
+            }
+
+            th, td {
+                font-size: 0.9rem;
+                padding: 8px;
+            }
         }
     </style>
 </head>
 <body>
     <h1>Recherche de Station Météo</h1>
-    <input 
-        type="text" 
-        id="search" 
-        placeholder="Rechercher une station..." 
-        onkeyup="searchStations(this.value)"
-    >
-    <div id="suggestions" class="suggestions"></div>
+    <div class="container">
+        <input 
+            type="text" 
+            id="search" 
+            placeholder="Rechercher une station..." 
+            onkeyup="searchStations(this.value)"
+        >
+        <div id="suggestions" class="suggestions"></div>
 
-    <input 
-        type="date" 
-        id="date" 
-        placeholder="Sélectionner une date"
-    >
-    <button onclick="searchMeasures()">Rechercher</button>
+        <input 
+            type="date" 
+            id="date" 
+            placeholder="Sélectionner une date"
+        >
+        <button onclick="searchMeasures()">Rechercher</button>
 
-    <div id="results" class="results"></div>
+        <div id="results" class="results">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Température (°C)</th>
+                        <th>Humidité (%)</th>
+                        <th>Vent (m/s)</th>
+                        <th>Précipitations (mm)</th>
+                    </tr>
+                </thead>
+                <tbody id="dataTable">
+                    <!-- Les données seront insérées ici -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        © 2025 - Station météo | Design épuré et responsive 🌦️
+    </footer>
 </body>
 </html>

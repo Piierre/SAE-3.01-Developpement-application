@@ -58,14 +58,14 @@ if (isset($_GET['station_name']) && isset($_GET['date'])) {
             <tr>
                 <th>Date</th>
                 <th>Pression</th>
-                <th>Température</th>
-                <th>Humidité</th>
+                <th>Température (°C)</th>
+                <th>Humidité (%)</th>
                 <th>Vent (Direction)</th>
-                <th>Vent (Vitesse)</th>
+                <th>Vent (Vitesse) (m/s)</th>
                 <th>Temp. Min</th>
                 <th>Temp. Max</th>
-                <th>Précip. 6h</th>
-                <th>Précip. 24h</th>
+                <th>Précip. 6h (mm)</th>
+                <th>Précip. 24h (mm)</th>
             </tr>';
 
     foreach ($data['results'] as $record) {
