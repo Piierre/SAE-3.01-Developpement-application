@@ -14,7 +14,7 @@
         // Sur votre machine, vous avez surement un compte 'root'
         'login' => 'root',
         // Sur votre machine, vous avez créé ou non ce mdp a l'installation
-        'password' => '123'
+        'password' => ''
         );
         
         static public function getHostname() : string {
