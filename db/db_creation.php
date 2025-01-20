@@ -56,7 +56,7 @@ try {
         "CREATE TABLE IF NOT EXISTS Utilisateur (
             login VARCHAR(50) PRIMARY KEY,
             mdp VARCHAR(255) NOT NULL,
-            role ENUM('admin', 'user') DEFAULT 'user', -- Rôle pour gérer les permissions
+            role ENUM('admin', 'user') DEFAULT 'user' -- Rôle pour gérer les permissions
         )"
     ];
 
