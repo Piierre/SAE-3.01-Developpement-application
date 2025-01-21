@@ -148,9 +148,9 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
 </head>
 <body>
     <h1>Données de la station <?php echo htmlspecialchars($stationName); ?></h1>
-    <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/index.php';">🏠 Accueil</button>
-    <button id="darkModeToggle" class="back-button" style="right: 160px;" onclick="toggleDarkMode()">🌙 Mode sombre</button>
-    <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php?page=carte';" style="right: 350px;">🗺️ Carte</button>
+    <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/src/View/home/index.php';">🏠 Accueil</button>
+<button id="darkModeToggle" class="back-button" style="right: 160px;">🌙 Mode sombre</button>
+<button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php?page=carte';" style="right: 350px;">🗺️ Carte</button>
 
     <form id="dateForm">
         <label for="date">Choisir une date :</label>
@@ -308,25 +308,6 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
             charts[key].update();
         }
     };
-
-    function toggleDarkMode() {
-        document.body.classList.toggle('dark-mode');
-
-        const darkModeButton = document.getElementById('darkModeToggle');
-        if (document.body.classList.contains('dark-mode')) {
-            darkModeButton.innerHTML = "☀️ Mode clair";
-        } else {
-            darkModeButton.innerHTML = "🌙 Mode sombre";
-        }
-
-        let textColor = document.body.classList.contains('dark-mode') ? '#ecf0f1' : '#000';
-        for (let key in charts) {
-            charts[key].options.scales.x.ticks.color = textColor;
-            charts[key].options.scales.y.ticks.color = textColor;
-            charts[key].options.plugins.legend.labels.color = textColor; // Changement de la légende
-            charts[key].update();
-        }
-    }
 </script>
 
 
