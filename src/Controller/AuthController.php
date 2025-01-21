@@ -1,4 +1,9 @@
 <?php
+namespace App\Meteo\Controller;
+
+use App\Meteo\Model\UserModel;
+use App\Meteo\Lib\Auth;
+require_once __DIR__ . '/../Lib/auth.php';
 require_once '../Model/UserModel.php';
 require_once '../Lib/auth.php';
 
@@ -6,7 +11,7 @@ class AuthController {
     public static function login($login, $password) {
         $user = UserModel::getUserByLogin($login);
         if ($user && password_verify($password, $user['mdp'])) {
-            startSession($user);
+            Auth::startSession($user);
             header("Location: ../View/dashboard/index.php");
             exit();
         } else {
@@ -15,8 +20,8 @@ class AuthController {
     }
 
     public static function register($login, $password) {
-        if (UserModel::createUser($login, password_hash($password, PASSWORD_BCRYPT))) {
-            echo "Inscription réussie !";
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        if (UserModel::createUser($login, $hashedPassword)) {
             header("Location: ../View/auth/login.php");
             exit();
         } else {
