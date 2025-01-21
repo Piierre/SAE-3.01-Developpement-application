@@ -49,6 +49,13 @@
             document.querySelectorAll('.btn').forEach(button => {
                 button.classList.toggle('dark-mode-btn');
             });
+
+            const darkModeButton = document.getElementById('darkModeButton');
+            if (document.body.classList.contains('dark-mode')) {
+                darkModeButton.innerHTML = "☀️ Mode clair";
+            } else {
+                darkModeButton.innerHTML = "🌙 Mode sombre";
+            }
         }
     </script>
     <style>
@@ -223,8 +230,8 @@
     </style>
 </head>
 <body>
-    <button class="btn" onclick="window.location.href='/SAE-3.01-Developpement-application/src/View/home/index.php';">🏠 Accueil</button>
-    <button class="btn" style="right: 160px;" onclick="toggleDarkMode()">🌙 Mode sombre</button>
+    <button class="btn" onclick="window.location.href='/SAE-3.01-Developpement-application/src/View/home/index.php'">🏠 Accueil</button>
+    <button class="btn" id="darkModeButton" style="right: 160px;" onclick="toggleDarkMode()">🌙 Mode sombre</button>
 
     <h1>Recherche de Station Météo</h1>
     <div class="container">
