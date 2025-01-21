@@ -16,24 +16,30 @@ class Conf {
         'password' => '123'           // Mot de passe
     );
 
+    // Propriété statique pour stocker la connexion PDO
     private static $pdo;
 
+    // Constructeur privé pour empêcher l'instanciation
     static public function getDatabase() : string {
         return static::$databases["database"];
     }
 
+    // Méthodes statiques pour accéder au login
     static public function getLogin() : string {
         return static::$databases['login'];
     }
 
+    // Méthodes statiques pour accéder au mot de passe
     static public function getPassword() : string {
         return static::$databases["password"];
     }
 
+    // Méthodes statiques pour accéder au nom de l'hôte
     static public function getHostname() : string {
         return static::$databases["hostname"];
     }
 
+    // Méthode statique pour obtenir une connexion PDO
     static public function getPDO() : PDO {
         $dsn = "mysql:host=" . static::getHostname() . ";dbname=" . static::getDatabase();
         return new PDO($dsn, static::getLogin(), static::getPassword());
