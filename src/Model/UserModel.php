@@ -1,5 +1,9 @@
 <?php
-require '../Config/Conf.php';
+namespace App\Meteo\Model;
+
+use App\Meteo\Config\Conf;
+use PDO;
+use PDOException;
 
 class UserModel {
     public static function getUserByLogin($login) {

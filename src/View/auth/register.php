@@ -7,16 +7,21 @@
     <title>Inscription</title>
 </head>
 <body>
-    <h1>Inscription</h1>
-    <form method="POST" action="../../Controller/AuthController.php">
-        <input type="hidden" name="action" value="register">
-        <label for="login">Nom d'utilisateur :</label>
-        <input type="text" id="login" name="login" placeholder="Nom d'utilisateur" required>
-        <br>
-        <label for="password">Mot de passe :</label>
-        <input type="password" id="password" name="password" placeholder="Mot de passe" required>
-        <br>
-        <button type="submit">S'inscrire</button>
-    </form>
+    <header>
+        <h1>Inscription</h1>
+    </header>
+    <main>
+        <section>
+            <form method="POST" action="../../Controller/AuthController.php">
+                <input type="hidden" name="action" value="register">
+                <input type="text" id="login" name="login" placeholder="Nom d'utilisateur" required>
+                <input type="password" id="password" name="password" placeholder="Mot de passe" required>
+                <input type="submit" value="S'inscrire">
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>© 2025 - Station météo | Design épuré et responsive 🌦️</p>
+    </footer>
 </body>
 </html>

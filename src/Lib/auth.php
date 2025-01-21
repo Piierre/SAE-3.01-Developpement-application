@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Meteo\Lib;
 function startSession($user) {
     session_start();
     $_SESSION['login'] = $user['login'];

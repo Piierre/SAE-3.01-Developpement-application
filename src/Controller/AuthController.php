@@ -1,4 +1,9 @@
 <?php
+namespace App\Meteo\Controller;
+
+use App\Meteo\Model\UserModel;
+use function App\Meteo\Lib\startSession;
+
 require_once '../Model/UserModel.php';
 require_once '../Lib/auth.php';
 

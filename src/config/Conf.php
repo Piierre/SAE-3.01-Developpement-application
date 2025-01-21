@@ -1,6 +1,9 @@
 <?php
     namespace App\Meteo\Config;
     
+    use PDO;
+    use PDOException;
+
     class Conf {
         
          // Durée d'expiration de la session en secondes
@@ -16,11 +19,8 @@
         // Sur votre machine, vous avez créé ou non ce mdp a l'installation
         'password' => '123'
         );
-        
-        static public function getHostname() : string {
-            return static::$databases["hostname"];
-        }
 
+        private static $pdo;
         static public function getDatabase() : string {
             return static::$databases["database"];
         }

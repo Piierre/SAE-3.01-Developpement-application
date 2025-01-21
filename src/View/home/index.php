@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/index.css"> <!-- Lien vers le CSS -->
+    <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/styles.css"> <!-- Lien vers le CSS -->
     <title>Données Météorologiques SYNOP</title> <!-- Titre de la page -->
 </head>
 <body>
@@ -12,9 +12,9 @@
         <nav>
             <ul>
                 <li><a href="/SAE-3.01-Developpement-application/src/View/home/index.php">Accueil</a></li>
-                <li><a href="/SAE-3.01-Developpement-application/src/View/map/index.php">Carte Interactive</a></li>
-                <li><a href="/SAE-3.01-Developpement-application/src/View/user/login.php">Connexion</a></li>
-                <li><a href="/SAE-3.01-Developpement-application/src/View/user/register.php">Inscription</a></li>
+                <li><a href="/SAE-3.01-Developpement-application/src/View/map/carte.php">Carte Interactive</a></li>
+                <li><a href="/SAE-3.01-Developpement-application/src/View/auth/login.php">Connexion</a></li>
+                <li><a href="/SAE-3.01-Developpement-application/src/View/auth/register.php">Inscription</a></li>
             </ul>
         </nav>
     </header>
