@@ -13,7 +13,7 @@ class Conf {
         'hostname' => 'localhost', // Nom d'hôte
         'database' => 'meteoDB',   // Nom de la base de données
         'login' => 'root',         // Identifiant utilisateur
-        'password' => 'butinfo'           // Mot de passe
+        'password' => ''           // Mot de passe
     );
 
     private static $pdo;
