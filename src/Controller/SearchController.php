@@ -12,12 +12,13 @@ class SearchController
     public static function searchStation($query)
     {
         // Connexion à la base de données
-        $pdo = \App\Meteo\Config\Conf::getPDO();
+        $pdo = Conf::getPDO();
 
         $stmt = $pdo->prepare("SELECT nom FROM Station WHERE nom LIKE ?");
         $stmt->execute(["%$query%"]);
         
-        $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $results;
     }
 }
+?>

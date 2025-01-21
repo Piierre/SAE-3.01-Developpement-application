@@ -105,7 +105,7 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
             margin-top: 30px;
             padding: 15px 30px;
             font-size: 1rem;
-            background-color: #ff9800;
+            background-color:rgb(14, 134, 219);
             color: white;
             border: none;
             border-radius: 5px;
@@ -115,7 +115,7 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
         }
 
         .compare-button:hover {
-            background-color: #e68900;
+            background-color:rgb(0, 69, 118);
         }
 
         footer {
@@ -180,97 +180,125 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
     </footer>
 
     <script>
-        let charts = {}; 
+    let charts = {}; 
 
-        document.getElementById('dateForm').onsubmit = function(event) {
-            event.preventDefault();
-            fetchData(document.getElementById('date').value, false);
-        };
+    document.getElementById('dateForm').onsubmit = function(event) {
+        event.preventDefault();
+        fetchData(document.getElementById('date').value, false);
+    };
 
-        document.getElementById('compareBtn').onclick = function() {
-            const secondDate = prompt("Entrez une autre date pour la comparaison (AAAA-MM-JJ):");
-            if (secondDate) {
-                fetchData(secondDate, true);
-            }
-        };
-
-        function fetchData(date, isComparison) {
-            var stationName = "<?php echo htmlspecialchars($stationName); ?>";
-
-            fetch(`station_data.php?station_name=${encodeURIComponent(stationName)}&date=${date}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.length === 0) {
-                        alert("Aucune donnée trouvée pour cette date.");
-                        return;
-                    }
-
-                    let hours = data.map(entry => new Date(entry.date).toISOString().substring(11, 16));
-
-                    if (isComparison) {
-                        addComparisonData(hours, data);
-                    } else {
-                        destroyCharts();
-                        createChart('temperatureChart', 'Température (°C)', hours, data.map(entry => entry.tc), 'red'); 
-                        createChart('humidityChart', 'Humidité (%)', hours, data.map(entry => entry.u), 'blue');
-                        createChart('windChart', 'Vitesse du vent (m/s)', hours, data.map(entry => entry.ff), 'black');
-                    }
-                })
-                .catch(error => console.error('Erreur:', error));
+    document.getElementById('compareBtn').onclick = function() {
+        const secondDate = prompt("Entrez une autre date pour la comparaison (AAAA-MM-JJ):");
+        if (secondDate) {
+            fetchData(secondDate, true);
         }
+    };
 
-        function addComparisonData(labels, newData) {
-            addDataToChart('temperatureChart', labels, newData.map(entry => entry.tc), 'orange', 'Comparaison Température');
-            addDataToChart('humidityChart', labels, newData.map(entry => entry.u), 'cyan', 'Comparaison Humidité');
-            addDataToChart('windChart', labels, newData.map(entry => entry.ff), 'purple', 'Comparaison Vent');
-        }
+    function fetchData(date, isComparison) {
+        var stationName = "<?php echo htmlspecialchars($stationName); ?>";
 
-        function createChart(canvasId, label, labels, data, color) {
-            var ctx = document.getElementById(canvasId).getContext('2d');
-
-            if (charts[canvasId]) {
-                charts[canvasId].destroy();
-            }
-
-            charts[canvasId] = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: label,
-                        data: data,
-                        borderColor: color,
-                        backgroundColor: 'rgba(0, 0, 0, 0)',
-                        borderWidth: 2
-                    }]
+        fetch(`station_data.php?station_name=${encodeURIComponent(stationName)}&date=${date}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length === 0) {
+                    alert("Aucune donnée trouvée pour cette date.");
+                    return;
                 }
-            });
+
+                let hours = data.map(entry => new Date(entry.date).toISOString().substring(11, 16));
+
+                if (isComparison) {
+                    addComparisonData(hours, data);
+                } else {
+                    destroyCharts();
+                    createChart('temperatureChart', 'Température (°C)', hours, data.map(entry => entry.tc), 'red'); 
+                    createChart('humidityChart', 'Humidité (%)', hours, data.map(entry => entry.u), 'blue');
+                    createChart('windChart', 'Vitesse du vent (m/s)', hours, data.map(entry => entry.ff), 'black');
+                }
+            })
+            .catch(error => console.error('Erreur:', error));
+    }
+
+    function addComparisonData(labels, newData) {
+        addDataToChart('temperatureChart', labels, newData.map(entry => entry.tc), 'orange', 'Comparaison Température');
+        addDataToChart('humidityChart', labels, newData.map(entry => entry.u), 'cyan', 'Comparaison Humidité');
+        addDataToChart('windChart', labels, newData.map(entry => entry.ff), 'purple', 'Comparaison Vent');
+    }
+
+    function createChart(canvasId, label, labels, data, color) {
+        var ctx = document.getElementById(canvasId).getContext('2d');
+        let textColor = document.body.classList.contains('dark-mode') ? '#ecf0f1' : '#000';
+
+        if (charts[canvasId]) {
+            charts[canvasId].destroy();
         }
 
-        function addDataToChart(canvasId, labels, data, color, legend) {
-            if (charts[canvasId]) {
-                charts[canvasId].data.datasets.push({
-                    label: legend,
+        charts[canvasId] = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: label,
                     data: data,
                     borderColor: color,
-                    backgroundColor: 'rgba(239, 237, 237, 0)',
+                    backgroundColor: 'rgba(0, 0, 0, 0)',
                     borderWidth: 2
-                });
-                charts[canvasId].update();
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: textColor // Changement de couleur de la légende en fonction du mode
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: textColor } // Changement de couleur des labels axe X
+                    },
+                    y: {
+                        ticks: { color: textColor } // Changement de couleur des labels axe Y
+                    }
+                }
             }
-        }
+        });
+    }
 
-        function destroyCharts() {
-            for (let key in charts) {
-                charts[key].destroy();
-            }
-            charts = {};
+    function addDataToChart(canvasId, labels, data, color, legend) {
+        if (charts[canvasId]) {
+            charts[canvasId].data.datasets.push({
+                label: legend,
+                data: data,
+                borderColor: color,
+                backgroundColor: 'rgba(0, 0, 0, 0)',
+                borderWidth: 2
+            });
+            charts[canvasId].update();
         }
+    }
 
-        // Dark mode toggle
-        document.getElementById('darkModeToggle').onclick = function() {
-            document.body.classList.toggle('dark-mode');
-        };
-    </script>
+    function destroyCharts() {
+        for (let key in charts) {
+            charts[key].destroy();
+        }
+        charts = {};
+    }
+
+    // Mode sombre toggle
+    document.getElementById('darkModeToggle').onclick = function() {
+        document.body.classList.toggle('dark-mode');
+
+        let textColor = document.body.classList.contains('dark-mode') ? '#ecf0f1' : '#000';
+        for (let key in charts) {
+            charts[key].options.scales.x.ticks.color = textColor;
+            charts[key].options.scales.y.ticks.color = textColor;
+            charts[key].options.plugins.legend.labels.color = textColor; // Changement de la légende
+            charts[key].update();
+        }
+    };
+</script>
+
+
 </body>
 </html>
