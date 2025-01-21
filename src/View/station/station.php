@@ -23,63 +23,38 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
             color: #fff;
             padding: 20px;
             text-align: center;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-
-        body.dark-mode {
-            background: linear-gradient(to right, #2c3e50, #34495e);
-            color: #ecf0f1;
         }
 
         h1 {
             font-size: 2rem;
             font-weight: 700;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
         }
 
-        .controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .toggle-mode, .back-to-map {
+        .back-button {
             padding: 10px 20px;
             font-size: 1rem;
-            background-color: #222;
-            color: #fff;
+            background-color: #28a745;
+            color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-decoration: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
         }
 
-        .toggle-mode:hover, .back-to-map:hover {
-            background-color: #444;
-            text-decoration: none;
+        .back-button:hover {
+            background-color: #218838;
         }
 
         form {
             background: rgba(255, 255, 255, 0.2);
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             display: inline-flex;
             gap: 10px;
-            align-items: center;
-        }
-
-        body.dark-mode form {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        label {
-            font-size: 1.2rem;
-            font-weight: 400;
         }
 
         input[type="date"] {
@@ -88,7 +63,6 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
             border: none;
             border-radius: 5px;
             outline: none;
-            margin: 10px 0;
             color: #333;
         }
 
@@ -100,8 +74,6 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         button:hover {
@@ -120,46 +92,71 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
             background: rgba(255, 255, 255, 0.1);
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
             width: 100%;
             max-width: 600px;
-        }
-
-        body.dark-mode .chart-container {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .chart-container:hover {
-            transform: translateY(-5px);
         }
 
         canvas {
             max-width: 100%;
             max-height: 400px;
-            border: 2px solid rgba(253, 251, 251, 0.2);
-            border-radius: 10px;
+        }
+
+        .compare-button {
+            margin-top: 30px;
+            padding: 15px 30px;
+            font-size: 1rem;
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .compare-button:hover {
+            background-color: #e68900;
         }
 
         footer {
             margin-top: 40px;
             font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background: linear-gradient(to right, #2c3e50, #4ca1af);
+            color: #ddd;
+        }
+
+        .dark-mode h1, .dark-mode footer {
+            color: #ddd;
+        }
+
+        .dark-mode .back-button, .dark-mode .compare-button, .dark-mode button {
+            background-color: #444;
+        }
+
+        .dark-mode .back-button:hover, .dark-mode .compare-button:hover, .dark-mode button:hover {
+            background-color: #333;
+        }
+
+        .dark-mode form {
+            background: rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
 <body>
     <h1>Données de la station <?php echo htmlspecialchars($stationName); ?></h1>
+    <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/index.php';">🏠 Accueil</button>
+<button id="darkModeToggle" class="back-button" style="right: 160px;">🌙 Mode sombre</button>
+<button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php?page=carte';" style="right: 350px;">🗺️ Carte</button>
 
-    <div class="controls">
-        <button class="toggle-mode" onclick="toggleDarkMode()">🌙 Mode sombre</button>
-        <form id="dateForm">
-            <label for="date">Choisir une date :</label>
-            <input type="date" id="date" required>
-            <button type="submit">Afficher les données</button>
-        </form>
-        <a href="http://localhost/SAE-3.01-Developpement-application/web/frontController.php?page=carte" class="back-to-map">🗺️ Retour à la carte</a>
-    </div>
+    <form id="dateForm">
+        <label for="date">Choisir une date :</label>
+        <input type="date" id="date" required>
+        <button type="submit">Afficher les données</button>
+    </form>
 
     <div id="charts">
         <div class="chart-container">
@@ -176,6 +173,8 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
         </div>
     </div>
 
+    <button class="compare-button" id="compareBtn">📊📅 Comparer avec une autre date</button>
+
     <footer>
         SAE - Projet 3.01 - Développement d'application 
     </footer>
@@ -185,7 +184,17 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
 
         document.getElementById('dateForm').onsubmit = function(event) {
             event.preventDefault();
-            var date = document.getElementById('date').value;
+            fetchData(document.getElementById('date').value, false);
+        };
+
+        document.getElementById('compareBtn').onclick = function() {
+            const secondDate = prompt("Entrez une autre date pour la comparaison (AAAA-MM-JJ):");
+            if (secondDate) {
+                fetchData(secondDate, true);
+            }
+        };
+
+        function fetchData(date, isComparison) {
             var stationName = "<?php echo htmlspecialchars($stationName); ?>";
 
             fetch(`station_data.php?station_name=${encodeURIComponent(stationName)}&date=${date}`)
@@ -196,21 +205,28 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
                         return;
                     }
 
-                    data.sort((a, b) => new Date(a.date) - new Date(b.date));
                     let hours = data.map(entry => new Date(entry.date).toISOString().substring(11, 16));
 
-                    destroyCharts();
-
-                    createChart('temperatureChart', 'Température (°C)', hours, data.map(entry => entry.tc), 'red'); 
-                    createChart('humidityChart', 'Humidité (%)', hours, data.map(entry => entry.u), 'blue');
-                    createChart('windChart', 'Vitesse du vent (m/s)', hours, data.map(entry => entry.ff), 'black');
+                    if (isComparison) {
+                        addComparisonData(hours, data);
+                    } else {
+                        destroyCharts();
+                        createChart('temperatureChart', 'Température (°C)', hours, data.map(entry => entry.tc), 'red'); 
+                        createChart('humidityChart', 'Humidité (%)', hours, data.map(entry => entry.u), 'blue');
+                        createChart('windChart', 'Vitesse du vent (m/s)', hours, data.map(entry => entry.ff), 'black');
+                    }
                 })
                 .catch(error => console.error('Erreur:', error));
-        };
+        }
+
+        function addComparisonData(labels, newData) {
+            addDataToChart('temperatureChart', labels, newData.map(entry => entry.tc), 'orange', 'Comparaison Température');
+            addDataToChart('humidityChart', labels, newData.map(entry => entry.u), 'cyan', 'Comparaison Humidité');
+            addDataToChart('windChart', labels, newData.map(entry => entry.ff), 'purple', 'Comparaison Vent');
+        }
 
         function createChart(canvasId, label, labels, data, color) {
             var ctx = document.getElementById(canvasId).getContext('2d');
-            let textColor = document.body.classList.contains('dark-mode') ? '#ecf0f1' : '#000';
 
             if (charts[canvasId]) {
                 charts[canvasId].destroy();
@@ -225,29 +241,36 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
                         data: data,
                         borderColor: color,
                         backgroundColor: 'rgba(0, 0, 0, 0)',
-                        borderWidth: 2,
-                        pointRadius: 4
+                        borderWidth: 2
                     }]
-                },
-                options: {
-                    scales: {
-                        x: { ticks: { color: textColor } },
-                        y: { ticks: { color: textColor } }
-                    }
                 }
             });
         }
 
+        function addDataToChart(canvasId, labels, data, color, legend) {
+            if (charts[canvasId]) {
+                charts[canvasId].data.datasets.push({
+                    label: legend,
+                    data: data,
+                    borderColor: color,
+                    backgroundColor: 'rgba(239, 237, 237, 0)',
+                    borderWidth: 2
+                });
+                charts[canvasId].update();
+            }
+        }
+
         function destroyCharts() {
             for (let key in charts) {
-                if (charts[key]) charts[key].destroy();
+                charts[key].destroy();
             }
             charts = {};
         }
 
-        function toggleDarkMode() {
+        // Dark mode toggle
+        document.getElementById('darkModeToggle').onclick = function() {
             document.body.classList.toggle('dark-mode');
-        }
+        };
     </script>
 </body>
 </html>
