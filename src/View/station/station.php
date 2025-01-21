@@ -148,7 +148,7 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
 </head>
 <body>
     <h1>Données de la station <?php echo htmlspecialchars($stationName); ?></h1>
-    <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/src/View/home/index.php';">🏠 Accueil</button>
+    <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php';">🏠 Accueil</button>
 <button id="darkModeToggle" class="back-button" style="right: 160px;">🌙 Mode sombre</button>
 <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php?page=carte';" style="right: 350px;">🗺️ Carte</button>
 

@@ -230,7 +230,7 @@
     </style>
 </head>
 <body>
-    <button class="btn" onclick="window.location.href='/SAE-3.01-Developpement-application/src/View/home/index.php'">🏠 Accueil</button>
+    <button class="btn" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
     <button class="btn" id="darkModeButton" style="right: 160px;" onclick="toggleDarkMode()">🌙 Mode sombre</button>
 
     <h1>Recherche de Station Météo</h1>
