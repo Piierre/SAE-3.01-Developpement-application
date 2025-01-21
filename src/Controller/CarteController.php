@@ -1,7 +1,8 @@
 <?php
 namespace App\Meteo\Controller;
 
-use App\Meteo\Config\Conf;
+require_once __DIR__ . '/../Config/Conf.php'; // Ensure this path is correct
+use App\Meteo\Config\Conf; // Ensure this class exists and is correctly namespaced
 use PDO;
 
 class CarteController {
@@ -9,9 +10,7 @@ class CarteController {
     public static function getStations() {
         try {
             // Connexion à la base de données
-            $dsn = "mysql:host=" . Conf::getHostname() . ";dbname=" . Conf::getDatabase();
-            $pdo = new PDO($dsn, Conf::getLogin(), Conf::getPassword());
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $pdo = Conf::getPDO();
 
             // Requête pour récupérer les stations
             $sql = "SELECT nom, latitude, longitude, altitude FROM station";
@@ -27,3 +26,4 @@ class CarteController {
         }
     }
 }
+?>

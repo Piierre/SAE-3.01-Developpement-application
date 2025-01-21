@@ -43,6 +43,13 @@
             };
             xhr.send();
         }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            document.querySelectorAll('.btn').forEach(button => {
+                button.classList.toggle('dark-mode-btn');
+            });
+        }
     </script>
     <style>
         * {
@@ -59,9 +66,9 @@
             text-align: center;
         }
 
-        .back-button {
-    width: 120px;  /* Définir une largeur fixe pour réduire la taille du bouton */
-    padding: 10px 0;  /* Ajustement du padding pour éviter un bouton trop grand */
+        .btn {
+    width: 120px;
+    padding: 10px 0;
     font-size: 1rem;
     background-color: #28a745;
     color: white;
@@ -74,12 +81,20 @@
     top: 20px;
     right: 20px;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px; /* Espacement entre l'emoji et le texte */
+}
+
+.btn:hover {
+    background-color: #218838;
 }
 
 
-
-        .back-button:hover {
-            background-color: #218838;
+        .dark-mode-btn {
+            background-color: #444 !important;
+            color: #ddd !important;
         }
 
         h1 {
@@ -192,27 +207,25 @@
             color: rgba(255, 255, 255, 0.8);
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 1.8rem;
-            }
+        /* Dark mode styles */
+        body.dark-mode {
+            background: linear-gradient(to right, #2c3e50, #4ca1af);
+            color: #ddd;
+        }
 
-            input, button {
-                font-size: 0.9rem;
-                padding: 10px;
-            }
+        body.dark-mode h1, body.dark-mode footer {
+            color: #ddd;
+        }
 
-            th, td {
-                font-size: 0.9rem;
-                padding: 8px;
-            }
+        body.dark-mode .container {
+            background: rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
 <body>
-<button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/index.php';">🏠 Accueil</button>
-    
+    <button class="btn" onclick="window.location.href='/SAE-3.01-Developpement-application/web/index.php';">🏠 Accueil</button>
+    <button class="btn" style="right: 160px;" onclick="toggleDarkMode()">🌙 Mode sombre</button>
+
     <h1>Recherche de Station Météo</h1>
     <div class="container">
         <input 
@@ -242,14 +255,13 @@
                     </tr>
                 </thead>
                 <tbody id="dataTable">
-                    <!-- Les données seront insérées ici -->
                 </tbody>
             </table>
         </div>
     </div>
 
     <footer>
-    SAE - Projet 3.01 - Développement d'application
+        SAE - Projet 3.01 - Développement d'application
     </footer>
 </body>
 </html>
