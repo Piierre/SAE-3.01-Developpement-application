@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Données Météorologiques SYNOP</title> <!-- Titre de la page -->
     <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/styles.css"> <!-- Lien vers le CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap"> <!-- Lien vers la police d'écriture -->
 </head>
 <body>
     <header>
@@ -42,7 +43,7 @@
     </main>
 
     <footer>
-        <p>© 2025 - Station météo | Design épuré et responsive 🌦️</p>
+        <p>© 2025 - SAÉ 3.01 | Application météorologique 🌦️</p>
     </footer>
 </body>
 </html>
