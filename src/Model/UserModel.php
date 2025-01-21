@@ -1,7 +1,8 @@
 <?php
 namespace App\Meteo\Model;
 
-use App\Meteo\Config\Conf;
+require_once __DIR__ . '/../Config/Conf.php'; // Ensure this path is correct
+use App\Meteo\Config\Conf; // Ensure this class exists and is correctly namespaced
 use PDO;
 use PDOException;
 
