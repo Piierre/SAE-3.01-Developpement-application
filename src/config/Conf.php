@@ -34,9 +34,9 @@ class Conf {
         return static::$databases["hostname"];
     }
 
-    static public function getPDO() : \PDO {
+    static public function getPDO() : PDO {
         $dsn = "mysql:host=" . static::getHostname() . ";dbname=" . static::getDatabase();
-        return new \PDO($dsn, static::getLogin(), static::getPassword());
+        return new PDO($dsn, static::getLogin(), static::getPassword());
     }
 }
 ?>
