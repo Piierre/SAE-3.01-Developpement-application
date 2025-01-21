@@ -28,7 +28,7 @@ $page = $_GET['page'] ?? 'home';
 
 switch ($page) {
     case 'carte':
-        require(ROOT . '/src/View/map/Carte.php');
+        require(ROOT . '/src/View/map/carte.php');
         break;
     case 'station':
         require(ROOT . '/src/View/station/station.php');

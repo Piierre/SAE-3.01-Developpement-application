@@ -12,7 +12,7 @@ class AuthController {
         $user = UserModel::getUserByLogin($login);
         if ($user && password_verify($password, $user['mdp'])) {
             Auth::startSession($user);
-            header("Location: ../View/dashboard/index.php");
+            header("Location: ../View/dashboard/dashboard.php");
             exit();
         } else {
             echo "Login ou mot de passe incorrect.";
