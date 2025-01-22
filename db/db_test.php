@@ -53,6 +53,36 @@ try {
         precip24 = VALUES(precip24)
     ");
 
+    // Préparer la requête SQL pour vérifier si l'utilisateur admin existe déjà
+    $checkAdminQuery = $pdo->prepare("
+        SELECT COUNT(*) FROM Utilisateur WHERE login = :login
+    ");
+
+    // Préparer la requête SQL pour insérer un utilisateur admin
+    $adminQuery = $pdo->prepare("
+        INSERT INTO Utilisateur (login, mdp, role)
+        VALUES (:login, :password, :role)
+    ");
+
+    // Vérifier si l'utilisateur admin existe déjà
+    $checkAdminQuery->execute([':login' => 'admin']);
+    $adminExists = $checkAdminQuery->fetchColumn();
+
+    if ($adminExists == 0) {
+        // Hacher le mot de passe de l'utilisateur admin
+        $hashedPassword = password_hash('admin_password', PASSWORD_DEFAULT);
+
+        // Exécuter la requête pour insérer un utilisateur admin
+        $adminQuery->execute([
+            ':login' => 'admin',
+            ':password' => $hashedPassword, // Utiliser le mot de passe haché
+            ':role' => 'admin'
+        ]);
+
+        echo "Utilisateur admin inséré avec succès.<br>";
+    } else {
+        echo "L'utilisateur admin existe déjà.<br>";
+    }
 
     // Parcourir toutes les pages
     while (true) {
