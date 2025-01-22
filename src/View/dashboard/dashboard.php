@@ -45,7 +45,7 @@ $stations = CarteController::getStations();
 
         <!-- Section graphiques -->
         <section id="charts-container">
-            <?php include __DIR__ . '/../../../src/View//search.php'; ?>
+            <?php include __DIR__ . '/../../../src/View/map/search.php'; ?>
         </section>
     </main>
 
