@@ -36,6 +36,12 @@ switch ($page) {
     case 'recherche':
         require(ROOT . '/src/View/home/recherche.php');
         break;
+    case 'login':
+        require(ROOT . '/src/View/auth/login.php');
+        break;
+    case 'register':
+        require(ROOT . '/src/View/auth/register.php');
+        break;
     default:
         require(ROOT . '/src/View/home/index.php');
         break;
