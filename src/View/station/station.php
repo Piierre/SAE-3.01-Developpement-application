@@ -246,6 +246,7 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
         <h1>Données de la station <?php echo htmlspecialchars($stationName); ?></h1>
         <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php';">🏠 Accueil</button>
         <button id="darkModeToggle" class="back-button" style="right: 160px;">🌙 Mode sombre</button>
+        
         <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php?page=carte';" style="right: 350px;">🗺️ Carte</button>
 
         <form id="dateForm">
@@ -460,16 +461,27 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
 
         // Mode sombre toggle
         document.getElementById('darkModeToggle').onclick = function() {
-            document.body.classList.toggle('dark-mode');
+    document.body.classList.toggle('dark-mode');
+    let darkModeButton = document.getElementById('darkModeToggle');
 
-            let textColor = document.body.classList.contains('dark-mode') ? '#ecf0f1' : '#000';
-            for (let key in charts) {
-                charts[key].options.scales.x.ticks.color = textColor;
-                charts[key].options.scales.y.ticks.color = textColor;
-                charts[key].options.plugins.legend.labels.color = textColor; // Changement de la légende
-                charts[key].update();
-            }
-        };
+    if (document.body.classList.contains('dark-mode')) {
+        darkModeButton.innerHTML = "☀️ Mode clair";
+    } else {
+        darkModeButton.innerHTML = "🌙 Mode sombre";
+    }
+
+    // Sauvegarder le mode dans le localStorage pour garder la préférence utilisateur
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
+};
+
+// Charger la préférence utilisateur lors du chargement de la page
+window.onload = function() {
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('darkModeToggle').innerHTML = "☀️ Mode clair";
+    }
+};
+
 
         function searchStations(query) {
             if (query.length === 0) {
