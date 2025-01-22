@@ -4,14 +4,14 @@ body {
     font-family: "Trebuchet MS", Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #E6F7FF; /* Fond doux */
+    background-color: #f6f6c9; /* Fond doux */
     color: #333;
     scroll-behavior: smooth; /* Scrolling fluide */
 }
 
 /* Header fixe */
 header {
-    background-color: #1abc9c; /* Vert clair inspiré de la météo */
+    background-color: #1a81b5; /* Couleur bleue inspiré de la météo */
     color: white;
     position: fixed; /* Fixe le header en haut */
     top: 0;
@@ -22,15 +22,15 @@ header {
 }
 
 header h1 {
-    font-size: 2.5rem;
-    font-family: 'Poppins', sans-serif; /* Police élégante */
+    font-size: 2.4rem;
+    font-family: 'Roboto', sans-serif; /* Police élégante */
     margin: 0;
     text-align: center;
 }
 
 header nav {
     text-align: center;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 header nav ul {
@@ -42,7 +42,7 @@ header nav ul {
 
 header nav ul li {
     display: inline;
-    margin: 0 15px;
+    margin: 0 20px;
 }
 
 header nav ul li a {
@@ -59,22 +59,22 @@ header nav ul li a:hover {
 
 /* Compense la hauteur du header */
 main {
-    padding-top: 80px; /* Ajuste en fonction de la hauteur du header */
+    padding-top: 120px;
 }
 
 /* Sections */
 section {
-    padding: 100px 20px; /* Espacement généreux */
-    max-width: 90%;
+    padding: 100px 20px; /* Espacement généreux */ 
+    max-width: 80%;
     margin: auto;
     background-color: white;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 section:nth-child(odd) {
-    background-color: #e8f8f5; /* Couleur alternée */
+    background-color: #ffffff; /* Couleur alternée */
 }
 
 section h2 {
@@ -84,27 +84,11 @@ section h2 {
     font-size: 2rem;
 }
 
-/* Boutons */
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    background-color: #2ecc71;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-button:hover {
-    background-color: #27ae60;
-}
-
 /* Footer */
 footer {
     text-align: center;
     padding: 20px;
-    background-color: #1abc9c;
+    background-color: #1a81b5;;
     color: white;
     margin-top: 20px;
 }

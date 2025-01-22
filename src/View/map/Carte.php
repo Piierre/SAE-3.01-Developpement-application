@@ -81,7 +81,7 @@ $stations = CarteController::getStations();
 </head>
 <body>
     <h1>Carte des Stations</h1>
-    <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/index.php';">🏠 Accueil</button>
+    <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
     <div id="map"></div>
     <footer>
         SAE - Projet 3.01 - Développement d'application

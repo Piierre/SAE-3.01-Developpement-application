@@ -12,7 +12,7 @@
     </header>
     <main>
         <section>
-            <form method="POST" action="../../Controller/AuthController.php">
+            <form method="POST" action="/SAE-3.01-Developpement-application/src/Controller/AuthController.php">
                 <input type="hidden" name="action" value="register">
                 <input type="text" id="login" name="login" placeholder="Nom d'utilisateur" required>
                 <input type="password" id="password" name="password" placeholder="Mot de passe" required>
