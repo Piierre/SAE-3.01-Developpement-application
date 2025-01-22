@@ -25,7 +25,7 @@ $stations = CarteController::getStations();
         <h1>Dashboard météo</h1>
         <nav>
             <ul>
-                <li><a href="/SAE-3.01-Developpement-application/src/View/home/index.php">Accueil</a></li>
+                <li><a href="/SAE-3.01-Developpement-application/web/frontcontroller.php">Accueil</a></li>
                 <li><a href="/SAE-3.01-Developpement-application/web/frontController.php?page=carte">Carte</a></li>
             </ul>
         </nav>
@@ -35,7 +35,7 @@ $stations = CarteController::getStations();
         <!-- Section de bienvenue -->
         <section id="welcome-container">
             <h2>Bienvenue, <?= htmlspecialchars($_SESSION['login']) ?> sur le tableau de bord</h2>
-            <a href="../../View/auth/logout.php" class="logout-link">Se déconnecter</a>
+            <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=logout" class="logout-link">Se déconnecter</a>
         </section>
 
         <!-- Section carte -->
@@ -45,7 +45,7 @@ $stations = CarteController::getStations();
 
         <!-- Section graphiques -->
         <section id="charts-container">
-            <?php include __DIR__ . '/../../../src/View//search.php'; ?>
+            <?php include __DIR__ . '/../../../src/View/map/search.php'; ?>
         </section>
     </main>
 

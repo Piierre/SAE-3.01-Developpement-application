@@ -16,8 +16,8 @@
                 <li><a href="#features">Fonctionnalités</a></li>
                 <li><a href="../web/frontController.php?page=carte">Carte Interactive</a></li>
                 <li><a href="../web/frontController.php?page=recherche">Recherche</a></li>
-                <li><a href="/SAE-3.01-Developpement-application/src/View/auth/login.php">Connexion</a></li>
-                <li><a href="/SAE-3.01-Developpement-application/src/View/auth/register.php">Inscription</a></li>
+                <li><a href="../web/frontController.php?page=login">Connexion</a></li>
+                <li><a href="../web/frontController.php?page=register">Inscription</a></li>
             </ul>
         </nav>
     </header>
