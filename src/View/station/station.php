@@ -307,6 +307,13 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
             charts[key].options.plugins.legend.labels.color = textColor; // Changement de la légende
             charts[key].update();
         }
+
+        const darkModeButton = document.getElementById('darkModeToggle');
+        if (document.body.classList.contains('dark-mode')) {
+            darkModeButton.innerHTML = "☀️ Mode clair";
+        } else {
+            darkModeButton.innerHTML = "🌙 Mode sombre";
+        }
     };
 </script>
 
