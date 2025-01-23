@@ -8,7 +8,8 @@ if ($_SESSION['role'] !== 'admin') {
 require_once __DIR__ . '/../../../src/Model/UserModel.php';
 use App\Meteo\Model\UserModel;
 
-$users = UserModel::getPendingUsers();
+$pendingUsers = UserModel::getPendingUsers();
+$allUsers = UserModel::getAllUsers();
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +35,7 @@ $users = UserModel::getPendingUsers();
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($users as $user): ?>
+                    <?php foreach ($pendingUsers as $user): ?>
                         <tr>
                             <td><?= htmlspecialchars($user['login']) ?></td>
                             <td>
@@ -50,6 +51,38 @@ $users = UserModel::getPendingUsers();
                                         <button type="submit">Refuser</button>
                                     </form>
                                 </div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Tous les utilisateurs</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom d'utilisateur</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($allUsers as $user): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($user['login']) ?></td>
+                            <td><?= htmlspecialchars($user['status']) ?></td>
+                            <td>
+                                <?php if ($user['status'] !== 'banned'): ?>
+                                    <form method="POST" action="/SAE-3.01-Developpement-application/src/Controller/UserController.php">
+                                        <input type="hidden" name="action" value="ban">
+                                        <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
+                                        <button type="submit">Bannir</button>
+                                    </form>
+                                <?php else: ?>
+                                    <span>Banni</span>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>

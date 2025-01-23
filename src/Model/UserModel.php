@@ -30,6 +30,19 @@ class UserModel {
         }
     }
 
+    public static function getAllUsers() {
+        $pdo = Conf::getPDO();
+        $stmt = $pdo->prepare("SELECT * FROM Utilisateur WHERE role != 'admin'");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function banUser($userId) {
+        $pdo = Conf::getPDO();
+        $stmt = $pdo->prepare("UPDATE Utilisateur SET status = 'banned' WHERE id = ?");
+        $stmt->execute([$userId]);
+    }
+
     public static function getPendingUsers() {
         $pdo = Conf::getPDO();
         $stmt = $pdo->prepare("SELECT * FROM Utilisateur WHERE status = 'pending'");
