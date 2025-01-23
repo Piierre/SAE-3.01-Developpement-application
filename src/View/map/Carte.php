@@ -135,7 +135,7 @@ $stations = CarteController::getStations();
                 var marker = L.marker([station.latitude, station.longitude]).addTo(map);
                 marker.bindPopup(
                     `<b>${station.nom}</b><br>Altitude: ${station.altitude} m<br>${weatherInfo} ${weatherEmoji}<br>
-                     <a href="/SAE-3.01-Developpement-application/src/View/station/station.php?name=${encodeURIComponent(station.nom)}">Voir les détails</a>`
+                     <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=recherche&name=${encodeURIComponent(station.nom)}">Voir les détails</a>`
                 );
             });
         });
