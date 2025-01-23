@@ -53,10 +53,14 @@ try {
             PRIMARY KEY (id_sta, date),
             FOREIGN KEY (id_sta) REFERENCES Station(id)
         )",
+
         "CREATE TABLE IF NOT EXISTS Utilisateur (
-            login VARCHAR(50) PRIMARY KEY,
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            login VARCHAR(50) UNIQUE NOT NULL,
             mdp VARCHAR(255) NOT NULL,
-            role ENUM('admin', 'user') DEFAULT 'user' -- Rôle pour gérer les permissions
+            role ENUM('admin', 'user') DEFAULT 'user',  -- Rôle pour gérer les permissions
+            status ENUM('pending', 'active', 'banned') DEFAULT 'pending', -- Statut du compte (en attente, actif, banni)
+            date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Date de création du compte
         )"
     ];
 
