@@ -18,8 +18,8 @@
                 <input type="password" name="password" placeholder="Mot de passe" required>
                 <input type="submit" value="Se connecter">
             </form>
-            <div class="bouton_register">
-                <a href="../web/frontController.php?page=register" class="button">Inscription</a>
+            <div class="register-container">
+                <a href="../web/frontController.php?page=register" class="button">INSCRIPTION</a>
             </div>
         </section>
     </main>

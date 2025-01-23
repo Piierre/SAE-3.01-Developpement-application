@@ -60,8 +60,8 @@ try {
 
     // Préparer la requête SQL pour insérer un utilisateur admin
     $adminQuery = $pdo->prepare("
-        INSERT INTO Utilisateur (login, mdp, role)
-        VALUES (:login, :password, :role)
+        INSERT INTO Utilisateur (login, mdp, role, status)
+        VALUES (:login, :password, :role, :status)
     ");
 
     // Vérifier si l'utilisateur admin existe déjà
@@ -76,7 +76,8 @@ try {
         $adminQuery->execute([
             ':login' => 'admin',
             ':password' => $hashedPassword, // Utiliser le mot de passe haché
-            ':role' => 'admin'
+            ':role' => 'admin',
+            ':status' => 'active' // Activer le compte
         ]);
 
         echo "Utilisateur admin inséré avec succès.<br>";
