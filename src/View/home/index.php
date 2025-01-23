@@ -8,7 +8,8 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Données Météorologiques SYNOP</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap">
-    <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/styles.css"></head>
+    <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/styles.css">
+</head>
 <body>
     <div id="particles-js"></div>
     

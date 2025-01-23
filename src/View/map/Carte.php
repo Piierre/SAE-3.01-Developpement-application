@@ -95,12 +95,49 @@ $stations = CarteController::getStations();
         }).addTo(map);
 
         var stations = <?php echo json_encode($stations); ?>;
+
+        function getWeather(lat, lon, callback) {
+            var apiKey = '75f79aeac04ab3de89f8045bc648d492';
+            var url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => callback(data))
+                .catch(error => console.log("Erreur météo :", error));
+        }
+
+        function translateWeather(description) {
+            if (description.includes("clear")) return "Ciel dégagé";
+            if (description.includes("clouds")) return "Nuageux";
+            if (description.includes("rain")) return "Pluie";
+            if (description.includes("snow")) return "Neige";
+            if (description.includes("thunderstorm")) return "Orage";
+            if (description.includes("mist") || description.includes("fog")) return "Brume";
+            return description;
+        }
+
+        function getWeatherEmoji(description) {
+            if (description.includes("clear")) return "☀️";
+            if (description.includes("clouds")) return "☁️";
+            if (description.includes("rain")) return "🌧️";
+            if (description.includes("snow")) return "❄️";
+            if (description.includes("thunderstorm")) return "⛈️";
+            if (description.includes("mist") || description.includes("fog")) return "🌫️";
+            return "";
+        }
+
         stations.forEach(function(station) {
-            var marker = L.marker([station.latitude, station.longitude]).addTo(map);
-            marker.bindPopup(
-                `<b>${station.nom}</b><br>Altitude: ${station.altitude} m<br>
-                 <a href="/SAE-3.01-Developpement-application/src/View/station/station.php?name=${encodeURIComponent(station.nom)}">Voir les détails</a>`   
-            );
+            getWeather(station.latitude, station.longitude, function(weatherData) {
+                var temperature = Math.floor(weatherData.main.temp);
+                var weatherDescription = translateWeather(weatherData.weather[0].description);
+                var weatherInfo = `Température: ${temperature}°C<br>Conditions: ${weatherDescription}`;
+                var weatherEmoji = getWeatherEmoji(weatherData.weather[0].description);
+                var marker = L.marker([station.latitude, station.longitude]).addTo(map);
+                marker.bindPopup(
+                    `<b>${station.nom}</b><br>Altitude: ${station.altitude} m<br>${weatherInfo} ${weatherEmoji}<br>
+                     <a href="/SAE-3.01-Developpement-application/src/View/station/station.php?name=${encodeURIComponent(station.nom)}">Voir les détails</a>`
+                );
+            });
         });
 
         // Ajuster la taille de la carte pour s'adapter à l'écran
