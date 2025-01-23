@@ -43,7 +43,7 @@ switch ($page) {
         require(ROOT . '/src/View/auth/register.php');
         break;
     case 'logout':
-        // Détruire la session psour déconnecter l'utilisateur
+        // Détruire la session pour déconnecter l'utilisateur
         session_start();
         session_unset();
         session_destroy();
@@ -51,6 +51,9 @@ switch ($page) {
         exit();
     case 'dashboard':
         require(ROOT . '/src/View/dashboard/dashboard.php');
+        break;
+    case 'manage_users':
+        require(ROOT . '/src/View/admin/manage_users.php');
         break;
     default:
         require(ROOT . '/src/View/home/index.php');
