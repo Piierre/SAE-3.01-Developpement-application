@@ -11,9 +11,15 @@ class AuthController {
     public static function login($login, $password) {
         $user = UserModel::getUserByLogin($login);
         if ($user && password_verify($password, $user['mdp'])) {
-            Auth::startSession($user);
-            header("Location: ../../web/frontController.php?page=index");
-            exit();
+            if ($user['status'] === 'pending') {
+                echo "Votre compte est en attente d'approbation.";
+            } elseif ($user['status'] === 'banned') {
+                echo "Votre compte a été banni.";
+            } else {
+                Auth::startSession($user);
+                header("Location: ../../web/frontController.php?page=index");
+                exit();
+            }
         } else {
             echo "Login ou mot de passe incorrect.";
         }

@@ -52,6 +52,9 @@ switch ($page) {
     case 'dashboard':
         require(ROOT . '/src/View/dashboard/dashboard.php');
         break;
+    case 'manage_users':
+        require(ROOT . '/src/View/admin/manage_users.php');
+        break;
     default:
         require(ROOT . '/src/View/home/index.php');
         break;

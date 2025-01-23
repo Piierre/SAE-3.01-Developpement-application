@@ -29,5 +29,24 @@ class UserModel {
             return false;
         }
     }
+
+    public static function getPendingUsers() {
+        $pdo = Conf::getPDO();
+        $stmt = $pdo->prepare("SELECT * FROM Utilisateur WHERE status = 'pending'");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function approveUser($userId) {
+        $pdo = Conf::getPDO();
+        $stmt = $pdo->prepare("UPDATE Utilisateur SET status = 'active' WHERE id = ?");
+        $stmt->execute([$userId]);
+    }
+
+    public static function rejectUser($userId) {
+        $pdo = Conf::getPDO();
+        $stmt = $pdo->prepare("DELETE FROM Utilisateur WHERE id = ?");
+        $stmt->execute([$userId]);
+    }
 }
 ?>

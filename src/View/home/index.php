@@ -21,6 +21,9 @@ session_start();
                 <li><a href="../web/frontController.php?page=recherche">Recherche</a></li>
                 <?php if (isset($_SESSION['login'])): ?>
                     <li><a href="../web/frontController.php?page=logout">Déconnexion (<?= htmlspecialchars($_SESSION['login']) ?>)</a></li>
+                    <?php if ($_SESSION['role'] === 'admin'): ?>
+                        <li><a href="../web/frontController.php?page=manage_users">Gérer les utilisateurs</a></li>
+                    <?php endif; ?>
                 <?php else: ?>
                     <li><a href="../web/frontController.php?page=login">Connexion</a></li>
                 <?php endif; ?>
