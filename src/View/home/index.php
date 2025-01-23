@@ -17,7 +17,6 @@
                 <li><a href="../web/frontController.php?page=carte">Carte Interactive</a></li>
                 <li><a href="../web/frontController.php?page=recherche">Recherche</a></li>
                 <li><a href="../web/frontController.php?page=login">Connexion</a></li>
-                <li><a href="../web/frontController.php?page=register">Inscription</a></li>
             </ul>
         </nav>
     </header>

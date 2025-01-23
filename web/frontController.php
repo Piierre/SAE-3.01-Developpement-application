@@ -43,8 +43,12 @@ switch ($page) {
         require(ROOT . '/src/View/auth/register.php');
         break;
     case 'logout':
-        require(ROOT . '/src/View/auth/logout.php');
-        break;
+        // Détruire la session psour déconnecter l'utilisateur
+        session_start();
+        session_unset();
+        session_destroy();
+        header("Location: /SAE-3.01-Developpement-application/web/frontController.php");
+        exit();
     case 'dashboard':
         require(ROOT . '/src/View/dashboard/dashboard.php');
         break;

@@ -70,15 +70,51 @@ form input[type="email"] {
 
 form input[type="submit"] {
     background-color: #3498db;
-    color: #fff;
+    color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
 }
 
 form input[type="submit"]:hover {
     background-color: #2980b9;
+}
+
+/* Styles pour le bouton INSCRIPTION */
+.button {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+}
+
+.button:hover {
+    background-color: #2980b9;
+}
+
+.register-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.bouton_register {
+    text-align: center;
+    margin-top: 10px;
 }
 
 /* Footer */
@@ -91,4 +127,16 @@ footer {
     left: 0;
     right: 0;
     bottom: 0;
+}
+
+form register-link {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    color: #007BFF;
+    text-decoration: none;
+}
+
+form register-link:hover {
+    text-decoration: underline;
 }

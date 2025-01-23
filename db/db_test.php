@@ -70,7 +70,7 @@ try {
 
     if ($adminExists == 0) {
         // Hacher le mot de passe de l'utilisateur admin
-        $hashedPassword = password_hash('admin_password', PASSWORD_DEFAULT);
+        $hashedPassword = password_hash('admin', PASSWORD_DEFAULT);
 
         // Exécuter la requête pour insérer un utilisateur admin
         $adminQuery->execute([
