@@ -29,6 +29,38 @@ header h1 {
     font-weight: 700;
 }
 
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(43, 42, 42, 0.8);
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #00f2fe;
+}
+
 main {
     margin-top: 80px;
 }

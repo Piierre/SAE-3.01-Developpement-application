@@ -13,7 +13,6 @@ session_start();
     <div id="particles-js"></div>
     <header>
         <h1>Données Météorologiques SYNOP</h1>
-        <h1>Données Météorologiques SYNOP</h1> <!-- Titre principal -->
         <nav>
             <ul>
                 <li><a href="#welcome">Accueil</a></li>
@@ -99,6 +98,7 @@ session_start();
     </footer>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="/SAE-3.01-Developpement-application/web/assets/js/scripts.js"></script>
     <script>
         particlesJS("particles-js", {
             "particles": {
