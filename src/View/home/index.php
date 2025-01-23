@@ -48,7 +48,7 @@ session_start();
         <div class="container">
             <div class="section map" onclick="window.location.href='../web/frontController.php?page=carte'">
                 <div class="background">
-                    <img src="img/carte de fond.png" alt="Carte Météo">
+                    <img src="img/carte_france.png" alt="Carte Météo">
                 </div>
                 <span class="icon">🗺️</span>
                 Carte Interactive
