@@ -47,7 +47,7 @@ switch ($page) {
         session_start();
         session_unset();
         session_destroy();
-        header("Location: /SAE-3.01-Developpement-application/web/frontController.php");
+        header("Location: /web/frontController.php");
         exit();
     case 'dashboard':
         require(ROOT . '/src/View/dashboard/dashboard.php');
