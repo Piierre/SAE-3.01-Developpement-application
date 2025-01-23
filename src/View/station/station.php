@@ -233,6 +233,23 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
             color: red;
             margin-top: 10px;
         }
+
+        .chart-type-button {
+            margin-top: 30px;
+            padding: 15px 30px;
+            font-size: 1rem;
+            background-color:rgb(14, 134, 219);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .chart-type-button:hover {
+            background-color:rgb(13, 112, 183);
+        }
     </style>
 </head>
 <body>
@@ -278,6 +295,7 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
         <button class="compare-button" id="compareBtn">📊📅 Comparer avec une autre date</button>
         <!-- Bouton ajouté pour comparer avec une autre station -->
         <button class="compare-button" id="compareStationBtn">🏢📊 Comparer avec une autre station</button>
+        <button class="chart-type-button" id="chartTypeToggle">🔄 Changer le type de graphique</button>
 
         <footer>
             SAE - Projet 3.01 - Développement d'application 
@@ -293,6 +311,7 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
         });
 
         let charts = {}; 
+        let currentChartType = 'line';
 
         document.getElementById('dateForm').onsubmit = function(event) {
             event.preventDefault();
@@ -311,6 +330,11 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
         document.getElementById('compareStationBtn').onclick = function() {
             const searchContainer = document.getElementById('searchContainer');
             searchContainer.style.display = 'block';
+        };
+
+        document.getElementById('chartTypeToggle').onclick = function() {
+            currentChartType = currentChartType === 'line' ? 'bar' : 'line';
+            updateChartTypes();
         };
 
         function showLoader() {
@@ -408,7 +432,7 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
             }
 
             charts[canvasId] = new Chart(ctx, {
-                type: 'line',
+                type: currentChartType,
                 data: {
                     labels: labels,
                     datasets: [{
@@ -457,6 +481,13 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
                 charts[key].destroy();
             }
             charts = {};
+        }
+
+        function updateChartTypes() {
+            for (let key in charts) {
+                charts[key].config.type = currentChartType;
+                charts[key].update();
+            }
         }
 
         // Mode sombre toggle
