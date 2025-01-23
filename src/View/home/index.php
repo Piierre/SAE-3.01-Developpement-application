@@ -158,8 +158,8 @@ session_start();
         }
 
         window.onload = function () {
-            animateCounter("stations-count", 350, 100);
-            animateCounter("reports-count", 12000, 100);
+            animateCounter("stations-count", 62, 100);
+            animateCounter("reports-count", 29200, 100);
         };
 
         // Remove auto-scroll functionality
