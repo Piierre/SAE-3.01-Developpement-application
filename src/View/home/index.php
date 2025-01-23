@@ -11,11 +11,13 @@ session_start();
     <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/styles.css"></head>
 <body>
     <div id="particles-js"></div>
+    
     <header>
         <h1>Données Météorologiques SYNOP</h1>
         <nav>
             <ul>
                 <li><a href="#welcome">Accueil</a></li>
+                <li><a href="#features">Fonctionnalités</a></li>
                 <li><a href="../web/frontController.php?page=carte">Carte Interactive</a></li>
                 <li><a href="../web/frontController.php?page=recherche">Recherche</a></li>
                 <?php if (isset($_SESSION['login'])): ?>
