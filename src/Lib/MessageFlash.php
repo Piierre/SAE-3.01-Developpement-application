@@ -27,7 +27,7 @@ class MessageFlash {
         $messagesFlash = static::lireTousMessages();
         // on ajoute notre message dans le type souhaité
         $messagesFlash[$type][] = $message;
-        // on réécrit les messages flahs qui sont sont supprimé lorsqu'on les a récupérés
+        // on réécrit les messages flash qui sont supprimés lorsqu'on les a récupérés
         $session->enregistrer(static::$cleFlash, $messagesFlash);
     }
 
@@ -57,3 +57,4 @@ class MessageFlash {
         return $messagesFlash;
     }
 }
+?>

@@ -3,23 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/auth.css"> <!-- Lien vers le CSS -->
+    <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/styles.css"> <!-- Lien vers le CSS -->
     <title>Connexion</title>
 </head>
 <body>
     <header>
         <h1>Connexion</h1>
+        <nav>
+            <ul>
+                <li><a href="../web/frontController.php">Accueil</a></li>
+                <li><a href="../web/frontController.php?page=register">Inscription</a></li>
+            </ul>
+        </nav>
     </header>
     <main>
-        <section>
-            <form method="POST" action="/SAE-3.01-Developpement-application/src/Controller/AuthController.php">
-                <input type="hidden" name="action" value="login">
-                <input type="text" name="login" placeholder="Nom d'utilisateur" required>
-                <input type="password" name="password" placeholder="Mot de passe" required>
-                <input type="submit" value="Se connecter">
-            </form>
-            <div class="register-container">
-                <a href="../web/frontController.php?page=register" class="button">INSCRIPTION</a>
+        <section id="welcome">
+            <div class="welcome-content">
+                <h2>Connectez-vous à votre compte</h2>
+                <form method="POST" action="/SAE-3.01-Developpement-application/src/Controller/AuthController.php">
+                    <input type="hidden" name="action" value="login">
+                    <input type="text" name="login" placeholder="Nom d'utilisateur" required>
+                    <input type="password" name="password" placeholder="Mot de passe" required>
+                    <input type="submit" value="Se connecter" class="btn">
+                </form>
+                <div class="welcome-buttons">
+                    <a href="../web/frontController.php?page=register" class="btn">Inscription</a>
+                </div>
             </div>
         </section>
     </main>
