@@ -2,6 +2,7 @@
 
 namespace App\Meteo\Lib;
 
+require_once __DIR__ . '/../Model/HTTP/Session.php'; // Assurez-vous que le chemin est correct
 use App\Meteo\Model\HTTP\Session;
 
 class MessageFlash {
@@ -42,7 +43,7 @@ class MessageFlash {
     {
         // On récupère les messages qui nous intéressent
         $messagesFlash = Session::getInstance()->lire(static::$cleFlash);
-        $messages = $messagesFlash[$type];
+        $messages = $messagesFlash[$type] ?? [];
         // on les supprime
         $_SESSION[static::$cleFlash][$type] = [];
         return $messages;   
@@ -50,11 +51,33 @@ class MessageFlash {
     
     public static function lireTousMessages() : array
     {
-        // On récupère les messages qui nous intéressent
-        $messagesFlash = Session::getInstance()->lire(static::$cleFlash);
-        // on les supprime
+        $session = Session::getInstance();
+        if (!$session->contient(static::$cleFlash)) {
+            static::initialiser();
+        }
+        
+        $messagesFlash = $session->lire(static::$cleFlash);
+        if (!is_array($messagesFlash)) {
+            $messagesFlash = [
+                "success" => [],
+                "info" => [],
+                "warning" => [],
+                "danger" => []
+            ];
+        }
+        
         static::initialiser();
         return $messagesFlash;
+    }
+
+    public static function displayFlashMessages(): void
+    {
+        $messagesFlash = static::lireTousMessages();
+        foreach ($messagesFlash as $type => $messages) {
+            foreach ($messages as $message) {
+                echo "<div class='flash-message flash-$type'>$message</div>";
+            }
+        }
     }
 }
 ?>

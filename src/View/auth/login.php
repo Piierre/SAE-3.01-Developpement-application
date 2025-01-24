@@ -20,6 +20,11 @@
         <section id="welcome">
             <div class="welcome-content">
                 <h2>Connectez-vous à votre compte</h2>
+                <?php
+                require_once __DIR__ . '/../../../src/Lib/MessageFlash.php';
+                use App\Meteo\Lib\MessageFlash;
+                MessageFlash::displayFlashMessages();
+                ?>
                 <form method="POST" action="/SAE-3.01-Developpement-application/src/Controller/AuthController.php">
                     <input type="hidden" name="action" value="login">
                     <input type="text" name="login" placeholder="Nom d'utilisateur" required>

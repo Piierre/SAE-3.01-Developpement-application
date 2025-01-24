@@ -32,7 +32,7 @@ class UserModel {
 
     public static function getAllUsers() {
         $pdo = Conf::getPDO();
-        $stmt = $pdo->prepare("SELECT * FROM Utilisateur WHERE role != 'admin'");
+        $stmt = $pdo->prepare("SELECT * FROM Utilisateur WHERE role != 'admin' AND status != 'pending'");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
