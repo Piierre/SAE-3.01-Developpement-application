@@ -348,48 +348,47 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
         }
 
         function fetchData(date, isComparison) {
-    var stationName = "<?php echo htmlspecialchars($stationName); ?>";
+            var stationName = "<?php echo htmlspecialchars($stationName); ?>";
 
-    fetch(`station_data.php?station_name=${encodeURIComponent(stationName)}&date=${date}`)
-        .then(response => response.json())
-        .then(data => {
-            hideLoader();
-            if (data.length === 0) {
-                alert("Aucune donnée trouvée pour cette date.");
-                return;
-            }
+            fetch(`/SAE-3.01-Developpement-application/src/View/station/station_data.php?station_name=${encodeURIComponent(stationName)}&date=${date}`)
+                .then(response => response.json())
+                .then(data => {
+                    hideLoader();
+                    if (data.length === 0) {
+                        alert("Aucune donnée trouvée pour cette date.");
+                        return;
+                    }
 
-            // Trier les données par heure dans l'ordre souhaité
-            const sortedData = data.sort((a, b) => {
-                const order = ["00:00", "03:00", "06:00", "09:00", "12:00", "15:00", "18:00", "21:00"];
-                const aHour = new Date(a.date).toISOString().substring(11, 16);
-                const bHour = new Date(b.date).toISOString().substring(11, 16);
-                return order.indexOf(aHour) - order.indexOf(bHour);
-            });
+                    // Trier les données par heure dans l'ordre souhaité
+                    const sortedData = data.sort((a, b) => {
+                        const order = ["00:00", "03:00", "06:00", "09:00", "12:00", "15:00", "18:00", "21:00"];
+                        const aHour = new Date(a.date).toISOString().substring(11, 16);
+                        const bHour = new Date(b.date).toISOString().substring(11, 16);
+                        return order.indexOf(aHour) - order.indexOf(bHour);
+                    });
 
-            let hours = sortedData.map(entry => new Date(entry.date).toISOString().substring(11, 16));
+                    let hours = sortedData.map(entry => new Date(entry.date).toISOString().substring(11, 16));
 
-            if (isComparison) {
-                addComparisonData(hours, sortedData, `Date: ${date}`);
-            } else {
-                destroyCharts();
-                createChart('temperatureChart', 'Température (°C)', hours, sortedData.map(entry => entry.tc), 'red');
-                createChart('humidityChart', 'Humidité (%)', hours, sortedData.map(entry => entry.u), 'blue');
-                createChart('windChart', 'Vitesse du vent (m/s)', hours, sortedData.map(entry => entry.ff), 'black');
-            }
-        })
-        .catch(error => {
-            hideLoader();
-            console.error('Erreur:', error);
-        });
-}
-
+                    if (isComparison) {
+                        addComparisonData(hours, sortedData, `Date: ${date}`);
+                    } else {
+                        destroyCharts();
+                        createChart('temperatureChart', 'Température (°C)', hours, sortedData.map(entry => entry.tc), 'red');
+                        createChart('humidityChart', 'Humidité (%)', hours, sortedData.map(entry => entry.u), 'blue');
+                        createChart('windChart', 'Vitesse du vent (m/s)', hours, sortedData.map(entry => entry.ff), 'black');
+                    }
+                })
+                .catch(error => {
+                    hideLoader();
+                    console.error('Erreur:', error);
+                });
+        }
 
         function compareStations(secondStation) {
             var date = document.getElementById('date').value;
             var stationName = "<?php echo htmlspecialchars($stationName); ?>";
 
-            fetch(`station_data.php?station_name=${encodeURIComponent(secondStation)}&date=${date}`)
+            fetch(`/SAE-3.01-Developpement-application/src/View/station/station_data.php?station_name=${encodeURIComponent(secondStation)}&date=${date}`)
                 .then(response => response.json())
                 .then(data => {
                     hideLoader();
@@ -417,11 +416,10 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
         }
 
         function addComparisonData(labels, newData, identifier) {
-    addDataToChart('temperatureChart', labels, newData.map(entry => entry.tc), 'orange', `Température - ${identifier}`);
-    addDataToChart('humidityChart', labels, newData.map(entry => entry.u), 'cyan', `Humidité - ${identifier}`);
-    addDataToChart('windChart', labels, newData.map(entry => entry.ff), 'purple', `Vent - ${identifier}`);
-}
-
+            addDataToChart('temperatureChart', labels, newData.map(entry => entry.tc), 'orange', `Température - ${identifier}`);
+            addDataToChart('humidityChart', labels, newData.map(entry => entry.u), 'cyan', `Humidité - ${identifier}`);
+            addDataToChart('windChart', labels, newData.map(entry => entry.ff), 'purple', `Vent - ${identifier}`);
+        }
 
         function createChart(canvasId, label, labels, data, color) {
             var ctx = document.getElementById(canvasId).getContext('2d');
@@ -571,5 +569,6 @@ window.onload = function() {
             }
         }
     </script>
+    
 </body>
 </html>
