@@ -33,6 +33,7 @@ class AuthController {
     public static function register($login, $password) {
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
         if (UserModel::createUser($login, $hashedPassword)) {
+            MessageFlash::ajouter('success', 'Inscription réussie. Vous pouvez maintenant vous connecter.');
             header("Location: ../../web/frontController.php?page=login");
             exit();
         } else {
