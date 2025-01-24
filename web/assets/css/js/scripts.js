@@ -96,3 +96,21 @@ window.addEventListener('scroll', () => {
     const backToTop = document.getElementById('back-to-top');
     backToTop.style.display = window.scrollY > 200 ? 'block' : 'none';
 });
+
+// Function to toggle dark mode
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+}
+
+// Set theme based on user preference
+function setThemeByPreference() {
+    const darkMode = localStorage.getItem('darkMode') === 'true';
+    if (darkMode) {
+        document.body.classList.add('dark-mode');
+    } else {
+        document.body.classList.remove('dark-mode');
+    }
+}
+
+setThemeByPreference();

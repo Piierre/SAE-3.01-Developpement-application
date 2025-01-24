@@ -17,20 +17,21 @@ session_start();
         <h1>Données Météorologiques SYNOP</h1>
         <nav>
             <ul>
-                <li><a href="#welcome">Accueil</a></li>
-                <li><a href="#features">Fonctionnalités</a></li>
-                <li><a href="../web/frontController.php?page=carte">Carte Interactive</a></li>
-                <li><a href="../web/frontController.php?page=recherche">Recherche</a></li>
+                <li><a href="#welcome">🏠 Accueil</a></li>
+                <li><a href="#features">⚙️ Fonctionnalités</a></li>
+                <li><a href="../web/frontController.php?page=carte">🗺️ Carte Interactive</a></li>
+                <li><a href="../web/frontController.php?page=recherche">🔍 Recherche</a></li>
                 <?php if (isset($_SESSION['login'])): ?>
-                    <li><a href="../web/frontController.php?page=logout">Déconnexion (<?= htmlspecialchars($_SESSION['login']) ?>)</a></li>
+                    <li><a href="../web/frontController.php?page=logout">🚪 Déconnexion (<?= htmlspecialchars($_SESSION['login']) ?>)</a></li>
                     <?php if ($_SESSION['role'] === 'admin'): ?>
                         <li><a href="../web/frontController.php?page=manage_users">Gérer les utilisateurs</a></li>
                     <?php endif; ?>
                 <?php else: ?>
-                    <li><a href="../web/frontController.php?page=login">Connexion</a></li>
+                    <li><a href="../web/frontController.php?page=login">🔑 Connexion</a></li>
                 <?php endif; ?>
             </ul>
         </nav>
+        <button class="toggle-dark-mode" onclick="toggleDarkMode()">🌙 Mode sombre </button>
     </header>
 
     <main>
@@ -72,7 +73,6 @@ session_start();
                     <div class="bar"></div>
                 </div>
                 <div class="background">
-                    <img src="img/graphique_fond.png" alt="Graphiques Météo">
                 </div>
                 <span class="icon">📊</span>
                 Graphiques
@@ -182,6 +182,10 @@ session_start();
             }
         }
         setThemeByTime();
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
 
         // Défilement fluide pour les liens internes
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
