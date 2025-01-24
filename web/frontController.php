@@ -59,6 +59,9 @@ switch ($page) {
     case 'manage_users':
         require(ROOT . '/src/View/admin/manage_users.php');
         break;
+    case 'meteotheque':
+        require(ROOT . '/src/View/meteotheque/meteotheque.php');
+        break;
     default:
         require(ROOT . '/src/View/home/index.php');
         break;
