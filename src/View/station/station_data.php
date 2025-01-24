@@ -14,6 +14,7 @@ if (isset($_GET['station_name']) && isset($_GET['date'])) {
     $data = StationController::getStationData($stationName, $formattedDate);
 
     if (empty($data)) {
+        header('Content-Type: application/json');
         echo json_encode([]);
         exit;
     }
@@ -30,5 +31,6 @@ if (isset($_GET['station_name']) && isset($_GET['date'])) {
 
     header('Content-Type: application/json');
     echo json_encode($processedData);
+    exit;
 }
 ?>
