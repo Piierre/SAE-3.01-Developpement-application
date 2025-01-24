@@ -1,14 +1,14 @@
 <?php
 namespace App\Meteo\Model\HTTP;
 
+use App\Meteo\config\Conf;
 use Exception;
-use App\Meteo\Config\Conf;
 
 class Session {
 
     private static ?Session $instance = null;
     private function __construct()
-    {
+    { 
         // Démarrer la session et lancer une exception si cela échoue
         if (session_start() === false) {
             throw new Exception("La session n'a pas réussi à démarrer.");

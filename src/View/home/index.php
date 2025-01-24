@@ -21,6 +21,9 @@ session_start();
                 <li><a href="#features">⚙️ Fonctionnalités</a></li>
                 <li><a href="../web/frontController.php?page=carte">🗺️ Carte Interactive</a></li>
                 <li><a href="../web/frontController.php?page=recherche">🔍 Recherche</a></li>
+                <li><a href="#welcome">Accueil</a></li>
+                <li><a href="../web/frontController.php?page=carte">Carte Interactive</a></li>
+                <li><a href="../web/frontController.php?page=recherche">Recherche</a></li>
                 <?php if (isset($_SESSION['login'])): ?>
                     <li><a href="../web/frontController.php?page=logout">🚪 Déconnexion (<?= htmlspecialchars($_SESSION['login']) ?>)</a></li>
                     <?php if ($_SESSION['role'] === 'admin'): ?>
