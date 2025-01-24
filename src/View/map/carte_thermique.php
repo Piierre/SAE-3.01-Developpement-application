@@ -84,7 +84,7 @@
                     let heatData = data.map(station => [
                         station.lat,
                         station.lon,
-                        station.temp
+                        (station.temp + 15) / 30 // Normalize temperature to range 0-1
                     ]);
 
                     window.heatLayer = L.heatLayer(heatData, {
@@ -92,6 +92,8 @@
                         blur: 55,
                         maxZoom: 10,
                         gradient: {
+                            0.0: 'darkblue', // For very cold temperatures (-15 degrees)
+                            0.1: 'purple',   // For cold temperatures
                             0.2: 'blue',
                             0.4: 'cyan',
                             0.6: 'yellow',
