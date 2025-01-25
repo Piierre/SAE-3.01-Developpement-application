@@ -45,8 +45,44 @@ try {
         }
     }
 
-    echo json_encode($heatmapData);
+    // Clustering logic
+    $clusteredData = clusterStations($heatmapData);
+
+    echo json_encode($clusteredData);
 } catch (PDOException $e) {
     echo json_encode(["error" => $e->getMessage()]);
 }
+
+function clusterStations($stations, $distance = 0.1) {
+    $clusters = [];
+    foreach ($stations as $station) {
+        $added = false;
+        foreach ($clusters as &$cluster) {
+            if (haversine($station['lat'], $station['lon'], $cluster['lat'], $cluster['lon']) < $distance) {
+                $cluster['temp'] = ($cluster['temp'] * $cluster['count'] + $station['temp']) / ($cluster['count'] + 1);
+                $cluster['count']++;
+                $added = true;
+                break;
+            }
+        }
+        if (!$added) {
+            $station['count'] = 1;
+            $clusters[] = $station;
+        }
+    }
+    return $clusters;
+}
+
+function haversine($lat1, $lon1, $lat2, $lon2) {
+    $earthRadius = 6371; // km
+    $dLat = deg2rad($lat2 - $lat1);
+    $dLon = deg2rad($lon2 - $lon1);
+    $a = sin($dLat / 2) * sin($dLat / 2) +
+         cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+         sin($dLon / 2) * sin($dLon / 2);
+    $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+    return $earthRadius * $c;
+}
 ?>
+
+
