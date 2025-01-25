@@ -1,3 +1,8 @@
+<?php
+$stationName = isset($_GET['station_name']) ? $_GET['station_name'] : '';
+$searchDate = isset($_GET['date']) ? $_GET['date'] : '';
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,6 +23,7 @@
             type="text" 
             id="search" 
             placeholder="Rechercher une station..." 
+            value="<?= htmlspecialchars($stationName) ?>"
             onkeyup="searchStations(this.value)"
         >
         <div id="suggestions" class="suggestions"></div>
@@ -26,12 +32,15 @@
             type="date" 
             id="date"   
             placeholder="Sélectionner une date"
+            value="<?= htmlspecialchars($searchDate) ?>"
         >
         <button onclick="searchMeasures()">Rechercher</button>
 
         <form action="/SAE-3.01-Developpement-application/web/frontController.php?action=addMeteotheque" method="post">
-            <input type="hidden" name="titre" value="Titre par défaut">
-            <input type="hidden" name="description" value="Description par défaut">
+            <input type="hidden" name="titre" value="Recherche: <?= htmlspecialchars($stationName) ?>">
+            <input type="hidden" name="description" value="Recherche pour la station <?= htmlspecialchars($stationName) ?> à la date <?= htmlspecialchars($searchDate) ?>">
+            <input type="hidden" name="station_name" value="<?= htmlspecialchars($stationName) ?>">
+            <input type="hidden" name="search_date" value="<?= htmlspecialchars($searchDate) ?>">
             <button type="submit">Ajouter cette recherche à ma Météothèque</button>
         </form>
 

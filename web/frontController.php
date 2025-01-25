@@ -11,9 +11,11 @@ require_once(ROOT . '/src/Controller/CarteController.php');
 require_once(ROOT . '/src/Controller/StationController.php');
 require_once(ROOT . '/src/Controller/SearchController.php');
 require_once(ROOT . '/src/Controller/DashboardController.php');
+require_once(ROOT . '/src/Controller/MeteothequeController.php');
 require_once(ROOT . '/src/View/station/station_data.php');
 
 use App\Meteo\Controller\SearchController;
+use App\Meteo\Controller\MeteothequeController;
 
 // Gestion des actions AJAX
 if (isset($_GET['action']) && $_GET['action'] === 'search' && isset($_GET['query'])) {
@@ -22,6 +24,22 @@ if (isset($_GET['action']) && $_GET['action'] === 'search' && isset($_GET['query
 
     header('Content-Type: application/json');
     echo json_encode($results);
+    exit;
+}
+
+// Ajout d'une météothèque
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'addMeteotheque') {
+    session_start();
+    $userId = $_SESSION['user_id']; // Assurez-vous que l'utilisateur est connecté
+    $titre = $_POST['titre'];
+    $description = $_POST['description'];
+    $stationName = $_POST['station_name'];
+    $searchDate = $_POST['search_date'];
+
+    $meteothequeController = new MeteothequeController();
+    $meteothequeController->addMeteotheque($userId, $titre, $description, $stationName, $searchDate);
+
+    header('Location: /SAE-3.01-Developpement-application/web/frontController.php?page=meteotheque');
     exit;
 }
 
