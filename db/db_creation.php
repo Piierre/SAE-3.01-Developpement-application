@@ -65,9 +65,11 @@ try {
 
         "CREATE TABLE IF NOT EXISTS Meteotheque (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            user_id INT NOT NULL, -- Référence à Utilisateur.id
+            user_id INT NOT NULL,
             titre VARCHAR(255) NOT NULL,
             description TEXT,
+            station_name VARCHAR(255), -- Ajoutez cette colonne
+            search_date DATE, -- Ajoutez cette colonne
             date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (user_id) REFERENCES Utilisateur(id) ON DELETE CASCADE
         )",

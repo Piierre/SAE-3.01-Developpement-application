@@ -42,6 +42,8 @@ $meteotheques = MeteothequeModel::getMeteothequesByUser($userId);
                         <li>
                             <strong><?= htmlspecialchars($meteotheque['titre']) ?></strong> :
                             <?= htmlspecialchars($meteotheque['description']) ?>
+                            <br>
+                            <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=recherche&station_name=<?= urlencode($meteotheque['station_name']) ?>&date=<?= urlencode($meteotheque['search_date']) ?>">Rechercher cette station</a>
                         </li>
                     <?php endforeach; ?>
                 <?php else: ?>

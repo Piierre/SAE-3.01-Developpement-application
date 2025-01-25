@@ -29,10 +29,10 @@ class MeteothequeModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public static function createMeteotheque($userId, $titre, $description) {
+    public static function createMeteotheque($userId, $titre, $description, $stationName, $searchDate) {
         $pdo = Conf::getPDO();
-        $stmt = $pdo->prepare("INSERT INTO Meteotheque (user_id, titre, description) VALUES (?, ?, ?)");
-        $stmt->execute([$userId, $titre, $description]);
+        $stmt = $pdo->prepare("INSERT INTO Meteotheque (user_id, titre, description, station_name, search_date) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$userId, $titre, $description, $stationName, $searchDate]);
         return $pdo->lastInsertId();
     }
 }
