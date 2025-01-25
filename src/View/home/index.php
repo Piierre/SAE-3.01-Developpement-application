@@ -18,7 +18,7 @@ session_start();
         <nav>
             <ul>
                 <li><a href="#welcome">🏠 Accueil</a></li>
-                <li><a href="../web/frontController.php?page=meteotheque">Météothèque</a></li>
+                <li><a href="../web/frontController.php?page=all_meteotheques">Météothèque</a></li>
                 <?php if (isset($_SESSION['login'])): ?>
                     <li><a href="../web/frontController.php?page=recherche">🔍 Recherche</a></li>                    
                     <li><a href="../web/frontController.php?page=carte_thermique">🗺️ Carte Thermique</a></li>

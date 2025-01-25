@@ -5,19 +5,7 @@ require_once __DIR__ . '/../../../src/Lib/MessageFlash.php';
 use App\Meteo\Model\MeteothequeModel;
 use App\Meteo\Lib\MessageFlash;
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-if (!isset($_SESSION['user_id'])) {
-    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
-    header('Location: /SAE-3.01-Developpement-application/web/frontController.php?page=login');
-    exit;
-}
-
-$userId = $_SESSION['user_id']; // ID de l'utilisateur connecté
-
-$meteotheques = MeteothequeModel::getMeteothequesByUser($userId);
+$meteotheques = MeteothequeModel::getAllMeteotheques();
 ?>
 
 <!DOCTYPE html>
@@ -25,17 +13,25 @@ $meteotheques = MeteothequeModel::getMeteothequesByUser($userId);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Météothèque</title>
+    <title>Toutes les Météothèques</title>
     <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/styles.css">
 </head>
 <body>
     <header>
-        <h1>Météothèque</h1>
+        <h1>Toutes les Météothèques</h1>
+        <div class="dropdown">
+            <button class="dropbtn">Météothèque</button>
+            <div class="dropdown-content">
+                <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=all_meteotheques">Général</a>
+                <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=meteotheque">Vos Météothèques</a>
+                <a href="#">Favoris</a>
+            </div>
+        </div>
         <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
     </header>
     <main>
         <section>
-            <h2>Vos Météothèques</h2>
+            <h2>Liste des Météothèques</h2>
             <?php MessageFlash::displayFlashMessages(); ?>
             <ul>
                 <?php if (!empty($meteotheques)): ?>

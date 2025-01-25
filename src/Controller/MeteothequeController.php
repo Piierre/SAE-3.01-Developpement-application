@@ -17,5 +17,10 @@ class MeteothequeController
     public function addMeteotheque($userId, $titre, $description, $stationName, $searchDate) {
         MeteothequeModel::createMeteotheque($userId, $titre, $description, $stationName, $searchDate);
     }
+
+    public function listAllMeteotheques() {
+        $meteotheques = MeteothequeModel::getAllMeteotheques();
+        require __DIR__ . '/../View/meteotheque/all_meteotheques.php';
+    }
 }
 ?>

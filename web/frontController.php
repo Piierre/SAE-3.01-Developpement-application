@@ -84,6 +84,10 @@ switch ($page) {
     case 'carte_thermique':
         require(ROOT . '/src/View/map/carte_thermique.php');
         break;
+    case 'all_meteotheques':
+        $meteothequeController = new MeteothequeController();
+        $meteothequeController->listAllMeteotheques();
+        break;
     default:
         require(ROOT . '/src/View/home/index.php');
         break;
