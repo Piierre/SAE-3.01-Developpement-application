@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
     <html lang="fr">
     <head>
         <meta charset="UTF-8">
@@ -7,9 +7,6 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
         <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
-        <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
-        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
-        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -45,7 +42,29 @@
                 padding: 2px 5px;
                 border-radius: 3px;
             }
+
+            .back-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.back-button:hover {
+    background-color: #218838;
+}
+
         </style>
+        <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
+
     </head>
     <body>
         <h1>Carte Thermique des Températures en France</h1>
@@ -62,8 +81,6 @@
                 attribution: '&copy; OpenStreetMap contributors'
             }).addTo(map);
 
-            var markers = L.markerClusterGroup();
-
             // Fonction pour récupérer les données météo
             document.getElementById('dateForm').addEventListener('submit', function(event) {
                 event.preventDefault();
@@ -73,7 +90,7 @@
                     return;
                 }
 
-                fetch(`get_meteo_data.php?date=${encodeURIComponent(selectedDate)}`)
+fetch(`/SAE-3.01-Developpement-application/src/View/map/get_meteo_data.php?date=${encodeURIComponent(selectedDate)}`)
         .then(response => response.json())
         .then(data => {
             if (!data || data.length === 0) {
@@ -96,12 +113,15 @@
 
             // Ajouter les vraies valeurs de température dans les tooltips
             data.forEach(point => {
-                var marker = L.marker([point.lat, point.lon])
-                    .bindTooltip(`${point.temp.toFixed(1)} °C`, { permanent: true, direction: 'right', className: 'temperature-label' });
-                markers.addLayer(marker);
+                L.tooltip({
+                    permanent: true,
+                    direction: 'right',
+                    className: 'temperature-label'
+                })
+                .setLatLng([point.lat, point.lon])
+                .setContent(`${point.temp.toFixed(1)} °C`)  // Affichage de la température réelle
+                .addTo(map);
             });
-
-            map.addLayer(markers);
         })
         .catch(error => {
             console.error("Erreur lors du chargement des données :", error);
