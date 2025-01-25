@@ -19,10 +19,32 @@ $allUsers = UserModel::getAllUsers();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gérer les utilisateurs</title>
     <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/styles.css"> <!-- Lien vers le CSS -->
+    
 </head>
+<style>.back-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.back-button:hover {
+    background-color: #218838;
+}
+</style>
 <body>
     <header>
         <h1>Gérer les utilisateurs</h1>
+        <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
+
     </header>
     <main>
         <section>
