@@ -37,12 +37,17 @@ class MessageFlash {
         // On récupère la session
         $session = Session::getInstance();
         // On lit les messages flash existants
-        return $session->lire(static::$cleFlash) ?? [
-            "success" => [],
-            "info" => [],
-            "warning" => [],
-            "danger" => []
-        ];
+        $messagesFlash = $session->lire(static::$cleFlash);
+        // Vérifier que les messages flash sont bien un tableau
+        if (!is_array($messagesFlash)) {
+            $messagesFlash = [
+                "success" => [],
+                "info" => [],
+                "warning" => [],
+                "danger" => []
+            ];
+        }
+        return $messagesFlash;
     }
 
     public static function displayFlashMessages(): void
