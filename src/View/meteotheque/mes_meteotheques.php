@@ -1,6 +1,20 @@
 <?php
+require_once __DIR__ . '/../../../src/Lib/auth.php';
 require_once __DIR__ . '/../../../src/Model/MeteothequeModel.php';
-$meteotheques = \App\Meteo\Model\MeteothequeModel::getAllMeteotheques();
+
+use App\Meteo\Lib\Auth;
+use App\Meteo\Model\MeteothequeModel;
+
+Auth::requireAuth();
+
+if (isset($_SESSION['user'])) {
+    $user = $_SESSION['user'];
+    $userId = $user['id'];
+} else {
+    $userId = null;
+}
+
+$mesMeteotheques = MeteothequeModel::getMeteothequesByUser($userId);
 ?>
 
 <!DOCTYPE html>
@@ -8,18 +22,18 @@ $meteotheques = \App\Meteo\Model\MeteothequeModel::getAllMeteotheques();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Météothèque</title>
+    <title>Mes Météothèques</title>
     <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/styles.css">
 </head>
 <body>
     <header>
-        <h1>Météothèque</h1>
+        <h1>Mes Météothèques</h1>
     </header>
     <main>
         <section>
-            <h2>Liste des météothèques</h2>
+            <h2>Vos météothèques</h2>
             <ul>
-                <?php foreach ($meteotheques as $meteotheque): ?>
+                <?php foreach ($mesMeteotheques as $meteotheque): ?>
                     <li>
                         <a href="details_meteotheque.php?id=<?= $meteotheque['id'] ?>">
                             <?= htmlspecialchars($meteotheque['titre']) ?>

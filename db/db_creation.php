@@ -61,6 +61,24 @@ try {
             role ENUM('admin', 'user') DEFAULT 'user',  -- Rôle pour gérer les permissions
             status ENUM('pending', 'active', 'banned') DEFAULT 'pending', -- Statut du compte (en attente, actif, banni)
             date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Date de création du compte
+        )",
+
+        "CREATE TABLE IF NOT EXISTS Meteotheque (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT NOT NULL, -- Référence à Utilisateur.id
+            titre VARCHAR(255) NOT NULL,
+            description TEXT,
+            date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES Utilisateur(id) ON DELETE CASCADE
+        )",
+
+        "CREATE TABLE IF NOT EXISTS Favoris (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT NOT NULL, -- Référence à Utilisateur.id
+            meteotheque_id INT NOT NULL, -- Référence à Meteotheque.id
+            date_ajout TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES Utilisateur(id) ON DELETE CASCADE,
+            FOREIGN KEY (meteotheque_id) REFERENCES Meteotheque(id) ON DELETE CASCADE
         )"
     ];
 

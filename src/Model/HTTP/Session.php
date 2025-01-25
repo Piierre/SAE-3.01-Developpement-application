@@ -1,7 +1,7 @@
 <?php
 namespace App\Meteo\Model\HTTP;
 
-use App\Meteo\config\Conf;
+use App\Meteo\Config\Conf;
 use Exception;
 
 class Session {

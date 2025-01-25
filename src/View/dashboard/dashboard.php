@@ -1,56 +1,56 @@
 <?php
-use App\Meteo\Controller\CarteController;
-use App\Meteo\Lib\Auth;
+require_once __DIR__ . '/../../../src/Lib/MessageFlash.php'; // Ensure this path is correct
 
-require_once __DIR__ . '/../../../src/Lib/auth.php';
-require_once __DIR__ . '/../../../src/Controller/CarteController.php'; // Ensure this path is correct
-Auth::requireAuth();
+use App\Meteo\Lib\MessageFlash;
 
-// Charger les données des stations depuis CarteController
-$stations = CarteController::getStations();
+MessageFlash::lireTousMessages();
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard météo</title>
-    <link rel="stylesheet" href="../../assets/css/dashboard.css"> <!-- Lien vers le CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-    <header>
-        <h1>Dashboard météo</h1>
-        <nav>
-            <ul>
-                <li><a href="/SAE-3.01-Developpement-application/web/frontcontroller.php">Accueil</a></li>
-                <li><a href="/SAE-3.01-Developpement-application/web/frontController.php?page=carte">Carte</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <!-- Section de bienvenue -->
-        <section id="welcome-container">
-            <h2>Bienvenue, <?= htmlspecialchars($_SESSION['login']) ?> sur le tableau de bord</h2>
-            <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=logout" class="logout-link">Se déconnecter</a>
-        </section>
+<h1>Bienvenue, <?= htmlspecialchars($_SESSION['login']) ?> !</h1>
 
-        <!-- Section carte -->
-        <section id="map-container">
-            <?php include __DIR__ . '/../../../src/View/map/carte.php'; ?>
-        </section>
+<section>
+    <h2>Mes Météothèques</h2>
+    <?php if (empty($mesMeteotheques)): ?>
+        <p>Aucune météothèque créée.</p>
+    <?php else: ?>
+        <ul>
+            <?php foreach ($mesMeteotheques as $meteotheque): ?>
+                <li>
+                    <strong><?= htmlspecialchars($meteotheque['titre']) ?></strong> :
+                    <?= htmlspecialchars($meteotheque['description']) ?>
+                    <a href="export_csv.php?id=<?= $meteotheque['id'] ?>">Exporter</a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+</section>
 
-        <!-- Section graphiques -->
-        <section id="charts-container">
-            <?php include __DIR__ . '/../../../src/View/map/search.php'; ?>
-        </section>
-    </main>
+<section>
+    <h2>Mes Favoris</h2>
+    <?php if (empty($mesFavoris)): ?>
+        <p>Aucun favori enregistré.</p>
+    <?php else: ?>
+        <ul>
+            <?php foreach ($mesFavoris as $favori): ?>
+                <li>
+                    <strong><?= htmlspecialchars($favori['titre']) ?></strong> :
+                    <?= htmlspecialchars($favori['description']) ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+</section>
 
-    <footer>
-        <p>&copy; 2025 - Dashboard météo - Inspiré par les données SYNOP</p>
-    </footer>
-</body>
-</html>
+<?php if ($_SESSION['role'] === 'admin'): ?>
+<section>
+    <h2>Toutes les Météothèques</h2>
+    <ul>
+        <?php foreach ($toutesMeteotheques as $meteotheque): ?>
+            <li>
+                <strong><?= htmlspecialchars($meteotheque['titre']) ?></strong> :
+                <?= htmlspecialchars($meteotheque['description']) ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</section>
+<?php endif; ?>
