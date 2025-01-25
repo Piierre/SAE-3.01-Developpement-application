@@ -81,6 +81,9 @@ switch ($page) {
     case 'meteotheque':
         require(ROOT . '/src/View/meteotheque/meteotheque.php');
         break;
+    case 'carte_thermique':
+        require(ROOT . '/src/View/map/carte_thermique.php');
+        break;
     default:
         require(ROOT . '/src/View/home/index.php');
         break;
