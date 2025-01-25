@@ -10,6 +10,7 @@ require_once(ROOT . '/src/config/Conf.php');
 require_once(ROOT . '/src/Controller/CarteController.php');
 require_once(ROOT . '/src/Controller/StationController.php');
 require_once(ROOT . '/src/Controller/SearchController.php');
+require_once(ROOT . '/src/Controller/DashboardController.php');
 require_once(ROOT . '/src/View/station/station_data.php');
 
 use App\Meteo\Controller\SearchController;
@@ -30,7 +31,7 @@ $page = $_GET['page'] ?? 'home';
 switch ($page) {
     case 'carte_regions':
         require(ROOT . '/src/View/map/carte_regions.php');
-        break;    
+        break;
     case 'carte':
         require(ROOT . '/src/View/map/carte.php');
         break;
