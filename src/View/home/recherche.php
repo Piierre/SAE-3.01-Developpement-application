@@ -29,6 +29,12 @@
         >
         <button onclick="searchMeasures()">Rechercher</button>
 
+        <form action="/SAE-3.01-Developpement-application/web/frontController.php?action=addMeteotheque" method="post">
+            <input type="hidden" name="titre" value="Titre par défaut">
+            <input type="hidden" name="description" value="Description par défaut">
+            <button type="submit">Ajouter cette recherche à ma Météothèque</button>
+        </form>
+
         <div id="results" class="results">
             <table>
                 <thead>

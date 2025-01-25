@@ -28,8 +28,40 @@ class MessageFlash {
         $messagesFlash = static::lireTousMessages();
         // on ajoute notre message dans le type souhaité
         $messagesFlash[$type][] = $message;
-        // on réécrit les messages flash qui sont supprimés lorsqu'on les a récupérés
+        // On enregistre les messages flash mis à jour
         $session->enregistrer(static::$cleFlash, $messagesFlash);
+    }
+
+    public static function lireTousMessages(): array
+    {
+        // On récupère la session
+        $session = Session::getInstance();
+        // On lit les messages flash existants
+        return $session->lire(static::$cleFlash) ?? [
+            "success" => [],
+            "info" => [],
+            "warning" => [],
+            "danger" => []
+        ];
+    }
+
+    public static function displayFlashMessages(): void
+    {
+        $messagesFlash = static::lireTousMessages();
+        foreach ($messagesFlash as $type => $messages) {
+            foreach ($messages as $message) {
+                echo '<div class="flash-message ' . htmlspecialchars($type) . '">';
+                echo htmlspecialchars($message);
+                echo '</div>';
+            }
+        }
+        // Clear flash messages after displaying them
+        Session::getInstance()->enregistrer(static::$cleFlash, [
+            "success" => [],
+            "info" => [],
+            "warning" => [],
+            "danger" => []
+        ]);
     }
 
     public static function contientMessage(string $type): bool
@@ -47,37 +79,6 @@ class MessageFlash {
         // on les supprime
         $_SESSION[static::$cleFlash][$type] = [];
         return $messages;   
-    }
-    
-    public static function lireTousMessages() : array
-    {
-        $session = Session::getInstance();
-        if (!$session->contient(static::$cleFlash)) {
-            static::initialiser();
-        }
-        
-        $messagesFlash = $session->lire(static::$cleFlash);
-        if (!is_array($messagesFlash)) {
-            $messagesFlash = [
-                "success" => [],
-                "info" => [],
-                "warning" => [],
-                "danger" => []
-            ];
-        }
-        
-        static::initialiser();
-        return $messagesFlash;
-    }
-
-    public static function displayFlashMessages(): void
-    {
-        $messagesFlash = static::lireTousMessages();
-        foreach ($messagesFlash as $type => $messages) {
-            foreach ($messages as $message) {
-                echo "<div class='flash-message flash-$type'>$message</div>";
-            }
-        }
     }
 }
 ?>

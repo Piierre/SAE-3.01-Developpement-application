@@ -272,6 +272,13 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
             <button type="submit">Afficher les données</button>
         </form>
 
+        <br>
+        <form action="/SAE-3.01-Developpement-application/web/frontController.php?action=addMeteotheque" method="post">
+            <input type="hidden" name="titre" value="Station: <?= htmlspecialchars($stationName) ?>">
+            <input type="hidden" name="description" value="Détails de la station <?= htmlspecialchars($stationName) ?>">
+            <button type="submit">Ajouter cette station à ma Météothèque</button>
+        </form>
+
         <div class="search-container" id="searchContainer">
             <input type="text" id="search" placeholder="Rechercher une station..." onkeyup="searchStations(this.value)">
             <div id="suggestions"></div>

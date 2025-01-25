@@ -10,8 +10,10 @@ class Session {
     private function __construct()
     { 
         // Démarrer la session et lancer une exception si cela échoue
-        if (session_start() === false) {
-            throw new Exception("La session n'a pas réussi à démarrer.");
+        if (session_status() === PHP_SESSION_NONE) {
+            if (session_start() === false) {
+                throw new Exception("La session n'a pas réussi à démarrer.");
+            }
         }
     }
 

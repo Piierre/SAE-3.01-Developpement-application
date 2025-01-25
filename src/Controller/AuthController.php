@@ -26,8 +26,6 @@ class AuthController {
         } else {
             MessageFlash::ajouter('danger', 'Login ou mot de passe incorrect.');
         }
-        header("Location: ../../web/frontController.php?page=login");
-        exit();
     }
 
     public static function register($login, $password) {

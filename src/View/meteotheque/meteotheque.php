@@ -1,6 +1,23 @@
 <?php
 require_once __DIR__ . '/../../../src/Model/MeteothequeModel.php';
-$meteotheques = \App\Meteo\Model\MeteothequeModel::getAllMeteotheques();
+require_once __DIR__ . '/../../../src/Lib/MessageFlash.php';
+
+use App\Meteo\Model\MeteothequeModel;
+use App\Meteo\Lib\MessageFlash;
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['user_id'])) {
+    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+    header('Location: /SAE-3.01-Developpement-application/web/frontController.php?page=login');
+    exit;
+}
+
+$userId = $_SESSION['user_id']; // ID de l'utilisateur connecté
+
+$meteotheques = MeteothequeModel::getMeteothequesByUser($userId);
 ?>
 
 <!DOCTYPE html>
@@ -17,16 +34,19 @@ $meteotheques = \App\Meteo\Model\MeteothequeModel::getAllMeteotheques();
     </header>
     <main>
         <section>
-            <h2>Liste des météothèques</h2>
+            <h2>Vos Météothèques</h2>
+            <?php MessageFlash::displayFlashMessages(); ?>
             <ul>
-                <?php foreach ($meteotheques as $meteotheque): ?>
-                    <li>
-                        <a href="details_meteotheque.php?id=<?= $meteotheque['id'] ?>">
-                            <?= htmlspecialchars($meteotheque['titre']) ?>
-                        </a>
-                        <p><?= htmlspecialchars($meteotheque['description']) ?></p>
-                    </li>
-                <?php endforeach; ?>
+                <?php if (!empty($meteotheques)): ?>
+                    <?php foreach ($meteotheques as $meteotheque): ?>
+                        <li>
+                            <strong><?= htmlspecialchars($meteotheque['titre']) ?></strong> :
+                            <?= htmlspecialchars($meteotheque['description']) ?>
+                        </li>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <li>Aucune météothèque trouvée.</li>
+                <?php endif; ?>
             </ul>
         </section>
     </main>

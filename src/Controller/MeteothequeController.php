@@ -11,4 +11,8 @@ class MeteothequeController
         $meteotheques = MeteothequeModel::getAllMeteotheques();
         require __DIR__ . '/../View/meteotheque/list_meteotheques.php';
     }
+
+    public function addMeteotheque($userId, $titre, $description) {
+        MeteothequeModel::createMeteotheque($userId, $titre, $description);
+    }
 }
