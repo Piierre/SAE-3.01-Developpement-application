@@ -91,6 +91,9 @@ switch ($page) {
         $meteothequeController = new MeteothequeController();
         $meteothequeController->listAllMeteotheques();
         break;
+    case 'details_meteotheque':
+        require(ROOT . '/src/View/meteotheque/details_meteotheque.php');
+        break;
     default:
         require(ROOT . '/src/View/home/index.php');
         break;
