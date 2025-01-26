@@ -32,5 +32,10 @@ class FavorisModel {
         return $stmt->execute([$userId, $meteothequeId]);
     }
 
-    
+    public static function isFavori($userId, $meteothequeId) {
+        $pdo = Conf::getPDO();
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM Favoris WHERE user_id = ? AND meteotheque_id = ?");
+        $stmt->execute([$userId, $meteothequeId]);
+        return $stmt->fetchColumn() > 0;
+    }
 }
