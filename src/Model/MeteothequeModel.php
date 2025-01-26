@@ -8,10 +8,17 @@ use PDOException;
 
 class MeteothequeModel {
     public static function getAllMeteotheques() {
-        $pdo = Conf::getPDO();
-        $stmt = $pdo->query("SELECT * FROM Meteotheque");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    $pdo = Conf::getPDO();
+    $stmt = $pdo->prepare("
+        SELECT m.id, m.titre, m.description, m.station_name, m.search_date, m.date_creation,
+               u.id AS creator_id, u.login AS creator_login
+        FROM Meteotheque m
+        INNER JOIN Utilisateur u ON m.user_id = u.id
+    ");
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 
     public static function getMeteothequesByUser($userId) {
         if ($userId === null) {
