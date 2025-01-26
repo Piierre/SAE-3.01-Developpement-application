@@ -154,12 +154,6 @@ function genererCouleurAleatoire() {
                                 <input type="hidden" name="meteotheque_id" value="<?= htmlspecialchars($meteotheque['id']) ?>">
                                 <button type="submit" name="ajout" value="1" class="favoris-button">⭐ Ajouter aux favoris</button>
                             </form>
-
-                            <!-- Bouton pour exporter en CSV -->
-                            <form method="post" action="/SAE-3.01-Developpement-application/src/View/meteotheque/export_csv.php">
-                                <input type="hidden" name="meteotheque_id" value="<?= htmlspecialchars($meteotheque['id']) ?>">
-                                <button type="submit" class="favoris-button" style="background-color: #4CAF50; color: white;">📄 Exporter en CSV</button>
-                            </form>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>

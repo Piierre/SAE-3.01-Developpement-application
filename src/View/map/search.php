@@ -75,8 +75,6 @@ if (isset($_GET['station_name']) && isset($_GET['date'])) {
                 <th>Précip. 24h (mm)</th>
             </tr>';
 
-            
-
     foreach ($data['results'] as $record) {
         echo '<tr>';
         echo '<td>' . htmlspecialchars($record['date'] ?? 'N/A') . '</td>';
@@ -93,6 +91,13 @@ if (isset($_GET['station_name']) && isset($_GET['date'])) {
     }
 
     echo '</table>';
+
+    // Formulaire pour exporter en CSV
+    echo '<form method="post" action="/SAE-3.01-Developpement-application/src/View/meteotheque/export_csv.php">
+            <input type="hidden" name="station_name" value="' . htmlspecialchars($stationName) . '">
+            <input type="hidden" name="date" value="' . htmlspecialchars($date) . '">
+            <button type="submit" class="btn">📄 Exporter en CSV</button>
+          </form>';
 
     if ($redirect) {
         echo '<script>
