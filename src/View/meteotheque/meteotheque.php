@@ -112,6 +112,21 @@ function genererCouleurAleatoire() {
         .favoris-button:hover {
             background-color: #e0a800;
         }
+
+        .remove-button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .remove-button:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 <body>
@@ -139,21 +154,24 @@ function genererCouleurAleatoire() {
                         <?php $couleur = genererCouleurAleatoire(); ?>
                         <div class="cube" style="background-color: <?= $couleur ?>;">
                             <strong>Météothèque : <?= htmlspecialchars($meteotheque['titre']) ?></strong>
-                            <p>Description : <?= htmlspecialchars($meteotheque['description']) ?></p>
-                            <p>Station : <?= htmlspecialchars($meteotheque['station_name']) ?></p>
                             <p>Date de recherche : <?= htmlspecialchars($meteotheque['search_date']) ?></p>
-
                             <?php if (!empty($meteotheque['station_name']) && !empty($meteotheque['search_date'])): ?>
                                 <a href="/SAE-3.01-Developpement-application/src/View/map/search.php?station_name=<?= urlencode($meteotheque['station_name']) ?>&date=<?= urlencode($meteotheque['search_date']) ?>&redirect=true">🔍 Rechercher cette station</a>
                             <?php else: ?>
                                 <em>Informations de recherche incomplètes.</em>
                             <?php endif; ?>
-
-                            <!-- Formulaire d'ajout aux favoris -->
-                            <form method="post" action="/SAE-3.01-Developpement-application/src/View/meteotheque/add_to_favorites.php">
-                                <input type="hidden" name="meteotheque_id" value="<?= htmlspecialchars($meteotheque['id']) ?>">
-                                <button type="submit" name="ajout" value="1" class="favoris-button">⭐ Ajouter aux favoris</button>
-                            </form>
+                            <!-- Formulaire d'ajout ou de suppression des favoris -->
+                            <?php if (FavorisModel::isFavori($userId, $meteotheque['id'])): ?>
+                                <form method="post" action="/SAE-3.01-Developpement-application/src/View/meteotheque/remove_from_favorites.php">
+                                    <input type="hidden" name="meteotheque_id" value="<?= htmlspecialchars($meteotheque['id']) ?>">
+                                    <button type="submit" class="remove-button">❌ Supprimer des favoris</button>
+                                </form>
+                            <?php else: ?>
+                                <form method="post" action="/SAE-3.01-Developpement-application/src/View/meteotheque/add_to_favorites.php">
+                                    <input type="hidden" name="meteotheque_id" value="<?= htmlspecialchars($meteotheque['id']) ?>">
+                                    <button type="submit" class="favoris-button">⭐ Ajouter aux favoris</button>
+                                </form>
+                            <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
