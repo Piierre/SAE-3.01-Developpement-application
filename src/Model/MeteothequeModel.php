@@ -4,6 +4,7 @@ namespace App\Meteo\Model;
 require_once __DIR__ . '/../Config/Conf.php'; // Ensure this path is correct
 use App\Meteo\Config\Conf; // Ensure this class exists and is correctly namespaced
 use PDO;
+use PDOException;
 
 class MeteothequeModel {
     public static function getAllMeteotheques() {
@@ -31,9 +32,33 @@ class MeteothequeModel {
 
     public static function createMeteotheque($userId, $titre, $description, $stationName, $searchDate) {
         $pdo = Conf::getPDO();
+    
+        // Remplacer les valeurs vides par NULL pour éviter les erreurs SQL
+        $stationName = !empty($stationName) ? $stationName : null;
+        $searchDate = !empty($searchDate) ? $searchDate : null;
+    
+        // Préparer la requête SQL
         $stmt = $pdo->prepare("INSERT INTO Meteotheque (user_id, titre, description, station_name, search_date) VALUES (?, ?, ?, ?, ?)");
-        $stmt->execute([$userId, $titre, $description, $stationName, $searchDate]);
-        return $pdo->lastInsertId();
+    
+        try {
+            // Exécuter la requête avec des valeurs sécurisées
+            $stmt->execute([
+                $userId,
+                $titre,
+                $description,
+                $stationName,
+                $searchDate
+            ]);
+    
+            // Retourner l'ID de l'enregistrement inséré
+            return $pdo->lastInsertId();
+    
+        } catch (PDOException $e) {
+            // Enregistrer l'erreur et retourner false
+            error_log("Erreur lors de l'insertion dans la Météothèque : " . $e->getMessage());
+            return false;
+        }
     }
+    
 }
 ?>
