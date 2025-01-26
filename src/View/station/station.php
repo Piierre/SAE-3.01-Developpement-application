@@ -278,7 +278,6 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
     <input type="hidden" name="description" value="Détails de la station <?= htmlspecialchars($_GET['station_name'] ?? '') ?>">
     <input type="hidden" name="station_name" id="station_name_input" value="<?= isset($_GET['station_name']) ? htmlspecialchars($_GET['station_name']) : '' ?>">
     <input type="hidden" name="search_date" id="search_date_input" value="<?= isset($_GET['date']) ? htmlspecialchars($_GET['date']) : '' ?>">
-    <button type="submit">Ajouter cette station à ma Météothèque</button>
 </form>
 
 <script>
@@ -293,13 +292,6 @@ function validateForm() {
     return true;
 }
 </script>
-
-
-
-
-
-
-
         <div class="search-container" id="searchContainer">
             <input type="text" id="search" placeholder="Rechercher une station..." onkeyup="searchStations(this.value)">
             <div id="suggestions"></div>
