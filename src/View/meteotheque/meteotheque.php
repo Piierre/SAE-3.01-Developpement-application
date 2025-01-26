@@ -19,18 +19,6 @@ if (!isset($_SESSION['user_id'])) {
 $userId = $_SESSION['user_id'];
 $meteotheques = MeteothequeModel::getMeteothequesByUser($userId);
 
-// Vérification si un ajout aux favoris a été effectué
-if (isset($_GET['ajout']) && isset($_GET['id'])) {
-    $meteothequeId = intval($_GET['id']);
-    if (FavorisModel::addToFavorites($userId, $meteothequeId)) {
-        MessageFlash::add('success', 'La météothèque a été ajoutée à vos favoris.');
-    } else {
-        MessageFlash::add('error', 'Erreur lors de l\'ajout aux favoris.');
-    }
-    header('Location: ' . $_SERVER['PHP_SELF']);
-    exit;
-}
-
 /**
  * Fonction pour générer une couleur hexadécimale aléatoire.
  *
@@ -150,8 +138,9 @@ function genererCouleurAleatoire() {
                             <?php else: ?>
                                 <em>Informations de recherche incomplètes.</em>
                             <?php endif; ?>
-                            <form method="get" action="<?= $_SERVER['PHP_SELF'] ?>">
-                                <input type="hidden" name="id" value="<?= htmlspecialchars($meteotheque['id']) ?>">
+                            <!-- Formulaire d'ajout aux favoris -->
+                            <form method="post" action="/SAE-3.01-Developpement-application/src/View/meteotheque/add_to_favorites.php">
+                                <input type="hidden" name="meteotheque_id" value="<?= htmlspecialchars($meteotheque['id']) ?>">
                                 <button type="submit" name="ajout" value="1" class="favoris-button">⭐ Ajouter aux favoris</button>
                             </form>
                         </div>
