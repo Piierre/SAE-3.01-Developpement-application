@@ -1,8 +1,10 @@
 <?php
 require_once __DIR__ . '/../../../src/Model/MeteothequeModel.php';
+require_once __DIR__ . '/../../../src/Model/FavorisModel.php';
 require_once __DIR__ . '/../../../src/Lib/MessageFlash.php';
 
 use App\Meteo\Model\MeteothequeModel;
+use App\Meteo\Model\FavorisModel;
 use App\Meteo\Lib\MessageFlash;
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -96,6 +98,21 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
         .favoris-button:hover {
             background-color: #e0a800;
         }
+
+        .remove-button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .remove-button:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 <body>
@@ -125,10 +142,17 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
                             <p>Date : <?= htmlspecialchars($meteotheque['date_creation']) ?></p>
                             <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=recherche&station_name=<?= urlencode($meteotheque['station_name']) ?>&date=<?= urlencode($meteotheque['search_date']) ?>">🔍 Rechercher cette station</a>
                             <?php if (isset($_SESSION['login'])): ?>
-                            <form method="post" action="/SAE-3.01-Developpement-application/src/View/meteotheque/add_to_favorites.php">
-                                <input type="hidden" name="meteotheque_id" value="<?= htmlspecialchars($meteotheque['id']) ?>">
-                                <button type="submit" class="favoris-button">⭐ Ajouter aux favoris</button>
-                            </form>
+                                <?php if (FavorisModel::isFavori($_SESSION['user_id'], $meteotheque['id'])): ?>
+                                    <form method="post" action="/SAE-3.01-Developpement-application/src/View/meteotheque/remove_from_favorites.php">
+                                        <input type="hidden" name="meteotheque_id" value="<?= htmlspecialchars($meteotheque['id']) ?>">
+                                        <button type="submit" class="remove-button">❌ Supprimer des favoris</button>
+                                    </form>
+                                <?php else: ?>
+                                    <form method="post" action="/SAE-3.01-Developpement-application/src/View/meteotheque/add_to_favorites.php">
+                                        <input type="hidden" name="meteotheque_id" value="<?= htmlspecialchars($meteotheque['id']) ?>">
+                                        <button type="submit" class="favoris-button">⭐ Ajouter aux favoris</button>
+                                    </form>
+                                <?php endif; ?>
                             <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
@@ -143,4 +167,3 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
     </footer>
 </body>
 </html>
-
