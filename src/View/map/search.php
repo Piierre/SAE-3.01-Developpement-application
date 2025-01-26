@@ -30,6 +30,7 @@ if (isset($_GET['query'])) {
 if (isset($_GET['station_name']) && isset($_GET['date'])) {
     $stationName = $_GET['station_name'];
     $date = $_GET['date'];
+    $redirect = isset($_GET['redirect']) ? $_GET['redirect'] : false;
 
     // Conversion de la date au format requis par l'API (YYYY/MM/DD)
     $formattedDate = date("Y/m/d", strtotime($date));
@@ -75,6 +76,8 @@ if (isset($_GET['station_name']) && isset($_GET['date'])) {
                 <th>Précip. 24h (mm)</th>
             </tr>';
 
+            
+
     foreach ($data['results'] as $record) {
         echo '<tr>';
         echo '<td>' . htmlspecialchars($record['date'] ?? 'N/A') . '</td>';
@@ -91,6 +94,119 @@ if (isset($_GET['station_name']) && isset($_GET['date'])) {
     }
 
     echo '</table>';
+
+    if ($redirect) {
+        echo '<script>
+            window.onload = function() {
+                document.getElementById("showChartsButton").click();
+            };
+        </script>';
+    }
+
+    echo '<button class="chart-type-button" id="showChartsButton">📊 Afficher les graphiques</button>';
+
+    echo '<div id="charts" style="display: none;">
+        <div class="chart-container">
+            <h2>Température</h2>
+            <canvas id="temperatureChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h2>Humidité</h2>
+            <canvas id="humidityChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h2>Vitesse du vent</h2>
+            <canvas id="windChart"></canvas>
+        </div>
+    </div>';
+
+    echo '<style>
+    #charts {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 20px;
+        overflow-x: auto;
+    }
+
+    .chart-container {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 10px;
+        border-radius: 10px;
+        width: 300px;
+        flex: 0 0 auto;
+    }
+
+    canvas {
+        max-width: 100%;
+        max-height: 200px;
+    }
+    </style>';
+
+    echo '<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>';
+    echo '<script>
+    document.getElementById("showChartsButton").addEventListener("click", function() {
+        let stationName = "' . htmlspecialchars($stationName) . '";
+        let searchDate = "' . htmlspecialchars($date) . '";
+
+        fetch(`/SAE-3.01-Developpement-application/src/View/station/station_data.php?station_name=${encodeURIComponent(stationName)}&date=${searchDate}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length === 0) {
+                    alert("Aucune donnée trouvée pour cette station à cette date.");
+                    return;
+                }
+
+                document.getElementById("charts").style.display = "block";
+
+                const sortedData = data.sort((a, b) => new Date(a.date) - new Date(b.date));
+                let labels = sortedData.map(entry => new Date(entry.date).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }));
+                let temperatures = sortedData.map(entry => entry.tc);
+                let humidities = sortedData.map(entry => entry.u);
+                let windSpeeds = sortedData.map(entry => entry.ff);
+
+                createChart("temperatureChart", "Température (°C)", labels, temperatures, "red");
+                createChart("humidityChart", "Humidité (%)", labels, humidities, "blue");
+                createChart("windChart", "Vitesse du vent (m/s)", labels, windSpeeds, "green");
+            })
+            .catch(error => {
+                console.error("Erreur lors de la récupération des données:", error);
+            });
+    });
+
+    function createChart(canvasId, label, labels, data, color) {
+        var ctx = document.getElementById(canvasId).getContext("2d");
+        new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: label,
+                    data: data,
+                    borderColor: color,
+                    backgroundColor: "rgba(0, 0, 0, 0)",
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        labels: { color: "black" }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: "black" }
+                    },
+                    y: {
+                        ticks: { color: "black" }
+                    }
+                }
+            }
+        });
+    }
+    </script>';
 } else {
     echo "<p>Veuillez spécifier un nom de station et une date.</p>";
 }
