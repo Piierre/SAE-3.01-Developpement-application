@@ -273,7 +273,6 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
         </form>
 
         <br>
-        <form action="/SAE-3.01-Developpement-application/web/frontController.php?action=addMeteotheque" method="post" onsubmit="return validateForm()">
     <input type="hidden" name="titre" value="Station: <?= htmlspecialchars($_GET['station_name'] ?? '') ?>">
     <input type="hidden" name="description" value="Détails de la station <?= htmlspecialchars($_GET['station_name'] ?? '') ?>">
     <input type="hidden" name="station_name" id="station_name_input" value="<?= isset($_GET['station_name']) ? htmlspecialchars($_GET['station_name']) : '' ?>">

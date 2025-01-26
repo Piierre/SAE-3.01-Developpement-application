@@ -5,12 +5,13 @@ require_once __DIR__ . '/../../../src/Model/FavorisModel.php';
 use App\Meteo\Lib\Auth;
 use App\Meteo\Model\FavorisModel;
 
+session_start();
+
 // Vérifie que l'utilisateur est connecté
 Auth::requireAuth();
 
-if (isset($_SESSION['user'])) {
-    $user = $_SESSION['user'];
-    $userId = $user['id'];
+if (isset($_SESSION['user_id'])) {
+    $userId = $_SESSION['user_id'];
 } else {
     $userId = null;
 }
@@ -85,11 +86,36 @@ $favoris = FavorisModel::getFavorisByUser($userId);
         .favori-item a:hover {
             text-decoration: underline;
         }
+
+        .remove-button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .remove-button:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Favoris</h1>
+        <?php if (isset($_SESSION['login'])): ?>
+        <div class="dropdown">
+            <button class="dropbtn">Météothèque</button>
+            <div class="dropdown-content">
+                <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=all_meteotheques">Général</a>
+                <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=meteotheque">Vos Météothèques</a>
+                <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=favoris">Favoris</a>
+            </div>
+        </div>
+        <?php endif; ?>
         <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php';">🏠 Accueil</button>
     </header>
     <main>
@@ -99,9 +125,14 @@ $favoris = FavorisModel::getFavorisByUser($userId);
                 <div class="favoris-list">
                     <?php foreach ($favoris as $favori): ?>
                         <div class="favori-item">
-                            <a href="details_meteotheque.php?id=<?= htmlspecialchars($favori['meteotheque_id']) ?>">
+                            <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=details_meteotheque&id=<?= htmlspecialchars($favori['id']) ?>">
                                 <?= htmlspecialchars($favori['titre']) ?>
                             </a>
+                            <p>Créateur: <?= htmlspecialchars($favori['creator_login']) ?> (ID: <?= htmlspecialchars($favori['creator_id']) ?>)</p>
+                            <form method="post" action="/SAE-3.01-Developpement-application/src/View/meteotheque/remove_from_favorites.php">
+                                <input type="hidden" name="meteotheque_id" value="<?= htmlspecialchars($favori['id']) ?>">
+                                <button type="submit" class="remove-button">❌ Supprimer des favoris</button>
+                            </form>
                         </div>
                     <?php endforeach; ?>
                 </div>
