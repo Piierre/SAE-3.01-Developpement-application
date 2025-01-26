@@ -1,53 +1,16 @@
 <?php
-$stationName = isset($_GET['station_name']) ? $_GET['station_name'] : '';
-$searchDate = isset($_GET['date']) ? $_GET['date'] : '';
+$stationName = isset($_POST['station_name']) ? $_POST['station_name'] : '';
+$searchDate = isset($_POST['date']) ? $_POST['date'] : '';
 ?>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/recherche.css">
-    <style>
-    #charts {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        gap: 10px;
-        margin-top: 20px;
-        overflow-x: auto;
-    }
-
-    .chart-container {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 10px;
-        border-radius: 10px;
-        width: 300px;
-        flex: 0 0 auto;
-    }
-
-    canvas {
-        max-width: 100%;
-        max-height: 200px;
-    }
-    </style>
 </head>
-<title>Recherche de Station Météo</title>
-
-<script src="/SAE-3.01-Developpement-application/web/assets/css/js/recherche.js"></script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    document.querySelector("form").addEventListener("submit", function(event) {
-        let stationName = document.getElementById('search').value.trim();
-        let searchDate = document.getElementById('date').value.trim();
-        
-        if (!stationName || !searchDate) {
-            alert("Veuillez remplir tous les champs avant d'ajouter à la Météothèque.");
-            event.preventDefault();
-        }
-    });
-});
-</script>
+    <title>Recherche de Station Météo</title>
+    
+    <script src="/SAE-3.01-Developpement-application/web/assets/css/js/recherche.js"></script>
 
 </head>
 <body>
@@ -73,74 +36,13 @@ document.addEventListener("DOMContentLoaded", function() {
         >
         <button onclick="searchMeasures()">Rechercher</button>
 
-        <form action="/SAE-3.01-Developpement-application/web/frontController.php?action=addMeteotheque" method="post" onsubmit="return validateForm()">
-    <input type="hidden" name="titre" id="hiddenTitre">
-    <input type="hidden" name="description" id="hiddenDescription">
-    <input type="hidden" name="station_name" id="hiddenStation">
-    <input type="hidden" name="search_date" id="hiddenDate">
-    <input type="hidden" name="redirect" value="true">  <!-- Ajout du paramètre de redirection -->
-
-    <button type="submit">Ajouter cette recherche à ma Météothèque</button>
-</form>
-
-
-        <script>
-        function validateForm() {
-    let stationName = document.getElementById('search').value.trim();
-    let searchDate = document.getElementById('date').value.trim();
-
-    if (stationName === '' || searchDate === '') {
-        alert("Veuillez remplir tous les champs avant d'ajouter à la Météothèque.");
-        return false;
-    }
-
-    // Mettre à jour les valeurs des champs cachés avant l'envoi
-    document.getElementById('hiddenTitre').value = `Recherche: ${stationName}`;
-    document.getElementById('hiddenDescription').value = `Recherche pour la station ${stationName} à la date ${searchDate}`;
-    document.getElementById('hiddenStation').value = stationName;
-    document.getElementById('hiddenDate').value = searchDate;
-
-    return true;
-}
-
-
-        function searchMeasures() {
-            let stationName = document.getElementById("search").value.trim();
-            let date = document.getElementById("date").value.trim();
-
-            if (stationName === "" || date === "") {
-                alert("Veuillez remplir tous les champs.");
-                return;
-            }
-
-            fetch(`/SAE-3.01-Developpement-application/src/View/map/search.php?station_name=${encodeURIComponent(stationName)}&date=${encodeURIComponent(date)}`)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById("dataTable").innerHTML = data;
-                })
-                .catch(error => {
-                    console.error('Erreur lors de la récupération des données:', error);
-                    alert("Erreur lors de la récupération des données.");
-                });
-        }
-        </script>
-<script>
-window.onload = function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    let stationName = urlParams.get('station_name');
-    let searchDate = urlParams.get('date');
-
-    if (stationName && searchDate) {
-        document.getElementById('search').value = stationName;
-        document.getElementById('date').value = searchDate;
-        
-        // Effectuer la recherche et afficher les graphiques automatiquement
-        searchMeasures();
-    }
-};
-</script>
-
-
+        <form action="/SAE-3.01-Developpement-application/web/frontController.php?action=addMeteotheque" method="post">
+            <input type="hidden" name="titre" value="Recherche: <?= htmlspecialchars($stationName) ?>">
+            <input type="hidden" name="description" value="Recherche pour la station <?= htmlspecialchars($stationName) ?> à la date <?= htmlspecialchars($searchDate) ?>">
+            <input type="hidden" name="station_name" value="<?= htmlspecialchars($stationName) ?>">
+            <input type="hidden" name="search_date" value="<?= htmlspecialchars($searchDate) ?>">
+            <button type="submit">Ajouter cette recherche à ma Météothèque</button>
+        </form>
 
         <div id="results" class="results">
             <table>
@@ -159,6 +61,8 @@ window.onload = function() {
         </div>
     </div>
 
+<<<<<<< HEAD
+=======
 
 <div id="charts" style="display: none;">
     <div class="chart-container">
@@ -245,6 +149,7 @@ function createChart(canvasId, label, labels, data, color) {
 </script>
 
 
+>>>>>>> 3a946d7eb7a12a30b2be7f1319782fcb5c997eb4
     <footer>
         SAE - Projet 3.01 - Développement d'application
     </footer>
