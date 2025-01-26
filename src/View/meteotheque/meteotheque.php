@@ -58,7 +58,6 @@ function genererCouleurAleatoire() {
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            margin-bottom: 20px;
         }
 
         .back-button:hover {
@@ -118,6 +117,16 @@ function genererCouleurAleatoire() {
 <body>
     <header>
         <h1>Météothèque</h1>
+        <?php if (isset($_SESSION['login'])): ?>
+        <div class="dropdown">
+            <button class="dropbtn">Météothèque</button>
+            <div class="dropdown-content">
+                <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=all_meteotheques">Général</a>
+                <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=meteotheque">Vos Météothèques</a>
+                <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=favoris">Favoris</a>
+            </div>
+        </div>
+        <?php endif; ?>
         <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php';">🏠 Accueil</button>
     </header>
     <main>
@@ -134,7 +143,7 @@ function genererCouleurAleatoire() {
                             <p>Station : <?= htmlspecialchars($meteotheque['station_name']) ?></p>
                             <p>Date de recherche : <?= htmlspecialchars($meteotheque['search_date']) ?></p>
                             <?php if (!empty($meteotheque['station_name']) && !empty($meteotheque['date_creation'])): ?>
-                                <a href="/SAE-3.01-Developpement-application/src/View/map/search.php?station_name=<?= urlencode($meteotheque['station_name']) ?>&date=<?= urlencode($meteotheque['search_date']) ?>&redirect=true">🔍 Rechercher cette station</a>
+                                <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=recherche&station_name=<?= urlencode($meteotheque['station_name']) ?>&date=<?= urlencode($meteotheque['search_date']) ?>">🔍 Rechercher cette station</a>
                             <?php else: ?>
                                 <em>Informations de recherche incomplètes.</em>
                             <?php endif; ?>

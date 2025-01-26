@@ -5,6 +5,10 @@ require_once __DIR__ . '/../../../src/Lib/MessageFlash.php';
 use App\Meteo\Model\MeteothequeModel;
 use App\Meteo\Lib\MessageFlash;
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 $meteotheques = MeteothequeModel::getAllMeteotheques();
 ?>
 
@@ -97,6 +101,7 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
 <body>
     <header>
         <h1>Toutes les Météothèques</h1>
+        <?php if (isset($_SESSION['login'])): ?>
         <div class="dropdown">
             <button class="dropbtn">Météothèque</button>
             <div class="dropdown-content">
@@ -105,6 +110,7 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
                 <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=favoris">Favoris</a>
             </div>
         </div>
+        <?php endif; ?>
         <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
     </header>
     <main>
