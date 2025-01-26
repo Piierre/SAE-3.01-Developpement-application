@@ -2,11 +2,11 @@
 
 namespace App\Meteo\Controller;
 require_once __DIR__ . '/../../config/Conf.php';
-
 use App\Meteo\Config\Conf;
 use PDO;
 
 $pdo = Conf::getPDO();
+echo '<link rel="stylesheet" type="text/css" href="/SAE-3.01-Developpement-application/web/assets/css/search.css">';
 
 // Recherche des stations par nom
 if (isset($_GET['query'])) {
@@ -119,6 +119,7 @@ if (isset($_GET['station_name']) && isset($_GET['date'])) {
         </div>
     </div>';
 
+    /*
     echo '<style>
     #charts {
         display: flex;
@@ -142,6 +143,7 @@ if (isset($_GET['station_name']) && isset($_GET['date'])) {
         max-height: 200px;
     }
     </style>';
+    */
 
     echo '<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>';
     echo '<script>
