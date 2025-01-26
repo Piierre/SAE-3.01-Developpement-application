@@ -5,10 +5,6 @@ require_once __DIR__ . '/../../../src/Lib/MessageFlash.php';
 use App\Meteo\Model\MeteothequeModel;
 use App\Meteo\Lib\MessageFlash;
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 $meteotheques = MeteothequeModel::getAllMeteotheques();
 ?>
 
@@ -101,7 +97,6 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
 <body>
     <header>
         <h1>Toutes les Météothèques</h1>
-        <?php if (isset($_SESSION['login'])): ?>
         <div class="dropdown">
             <button class="dropbtn">Météothèque</button>
             <div class="dropdown-content">
@@ -110,7 +105,6 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
                 <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=favoris">Favoris</a>
             </div>
         </div>
-        <?php endif; ?>
         <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
     </header>
     <main>
@@ -123,7 +117,7 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
                         <div class="cube">
                             <strong>Météothèque :<br> <?= htmlspecialchars($meteotheque['titre']) ?></strong>
                             <p>Date : <?= htmlspecialchars($meteotheque['date_creation']) ?></p>
-                            <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=recherche&station_name=<?= urlencode($meteotheque['station_name']) ?>&date=<?= urlencode($meteotheque['search_date']) ?>">🔍 Rechercher cette station</a>
+                            <a href="/SAE-3.01-Developpement-application/src/View/map/search.php?station_name=<?= urlencode($meteotheque['station_name']) ?>&date=<?= urlencode($meteotheque['search_date']) ?>&redirect=true">🔍 Rechercher cette station</a>
                             <form method="post" action="/SAE-3.01-Developpement-application/src/View/meteotheque/add_to_favorites.php">
                                 <input type="hidden" name="meteotheque_id" value="<?= htmlspecialchars($meteotheque['id']) ?>">
                                 <button type="submit" class="favoris-button">⭐ Ajouter aux favoris</button>
