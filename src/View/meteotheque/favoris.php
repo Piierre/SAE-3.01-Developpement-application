@@ -106,6 +106,16 @@ $favoris = FavorisModel::getFavorisByUser($userId);
 <body>
     <header>
         <h1>Favoris</h1>
+        <?php if (isset($_SESSION['login'])): ?>
+        <div class="dropdown">
+            <button class="dropbtn">Météothèque</button>
+            <div class="dropdown-content">
+                <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=all_meteotheques">Général</a>
+                <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=meteotheque">Vos Météothèques</a>
+                <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=favoris">Favoris</a>
+            </div>
+        </div>
+        <?php endif; ?>
         <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php';">🏠 Accueil</button>
     </header>
     <main>
