@@ -47,6 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
 $page = $_GET['page'] ?? 'home';
 
 switch ($page) {
+    case 'favoris':
+        require(ROOT . '/src/View/meteotheque/favoris.php');
+        break;
     case 'carte_regions':
         require(ROOT . '/src/View/map/carte_regions.php');
         break;

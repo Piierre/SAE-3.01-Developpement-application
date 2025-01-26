@@ -11,7 +11,7 @@ table {
 
 /* En-têtes du tableau */
 table th {
-    background-color: #8FBC8F;
+    background-color: #000000;
     color: white;
     padding: 10px;
     text-align: center;
@@ -19,6 +19,7 @@ table th {
 
 /* Corps du tableau */
 table td {
+    color: black;
     padding: 10px;
     text-align: center;
     border-bottom: 1px solid #ddd;

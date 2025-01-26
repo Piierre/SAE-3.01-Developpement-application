@@ -24,7 +24,7 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
             <div class="dropdown-content">
                 <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=all_meteotheques">Général</a>
                 <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=meteotheque">Vos Météothèques</a>
-                <a href="#">Favoris</a>
+                <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=favoris">Favoris</a>
             </div>
         </div>
         <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
