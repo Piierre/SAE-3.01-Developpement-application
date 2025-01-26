@@ -124,10 +124,12 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
                             <strong>Météothèque :<br> <?= htmlspecialchars($meteotheque['titre']) ?></strong>
                             <p>Date : <?= htmlspecialchars($meteotheque['date_creation']) ?></p>
                             <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=recherche&station_name=<?= urlencode($meteotheque['station_name']) ?>&date=<?= urlencode($meteotheque['search_date']) ?>">🔍 Rechercher cette station</a>
+                            <?php if (isset($_SESSION['login'])): ?>
                             <form method="post" action="/SAE-3.01-Developpement-application/src/View/meteotheque/add_to_favorites.php">
                                 <input type="hidden" name="meteotheque_id" value="<?= htmlspecialchars($meteotheque['id']) ?>">
                                 <button type="submit" class="favoris-button">⭐ Ajouter aux favoris</button>
                             </form>
+                            <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
