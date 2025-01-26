@@ -115,10 +115,8 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
                 <?php if (!empty($meteotheques)): ?>
                     <?php foreach ($meteotheques as $meteotheque): ?>
                         <div class="cube">
-                            <strong>Météothèque : <?= htmlspecialchars($meteotheque['titre']) ?></strong>
-                            <p>Description : <?= htmlspecialchars($meteotheque['description']) ?></p>
-                            <p>Station : <?= htmlspecialchars($meteotheque['station_name']) ?></p>
-                            <p>Date de création : <?= htmlspecialchars($meteotheque['search_date']) ?></p>
+                            <strong>Météothèque :<br> <?= htmlspecialchars($meteotheque['titre']) ?></strong>
+                            <p>Date : <?= htmlspecialchars($meteotheque['date_creation']) ?></p>
                             <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=recherche&station_name=<?= urlencode($meteotheque['station_name']) ?>&date=<?= urlencode($meteotheque['search_date']) ?>">🔍 Rechercher cette station</a>
                             <form method="post" action="/SAE-3.01-Developpement-application/src/View/meteotheque/add_to_favorites.php">
                                 <input type="hidden" name="meteotheque_id" value="<?= htmlspecialchars($meteotheque['id']) ?>">
