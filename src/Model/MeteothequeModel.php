@@ -22,13 +22,14 @@ class MeteothequeModel {
         $stmt->execute([$userId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
-    public static function getMeteothequeById($id) {
+    
+    public static function getMeteothequeById($meteothequeId) {
         $pdo = Conf::getPDO();
         $stmt = $pdo->prepare("SELECT * FROM Meteotheque WHERE id = ?");
-        $stmt->execute([$id]);
+        $stmt->execute([$meteothequeId]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    
 
     public static function createMeteotheque($userId, $titre, $description, $stationName, $searchDate) {
         $pdo = Conf::getPDO();
