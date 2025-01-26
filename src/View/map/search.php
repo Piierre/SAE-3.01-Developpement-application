@@ -61,7 +61,6 @@ if (isset($_GET['station_name']) && isset($_GET['date'])) {
     }
 
     // Affichage des données sous forme de tableau sans utiliser 'fields'
-    echo '<h2>Mesures pour la station ' . htmlspecialchars($stationName) . ' le ' . htmlspecialchars($date) . '</h2>';
     echo '<table border="1">
             <tr>
                 <th>Date</th>
@@ -160,8 +159,15 @@ if (isset($_GET['station_name']) && isset($_GET['date'])) {
 
                 document.getElementById("charts").style.display = "block";
 
-                const sortedData = data.sort((a, b) => new Date(a.date) - new Date(b.date));
-                let labels = sortedData.map(entry => new Date(entry.date).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }));
+                // Trier les données par heure dans lordre souhaité
+                const sortedData = data.sort((a, b) => {
+                    const order = ["00:00", "03:00", "06:00", "09:00", "12:00", "15:00", "18:00", "21:00"];
+                    const aHour = new Date(a.date).toISOString().substring(11, 16);
+                    const bHour = new Date(b.date).toISOString().substring(11, 16);
+                    return order.indexOf(aHour) - order.indexOf(bHour);
+                });
+
+                let labels = sortedData.map(entry => new Date(entry.date).toISOString().substring(11, 16));
                 let temperatures = sortedData.map(entry => entry.tc);
                 let humidities = sortedData.map(entry => entry.u);
                 let windSpeeds = sortedData.map(entry => entry.ff);
