@@ -18,20 +18,20 @@ session_start();
         <nav>
             <ul>
                 <li><a href="#welcome">🏠 Accueil</a></li>
-                <li><a href="../web/frontController.php?page=all_meteotheques">Météothèque</a></li>
+                <li><a href="../web/frontController.php?page=all_meteotheques">🗃️ Météothèque</a></li>
                 <?php if (isset($_SESSION['login'])): ?>
                     <li><a href="../web/frontController.php?page=recherche">🔍 Recherche</a></li>                    
                     <li><a href="../web/frontController.php?page=carte_thermique">🗺️ Carte Thermique</a></li>
                     <li><a href="../web/frontController.php?page=logout">🚪 Déconnexion (<?= htmlspecialchars($_SESSION['login']) ?>)</a></li>
                     <?php if ($_SESSION['role'] === 'admin'): ?>
-                        <li><a href="../web/frontController.php?page=manage_users">Gérer les utilisateurs</a></li>
+                        <li><a href="../web/frontController.php?page=manage_users">👥 Gérer les utilisateurs</a></li>
                     <?php endif; ?>
                 <?php else: ?>
                     <li><a href="../web/frontController.php?page=login">🔑 Connexion</a></li>
                 <?php endif; ?>
             </ul>
         </nav>
-        <button class="toggle-dark-mode" onclick="toggleDarkMode()">🌙 Mode sombre </button>
+        <button class="toggle-dark-mode" onclick="toggleDarkMode()">🌙 Mode sombre</button>
     </header>
 
     <main>

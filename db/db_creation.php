@@ -68,8 +68,8 @@ try {
             user_id INT NOT NULL,
             titre VARCHAR(255) NOT NULL,
             description TEXT,
-            station_name VARCHAR(255), -- Ajoutez cette colonne
-            search_date DATE, -- Ajoutez cette colonne
+            station_name VARCHAR(255),
+            search_date DATE, 
             date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (user_id) REFERENCES Utilisateur(id) ON DELETE CASCADE
         )",

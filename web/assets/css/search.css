@@ -1,0 +1,74 @@
+/* Tableau centré et stylisé */
+table {
+    margin: 20px auto;
+    width: 90%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+/* En-têtes du tableau */
+table th {
+    background-color: #8FBC8F;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Corps du tableau */
+table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Dernière ligne sans bordure */
+table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Graphiques */
+#charts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#charts .chart-container {
+    background: #fff;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 80%; /* Ajuste la largeur */
+    max-width: 800px; /* Largeur maximale */
+    text-align: center;
+}
+
+#charts canvas {
+    max-width: 100%;
+    max-height: 300px;
+}
+
+/* Bouton pour afficher les graphiques */
+button#showChartsButton {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #8FBC8F;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 4px 10px rgba(146, 143, 143, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+button#showChartsButton:hover {
+    background-color: #6DAF6D;
+}
+
