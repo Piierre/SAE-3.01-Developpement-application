@@ -16,19 +16,25 @@ session_start();
     <header>
         <h1>Données Météorologiques SYNOP</h1>
         <nav>
-            <ul>
+            <ul id="nav-list">
                 <li><a href="#welcome">🏠 Accueil</a></li>
                 <li><a href="../web/frontController.php?page=all_meteotheques">🗃️ Météothèque</a></li>
                 <?php if (isset($_SESSION['login'])): ?>
-                    <li><a href="../web/frontController.php?page=recherche">🔍 Recherche</a></li>                    
-                    <li><a href="../web/frontController.php?page=carte_thermique">🗺️ Carte Thermique</a></li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn">🔧 Fonctionnalités</a>
+                        <div class="dropdown-content">
+                            <a href="../web/frontController.php?page=recherche">🔍 Recherche</a>
+                            <a href="../web/frontController.php?page=carte_thermique">🗺️ Carte Thermique</a>
+                            <a href="../web/frontController.php?page=carte">🗺️ Carte Interactive</a>
+                            <?php if ($_SESSION['role'] === 'admin'): ?>
+                                <a href="../web/frontController.php?page=list_feedback">📝 Liste des feedbacks</a>
+                                <a href="../web/frontController.php?page=manage_users">👥 Gérer les utilisateurs</a>
+                            <?php else: ?>
+                                <a href="../web/frontController.php?page=feedback">📝 Feedback</a>
+                            <?php endif; ?>
+                        </div>
+                    </li>
                     <li><a href="../web/frontController.php?page=logout">🚪 Déconnexion (<?= htmlspecialchars($_SESSION['login']) ?>)</a></li>
-                    <?php if ($_SESSION['role'] === 'admin'): ?>
-                        <li><a href="../web/frontController.php?page=manage_users">👥 Gérer les utilisateurs</a></li>
-                        <li><a href="../web/frontController.php?page=list_feedback">📝 Feedback</a></li>
-                    <?php else: ?>
-                        <li><a href="../web/frontController.php?page=feedback">📝 Feedback</a></li>
-                    <?php endif; ?>
                 <?php else: ?>
                     <li><a href="../web/frontController.php?page=login">🔑 Connexion</a></li>
                 <?php endif; ?>
@@ -188,6 +194,11 @@ session_start();
 
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
+        }
+
+        function toggleNav() {
+            const navList = document.getElementById('nav-list');
+            navList.classList.toggle('active');
         }
 
         // Défilement fluide pour les liens internes
