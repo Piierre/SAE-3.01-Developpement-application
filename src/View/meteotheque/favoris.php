@@ -27,7 +27,7 @@ $favoris = FavorisModel::getFavorisByUser($userId);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Favoris</title>
     <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/styles.css">
-    <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/meteothque.css">
+    <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/meteotheque.css">
 </head>
 <body>
     <header>
