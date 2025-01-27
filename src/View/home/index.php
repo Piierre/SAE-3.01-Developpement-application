@@ -51,41 +51,48 @@ session_start();
                 <p>Explorez nos données météorologiques SYNOP de manière interactive.</p>
                 <p>Faites défiler pour découvrir nos fonctionnalités.</p>
 
-                <div class="welcome-buttons">
-                    <a href="../web/frontController.php?page=carte" class="btn">Découvrir la carte</a>
-                    <a href="../web/frontController.php?page=recherche" class="btn">Faire une recherche</a>
-                </div>
+                <?php if (isset($_SESSION['login'])): ?>
+                    <div class="welcome-buttons">
+                        <a href="../web/frontController.php?page=carte" class="btn">Découvrir la carte</a>
+                        <a href="../web/frontController.php?page=recherche" class="btn">Faire une recherche</a>
+                    </div>
+                <?php endif; ?>
             </div>
         </section>
 
         <div class="container">
-            <div class="section map" onclick="window.location.href='../web/frontController.php?page=carte'">
-                <div class="background">
-                    <img src="img/carte_france.png" alt="Carte Météo">
+            <?php if (isset($_SESSION['login'])): ?>
+                <div class="section map" onclick="window.location.href='../web/frontController.php?page=carte'">
+                    <div class="background">
+                        <img src="img/carte_france.png" alt="Carte Météo">
+                    </div>
+                    <span class="icon">🗺️</span>
+                    Carte Interactive
                 </div>
-                <span class="icon">🗺️</span>
-                Carte Interactive
-            </div>
-            <div class="section search" onclick="window.location.href='../web/frontController.php?page=recherche'">
-                <div class="background">
-                    <img src="img/undraw_world_bdnk.svg" alt="Recherche Météo">
+                <div class="section search" onclick="window.location.href='../web/frontController.php?page=recherche'">
+                    <div class="background">
+                        <img src="img/undraw_world_bdnk.svg" alt="Recherche Météo">
+                    </div>
+                    <span class="icon">🔍</span>
+                    Recherche
                 </div>
-                <span class="icon">🔍</span>
-                Recherche
-            </div>
-            <div class="section chart" onclick="window.location.href='../web/frontController.php?page=graphique'">
-                <div class="background graph-bg"></div>
-                <div class="background graph-bars">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
+                <div class="section chart" onclick="window.location.href='../web/frontController.php?page=graphique'">
+                    <div class="background graph-bg"></div>
+                    <div class="background graph-bars">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                    <span class="icon">📊</span>
+                    Graphiques
                 </div>
-                <div class="background">
-                </div>
-                <span class="icon">📊</span>
-                Graphiques
-            </div>
+            <?php else: ?>
+                <style>
+                    .container {
+                        display: none;
+                    }
+                </style>
+            <?php endif; ?>
         </div>
 
         <div class="stats">
