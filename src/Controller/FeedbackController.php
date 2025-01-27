@@ -2,6 +2,8 @@
 
 namespace App\Meteo\Controller;
 
+require_once __DIR__ . '/../Model/FeedbackModel.php';
+
 use App\Meteo\Model\FeedbackModel;
 
 class FeedbackController

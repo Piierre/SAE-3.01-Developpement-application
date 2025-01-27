@@ -17,6 +17,7 @@ require_once(ROOT . '/src/Controller/FeedbackController.php');/* HARRY */
 
 use App\Meteo\Controller\SearchController;
 use App\Meteo\Controller\MeteothequeController;
+use App\Meteo\Controller\FeedbackController;/* HARRY */
 
 // Gestion des actions AJAX
 if (isset($_GET['action']) && $_GET['action'] === 'search' && isset($_GET['query'])) {
