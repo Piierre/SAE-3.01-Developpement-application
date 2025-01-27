@@ -37,45 +37,7 @@ if (!$meteotheque) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détails de la Météothèque</title>
     <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/styles.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f9f9f9;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .back-button {
-            padding: 10px 20px;
-            font-size: 1rem;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .back-button:hover {
-            background-color: #218838;
-        }
-
-        .details {
-            background-color:rgb(162, 141, 141);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .details h2 {
-            margin-top: 0;
-        }
-    </style>
+    <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/meteotheque.css">
 </head>
 <body>
     <header>
