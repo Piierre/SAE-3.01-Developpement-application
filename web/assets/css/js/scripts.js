@@ -100,6 +100,7 @@ window.addEventListener('scroll', () => {
 // Function to toggle dark mode
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
+    document.body.classList.toggle('light-mode');
     localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
 }
 
@@ -109,7 +110,7 @@ function setThemeByPreference() {
     if (darkMode) {
         document.body.classList.add('dark-mode');
     } else {
-        document.body.classList.remove('dark-mode');
+        document.body.classList.add('light-mode');
     }
 }
 

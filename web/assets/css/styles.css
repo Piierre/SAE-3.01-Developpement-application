@@ -24,18 +24,21 @@ header {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+.light-mode header {
+    background: rgba(173, 216, 230, 0.8); /* Light blue for light mode */
+}
+
 header h1 {
     font-size: 2rem;
     font-weight: 700;
 }
 
 nav {
+    background-color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(43, 42, 42, 0.8);
     padding: 10px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 nav ul {
@@ -373,7 +376,7 @@ footer a:hover {
 }
 
 .dark-mode header {
-    background: rgba(0, 0, 0, 0.9);
+    background: rgb(39, 38, 38);
 }
 
 .graph-bg {
