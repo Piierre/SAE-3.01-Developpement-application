@@ -11,6 +11,8 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/styles.css"> <!-- Lien vers le CSS -->
+    <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/auth.css"> <!-- Lien vers le CSS -->
     <style>
         * {
             box-sizing: border-box;
@@ -389,6 +391,16 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
 </head>
 <body>
     <div id="particles-js"></div>
+    <header>
+        <h1>Données de la station <?php echo htmlspecialchars($stationName); ?></h1>
+        <div class="button-home">
+            <button class="btn" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
+        </div>
+        <div class="button-container">
+            <button class="btn" id="darkModeButton" onclick="toggleDarkMode()">🌙 Mode sombre</button>
+        </div>
+    </header>
+    <main>
     <!-- Loader -->
     <div id="loader">
         <div class="spinner"></div>
@@ -397,11 +409,7 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
     <!-- Contenu principal du site -->
     <div id="content">
         <div class="header-container">
-            <h1>Données de la station <?php echo htmlspecialchars($stationName); ?></h1>
             <div class="button-container">
-                <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php';">🏠 Accueil</button>
-                <button id="darkModeToggle" class="back-button">🌙 Mode sombre</button>
-                <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php?page=carte';">🗺️ Carte</button>
             </div>
         </div>
 
@@ -462,7 +470,8 @@ function validateForm() {
             SAE - Projet 3.01 - Développement d'application 
         </footer>
     </div>
-
+    </main>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         particlesJS("particles-js", {
             "particles": {

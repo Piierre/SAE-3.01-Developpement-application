@@ -14,6 +14,8 @@ $stations = CarteController::getStations();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carte des Stations</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/styles.css"> <!-- Lien vers le CSS -->
+    <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/auth.css"> <!-- Lien vers le CSS -->
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
     <style>
         * {
@@ -122,12 +124,18 @@ $stations = CarteController::getStations();
 </head>
 <body>
     <div id="particles-js"></div>
-    <h1>Carte des Stations</h1>
-    <div class="button-container">
-        <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
-        <button class="back-button" id="darkModeButton" onclick="toggleDarkMode()">🌙 Mode sombre</button>
-    </div>
-    <div id="map"></div>
+    <header>
+        <h1>Carte des Stations</h1>
+        <div class="button-home">
+            <button class="btn" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
+        </div>
+        <div class="button-container">
+            <button class="btn" id="darkModeButton" onclick="toggleDarkMode()">🌙 Mode sombre</button>
+        </div>
+    </header>
+    <main>
+        <div id="map"></div>
+    </main>
     <footer>
         SAE - Projet 3.01 - Développement d'application
     </footer>
@@ -157,6 +165,12 @@ $stations = CarteController::getStations();
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
             document.documentElement.classList.toggle('dark-mode');
+            const darkModeButton = document.getElementById('darkModeButton');
+            if (document.body.classList.contains('dark-mode')) {
+                darkModeButton.innerHTML = '☀️ Mode clair';
+            } else {
+                darkModeButton.innerHTML = '🌙 Mode sombre';
+            }
         }
 
         var map = L.map('map').setView([46.8566, 5.3522], 6);

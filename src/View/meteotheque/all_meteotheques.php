@@ -21,9 +21,92 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Toutes les Météothèques</title>
     <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/styles.css">
-    <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/meteotheque.css">
+    <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/auth.css">
+    <style>
+        body {
+            overflow-y: auto; /* Ensure the body is scrollable */
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .cube {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .cube:hover {
+            transform: scale(1.05);
+        }
+
+        .cube a {
+            display: block;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #0056b3;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .cube a:hover {
+            background-color: #003f7f;
+        }
+
+        .favoris-button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #ffc107;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .favoris-button:hover {
+            background-color: #e0a800;
+        }
+
+        .remove-button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .remove-button:hover {
+            background-color: #c82333;
+        }
+
+        header {
+            padding: 10px; /* Further reduced padding */
+            background: rgba(43, 42, 42, 0.8);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
 <body>
+    <div id="particles-js"></div>
     <header>
         <h1>Toutes les Météothèques</h1>
         <?php if (isset($_SESSION['login'])): ?>
@@ -36,11 +119,15 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
             </div>
         </div>
         <?php endif; ?>
-        <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
+        <div class="button-home">
+            <button class="btn" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
+        </div>
+        <div class="button-container">
+            <button class="btn" id="darkModeButton" onclick="toggleDarkMode()">🌙 Mode sombre</button>
+        </div>
     </header>
     <main>
         <section>
-            <h2>Liste des Météothèques</h2>
             <?php MessageFlash::displayFlashMessages(); ?>
             <div class="grid">
                 <?php if (!empty($meteotheques)): ?>
@@ -74,5 +161,18 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
     <footer>
         <p>&copy; 2025 - Station météo</p>
     </footer>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            document.documentElement.classList.toggle('dark-mode');
+            const darkModeButton = document.getElementById('darkModeButton');
+            if (document.body.classList.contains('dark-mode')) {
+                darkModeButton.innerHTML = '☀️ Mode clair';
+            } else {
+                darkModeButton.innerHTML = '🌙 Mode sombre';
+            }
+        }
+    </script>
 </body>
 </html>

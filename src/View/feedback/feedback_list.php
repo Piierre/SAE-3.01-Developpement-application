@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des feedbacks</title>
+    <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/styles.css"> <!-- Lien vers le CSS -->
+    <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/auth.css"> <!-- Lien vers le CSS -->
     <style>
         * {
             box-sizing: border-box;
@@ -73,22 +75,18 @@
             border-radius: 10px;
             margin-bottom: 20px;
             text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .feedback strong {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .feedback em {
-            display: block;
-            margin-top: 10px;
-            font-size: 0.9rem;
+        .feedback-content {
+            flex: 1;
         }
 
         .feedback button {
-            padding: 10px 20px;
-            font-size: 1rem;
+            padding: 20px 40px;
+            font-size: 1.5rem;
             background-color: #28a745;
             color: white;
             border: none;
@@ -137,49 +135,65 @@
     </style>
 </head>
 <body>
-    <header class="header-container fade-in">
-        <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php';">🏠 Accueil</button>
-        <button class="toggle-dark-mode" onclick="toggleDarkMode()">🌙 Mode sombre</button>
+    <div id="particles-js"></div>
+    <header>
+        <h1>Liste des feedbacks</h1>
+        <div class="button-home">
+            <button class="btn" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
+        </div>
+        <div class="button-container">
+            <button class="btn" id="darkModeButton" onclick="toggleDarkMode()">🌙 Mode sombre</button>
+        </div>
     </header>
-    <h1 class="fade-in">Liste des feedbacks</h1>
+    <main>
+        <?php
+        $feedbackController = new \App\Meteo\Controller\FeedbackController();
+        $feedbacks = $feedbackController->listFeedbacks();
 
-    <?php
-    $feedbackController = new \App\Meteo\Controller\FeedbackController();
-    $feedbacks = $feedbackController->listFeedbacks();
+        if (empty($feedbacks)) {
+            echo "<p class='fade-in'>Aucun feedback pour le moment.</p>";
+        } else {
+            foreach ($feedbacks as $feedback) {
+                echo "<div class='feedback fade-in'>";
+                echo "<div class='feedback-content'>";
+                echo "<strong>Utilisateur :</strong> " . htmlspecialchars($feedback['name']) . "<br>";
+                echo "<strong>Message :</strong> " . htmlspecialchars($feedback['message']) . "<br>";
+                echo "<strong>Note :</strong> " . htmlspecialchars($feedback['rating']) . "/5<br>";
+                echo "<em>Envoyé le : " . htmlspecialchars($feedback['created_at']) . "</em><br>";
+                echo "<strong>Status :</strong> " . htmlspecialchars($feedback['status']) . "<br>";
+                echo "</div>";
 
-    if (empty($feedbacks)) {
-        echo "<p class='fade-in'>Aucun feedback pour le moment.</p>";
-    } else {
-        foreach ($feedbacks as $feedback) {
-            echo "<div class='feedback fade-in'>";
-            echo "<strong>Utilisateur :</strong> " . htmlspecialchars($feedback['name']) . "<br>";
-            echo "<strong>Message :</strong> " . htmlspecialchars($feedback['message']) . "<br>";
-            echo "<strong>Note :</strong> " . htmlspecialchars($feedback['rating']) . "/5<br>";
-            echo "<em>Envoyé le : " . htmlspecialchars($feedback['created_at']) . "</em><br>";
-            echo "<strong>Status :</strong> " . htmlspecialchars($feedback['status']) . "<br>";
+                if ($feedback['status'] === 'pending') {
+                    echo "<form method='post' action='/SAE-3.01-Developpement-application/web/frontController.php?action=approveFeedback'>";
+                    echo "<input type='hidden' name='feedback_id' value='" . htmlspecialchars($feedback['id']) . "'>";
+                    echo "<button type='submit'>Approuver</button>";
+                    echo "</form>";
+                } elseif ($feedback['status'] === 'approved') {
+                    echo "<form method='post' action='/SAE-3.01-Developpement-application/web/frontController.php?action=disapproveFeedback'>";
+                    echo "<input type='hidden' name='feedback_id' value='" . htmlspecialchars($feedback['id']) . "'>";
+                    echo "<button type='submit'>Désapprouver</button>";
+                    echo "</form>";
+                }
 
-            if ($feedback['status'] === 'pending') {
-                echo "<form method='post' action='/SAE-3.01-Developpement-application/web/frontController.php?action=approveFeedback'>";
-                echo "<input type='hidden' name='feedback_id' value='" . htmlspecialchars($feedback['id']) . "'>";
-                echo "<button type='submit'>Approuver</button>";
-                echo "</form>";
-            } elseif ($feedback['status'] === 'approved') {
-                echo "<form method='post' action='/SAE-3.01-Developpement-application/web/frontController.php?action=disapproveFeedback'>";
-                echo "<input type='hidden' name='feedback_id' value='" . htmlspecialchars($feedback['id']) . "'>";
-                echo "<button type='submit'>Désapprouver</button>";
-                echo "</form>";
+                echo "</div>";
             }
-
-            echo "</div>";
         }
-    }
-    ?>
+        ?>
+    </main>
     <footer class="fade-in">
         SAE - Projet 3.01 - Développement d'application 
     </footer>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
+            document.documentElement.classList.toggle('dark-mode');
+            const darkModeButton = document.getElementById('darkModeButton');
+            if (document.body.classList.contains('dark-mode')) {
+                darkModeButton.innerHTML = '☀️ Mode clair';
+            } else {
+                darkModeButton.innerHTML = '🌙 Mode sombre';
+            }
         }
     </script>
 </body>
