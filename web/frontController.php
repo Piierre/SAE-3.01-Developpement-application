@@ -12,8 +12,9 @@ require_once(ROOT . '/src/Controller/StationController.php');
 require_once(ROOT . '/src/Controller/SearchController.php');
 require_once(ROOT . '/src/Controller/DashboardController.php');
 require_once(ROOT . '/src/Controller/MeteothequeController.php');
+require_once(ROOT . '/src/Controller/FeedbackController.php'); /* HARRY */
+require_once(ROOT . '/src/Model/FeedbackModel.php'); /* Ajout du modèle FeedbackModel */
 require_once(ROOT . '/src/View/station/station_data.php');
-require_once(ROOT . '/src/Controller/FeedbackController.php');/* HARRY */
 
 use App\Meteo\Controller\SearchController;
 use App\Meteo\Controller\MeteothequeController;
@@ -59,6 +60,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
     } else {
         header('Location: /SAE-3.01-Developpement-application/web/frontController.php?page=feedback&error=1');
     }
+    exit;
+}
+
+// Gestion de l'approbation des feedbacks
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'approveFeedback') {
+    $feedbackId = intval($_POST['feedback_id']);
+
+    $feedbackController = new FeedbackController();
+    $feedbackController->approveFeedback($feedbackId);
+
+    header('Location: /SAE-3.01-Developpement-application/web/frontController.php?page=list_feedback');
+    exit();
+}
+
+// Gestion de la désapprobation des feedbacks
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'disapproveFeedback') {
+    $feedbackId = intval($_POST['feedback_id']);
+
+    $feedbackController = new FeedbackController();
+    $feedbackController->disapproveFeedback($feedbackId);
+
+    header('Location: /SAE-3.01-Developpement-application/web/frontController.php?page=list_feedback');
     exit;
 }
 

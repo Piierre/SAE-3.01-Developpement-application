@@ -6,6 +6,9 @@
     <title>Liste des feedbacks</title>
 </head>
 <body>
+    <header>
+        <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php';">🏠 Accueil</button>
+    </header>
     <h1>Liste des feedbacks</h1>
     <hr>
 
@@ -21,7 +24,21 @@
             echo "<strong>Utilisateur :</strong> " . htmlspecialchars($feedback['name']) . "<br>";
             echo "<strong>Message :</strong> " . htmlspecialchars($feedback['message']) . "<br>";
             echo "<strong>Note :</strong> " . htmlspecialchars($feedback['rating']) . "/5<br>";
-            echo "<em>Envoyé le : " . htmlspecialchars($feedback['created_at']) . "</em>";
+            echo "<em>Envoyé le : " . htmlspecialchars($feedback['created_at']) . "</em><br>";
+            echo "<strong>Status :</strong> " . htmlspecialchars($feedback['status']) . "<br>";
+
+            if ($feedback['status'] === 'pending') {
+                echo "<form method='post' action='/SAE-3.01-Developpement-application/web/frontController.php?action=approveFeedback'>";
+                echo "<input type='hidden' name='feedback_id' value='" . htmlspecialchars($feedback['id']) . "'>";
+                echo "<button type='submit'>Approuver</button>";
+                echo "</form>";
+            } elseif ($feedback['status'] === 'approved') {
+                echo "<form method='post' action='/SAE-3.01-Developpement-application/web/frontController.php?action=disapproveFeedback'>";
+                echo "<input type='hidden' name='feedback_id' value='" . htmlspecialchars($feedback['id']) . "'>";
+                echo "<button type='submit'>Désapprouver</button>";
+                echo "</form>";
+            }
+
             echo "</div><hr>";
         }
     }

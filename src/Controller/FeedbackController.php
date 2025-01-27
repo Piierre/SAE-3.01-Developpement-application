@@ -19,4 +19,16 @@ class FeedbackController
         $feedbackModel = new FeedbackModel();
         return $feedbackModel->getAllFeedbacks();
     }
+
+    public function approveFeedback($feedbackId)
+    {
+        $feedbackModel = new FeedbackModel();
+        $feedbackModel->approveFeedback($feedbackId);
+    }
+
+    public function disapproveFeedback($feedbackId)
+    {
+        $feedbackModel = new FeedbackModel();
+        $feedbackModel->disapproveFeedback($feedbackId);
+    }
 }
