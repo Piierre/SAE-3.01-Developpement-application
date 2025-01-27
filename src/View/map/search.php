@@ -93,6 +93,21 @@ if (isset($_GET['station_name']) && isset($_GET['date'])) {
     echo '</table>';
     
     echo '<button class="chart-type-button" id="showChartsButton">📊 Afficher les graphiques</button>';
+    
+    // Formulaire pour exporter en CSV
+    echo '<form method="post" action="/SAE-3.01-Developpement-application/src/View/meteotheque/export_csv.php">
+            <input type="hidden" name="station_name" value="' . htmlspecialchars($stationName) . '">
+            <input type="hidden" name="date" value="' . htmlspecialchars($date) . '">
+            <button type="submit" class="btn">📄 Exporter en CSV</button>
+          </form>';
+
+    if ($redirect) {
+        echo '<script>
+            window.onload = function() {
+                document.getElementById("showChartsButton").click();
+            };
+        </script>';
+    }
 
     echo '<div id="charts" style="display: none;">
         <div class="chart-container">
