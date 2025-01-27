@@ -25,6 +25,9 @@ session_start();
                     <li><a href="../web/frontController.php?page=logout">🚪 Déconnexion (<?= htmlspecialchars($_SESSION['login']) ?>)</a></li>
                     <?php if ($_SESSION['role'] === 'admin'): ?>
                         <li><a href="../web/frontController.php?page=manage_users">👥 Gérer les utilisateurs</a></li>
+                        <li><a href="../web/frontController.php?page=list_feedback">📝 Feedback</a></li>
+                    <?php else: ?>
+                        <li><a href="../web/frontController.php?page=feedback">📝 Feedback</a></li>
                     <?php endif; ?>
                 <?php else: ?>
                     <li><a href="../web/frontController.php?page=login">🔑 Connexion</a></li>
