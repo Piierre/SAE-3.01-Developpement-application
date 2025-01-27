@@ -43,12 +43,16 @@ $stations = CarteController::getStations();
             margin: 20px auto;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1; /* Ensure these elements are above the particles */
         }
 
         footer {
             margin-top: 10px;
             font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.7);
+            position: relative;
+            z-index: 1; /* Ensure these elements are above the particles */
         }
 
         /* Style des popups Leaflet */
@@ -58,6 +62,14 @@ $stations = CarteController::getStations();
         }
 
         /* Bouton retour */
+        .button-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
         .back-button {
             padding: 10px 20px;
             font-size: 1rem;
@@ -68,26 +80,85 @@ $stations = CarteController::getStations();
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            position: absolute;
-            top: 20px;
-            right: 20px;
+            position: relative;
+            z-index: 1; /* Ensure these elements are above the particles */
         }
 
         .back-button:hover {
             background-color: #218838;
         }
 
+        #particles-js {
+            position: fixed; /* Ensure it covers the entire background */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Adjust z-index to be just behind the map and texts */
+        }
+
+        body.dark-mode, html.dark-mode {
+            background: linear-gradient(to right, #2c3e50, #4ca1af);
+            color: #ddd;
+        }
+
+        body.dark-mode h1, body.dark-mode footer {
+            color: #ddd;
+        }
+
+        body.dark-mode .leaflet-popup-content {
+            color: #ddd;
+        }
+
+        body.dark-mode .back-button {
+            background-color: #444;
+            color: #ddd;
+        }
+
+        body.dark-mode .back-button:hover {
+            background-color: #555;
+        }
     </style>
 </head>
 <body>
+    <div id="particles-js"></div>
     <h1>Carte des Stations</h1>
-    <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
+    <div class="button-container">
+        <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
+        <button class="back-button" id="darkModeButton" onclick="toggleDarkMode()">🌙 Mode sombre</button>
+    </div>
     <div id="map"></div>
     <footer>
         SAE - Projet 3.01 - Développement d'application
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 120, // Increased number of particles
+                    "density": { "enable": true, "value_area": 800 }
+                },
+                "color": { "value": "#ffffff" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.7, "random": true }, // Increased opacity
+                "size": { "value": 4, "random": true }, // Increased size
+                "line_linked": { "enable": true, "distance": 100, "color": "#ffffff", "opacity": 0.6, "width": 2 }, // Increased contrast
+                "move": { "enable": true, "speed": 4 } // Increased speed
+            },
+            "interactivity": {
+                "events": {
+                    "onhover": { "enable": true, "mode": "repulse" }
+                }
+            }
+        });
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            document.documentElement.classList.toggle('dark-mode');
+        }
+
         var map = L.map('map').setView([46.8566, 5.3522], 6);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

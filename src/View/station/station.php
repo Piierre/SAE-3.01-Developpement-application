@@ -9,6 +9,7 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Données de la station <?php echo htmlspecialchars($stationName); ?></title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -23,6 +24,8 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
             color: #fff;
             padding: 20px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
         h1 {
@@ -40,13 +43,24 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
             border-radius: 5px;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: absolute;
-            top: 20px;
-            right: 20px;
         }
 
         .back-button:hover {
             background-color: #218838;
+        }
+
+        @media (max-width: 768px) {
+            .back-button {
+                font-size: 0.8rem;
+                padding: 8px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .back-button {
+                font-size: 0.7rem;
+                padding: 6px 12px;
+            }
         }
 
         form {
@@ -250,9 +264,131 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
         .chart-type-button:hover {
             background-color:rgb(13, 112, 183);
         }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .back-button {
+                font-size: 0.8rem;
+                padding: 8px 16px;
+            }
+
+            form {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            input[type="date"] {
+                font-size: 0.9rem;
+                padding: 8px;
+            }
+
+            button {
+                font-size: 0.9rem;
+                padding: 10px 20px;
+            }
+
+            #charts {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .chart-container {
+                max-width: 100%;
+            }
+
+            .compare-button, .chart-type-button {
+                font-size: 0.9rem;
+                padding: 10px 20px;
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.2rem;
+            }
+
+            .back-button {
+                font-size: 0.7rem;
+                padding: 6px 12px;
+            }
+
+            input[type="date"] {
+                font-size: 0.8rem;
+                padding: 6px;
+            }
+
+            button {
+                font-size: 0.8rem;
+                padding: 8px 16px;
+            }
+
+            .compare-button, .chart-type-button {
+                font-size: 0.8rem;
+                padding: 8px 16px;
+            }
+        }
+
+        .button-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .button-container {
+                top: 10px;
+                right: 10px;
+                gap: 5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .button-container {
+                top: 5px;
+                right: 5px;
+                gap: 3px;
+            }
+        }
+
+        .header-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                margin-bottom: 10px;
+            }
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
     </style>
 </head>
 <body>
+    <div id="particles-js"></div>
     <!-- Loader -->
     <div id="loader">
         <div class="spinner"></div>
@@ -260,11 +396,14 @@ $stationName = isset($_GET['name']) ? $_GET['name'] : '';
 
     <!-- Contenu principal du site -->
     <div id="content">
-        <h1>Données de la station <?php echo htmlspecialchars($stationName); ?></h1>
-        <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php';">🏠 Accueil</button>
-        <button id="darkModeToggle" class="back-button" style="right: 160px;">🌙 Mode sombre</button>
-        
-        <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php?page=carte';" style="right: 350px;">🗺️ Carte</button>
+        <div class="header-container">
+            <h1>Données de la station <?php echo htmlspecialchars($stationName); ?></h1>
+            <div class="button-container">
+                <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php';">🏠 Accueil</button>
+                <button id="darkModeToggle" class="back-button">🌙 Mode sombre</button>
+                <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php?page=carte';">🗺️ Carte</button>
+            </div>
+        </div>
 
         <form id="dateForm">
             <label for="date">Choisir une date :</label>
@@ -316,12 +455,35 @@ function validateForm() {
         <button class="compare-button" id="compareStationBtn">🏢📊 Comparer avec une autre station</button>
         <button class="chart-type-button" id="chartTypeToggle">🔄 Changer le type de graphique</button>
 
+
+       
+
         <footer>
             SAE - Projet 3.01 - Développement d'application 
         </footer>
     </div>
 
     <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": { "enable": true, "value_area": 800 }
+                },
+                "color": { "value": "#ffffff" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": true },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
+                "move": { "enable": true, "speed": 3 }
+            },
+            "interactivity": {
+                "events": {
+                    "onhover": { "enable": true, "mode": "repulse" }
+                }
+            }
+        });
+
         // Simuler un chargement initial
         window.addEventListener("load", function () {
             // Masquer le loader et afficher le contenu après le chargement initial

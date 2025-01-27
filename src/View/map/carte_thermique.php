@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
     <html lang="fr">
     <head>
         <meta charset="UTF-8">
@@ -8,32 +8,43 @@
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
         <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
         <style>
-            body {
-                font-family: Arial, sans-serif;
-                background: linear-gradient(to right, #6a11cb, #2575fc);
-                color: white;
-                text-align: center;
+            * {
                 margin: 0;
                 padding: 0;
+                box-sizing: border-box;
             }
+
+            body, html {
+                height: 100%;
+                font-family: Arial, sans-serif;
+                background: linear-gradient(to right, #a8acaf, #00f2fe);
+                color: #fff;
+                text-align: center;
+            }
+
             h1 {
-                margin: 20px 0;
-                font-size: 2.5em;
+                margin-top: 20px;
+                font-size: 2.5rem; /* Increased font size */
+                font-weight: bold;
+                text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
             }
-            #dateForm {
-                margin: 20px 0;
-            }
-            #dateForm label, #dateForm input, #dateForm button {
-                font-size: 1.2em;
-                margin: 5px;
-            }
+
             #map {
-                height: 800px; /* Increased height */
-                width: 100%;
-                border: 2px solid white;
+                height: 80vh;
+                width: 90%;
+                margin: 20px auto;
                 border-radius: 10px;
-                box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+                position: relative;
+                z-index: 1; /* Ensure these elements are above the particles */
             }
+
+            footer {
+                margin-top: 10px;
+                font-size: 0.9rem;
+                color: rgba(255, 255, 255, 0.7);
+            }
+
             .temperature-label {
                 font-size: 12px;
                 font-weight: bold;
@@ -43,30 +54,89 @@
                 border-radius: 3px;
             }
 
-            .back-button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    position: absolute;
-    top: 20px;
-    right: 20px;
-}
+            .button-container {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                display: flex;
+                gap: 10px;
+            }
 
-.back-button:hover {
-    background-color: #218838;
-}
+            .back-button {
+                padding: 10px 20px;
+                font-size: 1rem;
+                background-color: #28a745;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                position: relative;
+                z-index: 1; /* Ensure these elements are above the particles */
+            }
+
+            .back-button:hover {
+                background-color: #218838;
+            }
+
+            #particles-js {
+                position: fixed; /* Ensure it covers the entire background */
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 0; /* Adjust z-index to be just behind the map and texts */
+            }
+
+            #dateForm {
+                margin: 20px 0;
+                font-size: 1.2em; /* Decreased font size */
+                position: relative;
+                z-index: 1; /* Ensure these elements are above the particles */
+            }
+            #dateForm label, #dateForm input, #dateForm button {
+                font-size: 1.2em; /* Decreased font size */
+                margin: 5px;
+            }
+
+            body.dark-mode, html.dark-mode {
+                background: linear-gradient(to right, #2c3e50, #4ca1af);
+                color: #ddd;
+            }
+
+            body.dark-mode h1, body.dark-mode footer {
+                color: #ddd;
+            }
+
+            body.dark-mode .temperature-label {
+                color: #ddd;
+                background-color: rgba(0, 0, 0, 0.7);
+            }
+
+            body.dark-mode .back-button {
+                background-color: #444;
+                color: #ddd;
+            }
+
+            body.dark-mode .back-button:hover {
+                background-color: #555;
+            }
+
+            body.dark-mode #dateForm label, body.dark-mode #dateForm input, body.dark-mode #dateForm button {
+                color: #ddd;
+                background-color: #444;
+                border: 1px solid #555;
+            }
 
         </style>
-        <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
-
+        <div class="button-container">
+            <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
+            <button class="back-button" id="darkModeButton" onclick="toggleDarkMode()">🌙 Mode sombre</button>
+        </div>
     </head>
     <body>
+        <div id="particles-js"></div>
         <h1>Carte Thermique des Températures en France</h1>
         <form id="dateForm">
             <label for="date">Sélectionner une date :</label>
@@ -75,7 +145,33 @@
         </form>
         <div id="map"></div>
 
+        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
         <script>
+            particlesJS("particles-js", {
+                "particles": {
+                    "number": {
+                        "value": 120, // Increased number of particles
+                        "density": { "enable": true, "value_area": 800 }
+                    },
+                    "color": { "value": "#ffffff" },
+                    "shape": { "type": "circle" },
+                    "opacity": { "value": 0.7, "random": true }, // Increased opacity
+                    "size": { "value": 4, "random": true }, // Increased size
+                    "line_linked": { "enable": true, "distance": 100, "color": "#ffffff", "opacity": 0.6, "width": 2 }, // Increased contrast
+                    "move": { "enable": true, "speed": 4 } // Increased speed
+                },
+                "interactivity": {
+                    "events": {
+                        "onhover": { "enable": true, "mode": "repulse" }
+                    }
+                }
+            });
+
+            function toggleDarkMode() {
+                document.body.classList.toggle('dark-mode');
+                document.documentElement.classList.toggle('dark-mode');
+            }
+
             var map = L.map('map').setView([46.603354, 1.888334], 6);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; OpenStreetMap contributors'
