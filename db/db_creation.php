@@ -90,6 +90,7 @@ try {
             email VARCHAR(255) NOT NULL,
             message TEXT NOT NULL,
             rating INT NOT NULL,
+            status ENUM('pending', 'approved') DEFAULT 'pending',
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )"
     ];
