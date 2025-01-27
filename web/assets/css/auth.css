@@ -170,8 +170,16 @@ form input[type="submit"]:hover {
 
 .button-container {
     position: absolute;
-    top: 20px;
+    top: 10px;
     right: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.button-home {
+    position: absolute;
+    top: 10px;
+    left: 20px;
     display: flex;
     gap: 10px;
 }

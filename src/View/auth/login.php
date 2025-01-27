@@ -11,8 +11,10 @@
     <div id="particles-js"></div>
     <header>
         <h1>Connexion</h1>
+        <div class="button-home">
+        <button class="btn" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
+        </div>
         <div class="button-container">
-            <button class="btn" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
             <button class="btn" id="darkModeButton" onclick="toggleDarkMode()">🌙 Mode sombre</button>
         </div>
     </header>
