@@ -7,7 +7,6 @@
 </head>
 <body>
     <h1>Liste des feedbacks</h1>
-    <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=feedback">Donner un feedback</a>
     <hr>
 
     <?php
@@ -19,7 +18,7 @@
     } else {
         foreach ($feedbacks as $feedback) {
             echo "<div style='margin-bottom: 20px;'>";
-            echo "<strong>Utilisateur :</strong> " . htmlspecialchars($feedback['username']) . "<br>";
+            echo "<strong>Utilisateur :</strong> " . htmlspecialchars($feedback['name']) . "<br>";
             echo "<strong>Message :</strong> " . htmlspecialchars($feedback['message']) . "<br>";
             echo "<strong>Note :</strong> " . htmlspecialchars($feedback['rating']) . "/5<br>";
             echo "<em>Envoyé le : " . htmlspecialchars($feedback['created_at']) . "</em>";
