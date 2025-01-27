@@ -12,6 +12,25 @@ body {
     text-align: center;
 }
 
+body, html {
+    height: 100%;
+    min-height: 100vh; /* Ensure body takes full height */
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #a8acaf, #00f2fe);
+    color: #fff;
+    text-align: center;
+    overflow: hidden; /* Ensure particles are visible */
+}
+
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1; /* Ensure particles are behind other content */
+}
+
 /* Header */
 header {
     padding: 20px;
@@ -43,6 +62,8 @@ nav ul {
     list-style: none;
     display: flex;
     gap: 20px;
+    padding: 0;
+    justify-content: center;
 }
 
 nav ul li {
@@ -55,16 +76,20 @@ nav ul li a {
     font-size: 1.2rem;
     padding: 10px 20px;
     transition: background 0.3s ease, color 0.3s ease;
+    border-radius: 5px;
 }
 
 nav ul li a:hover {
     background: rgba(255, 255, 255, 0.2);
     color: #00f2fe;
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 /* Sections */
 main {
     margin-top: 80px;
+    padding-bottom: 200px; /* Further increase padding to ensure footer is more visible */
+    min-height: calc(100vh - 80px); /* Ensure main content takes full height minus header */
 }
 
 #welcome {
@@ -127,20 +152,28 @@ form input[type="submit"]:hover {
 
 .btn {
     display: inline-block;
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    background-color: rgba(255, 255, 255, 0.2);
-    color: #fff;
-    border: 2px solid #fff;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
     border-radius: 5px;
-    text-decoration: none;
+    cursor: pointer;
     transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     margin: 10px;
 }
 
 .btn:hover {
-    background-color: rgba(255, 255, 255, 0.4);
-    transform: scale(1.1);
+    background-color: #218838;
+}
+
+.button-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
 }
 
 /* Footer */
@@ -167,4 +200,66 @@ footer a:hover {
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+body.dark-mode, html.dark-mode {
+    background: linear-gradient(to right, #2c3e50, #4ca1af);
+    color: #ddd;
+}
+
+body.dark-mode h1, body.dark-mode footer {
+    color: #ddd;
+}
+
+body.dark-mode .btn {
+    background-color: #444;
+    color: #ddd;
+}
+
+body.dark-mode .btn:hover {
+    background-color: #555;
+}
+
+body.dark-mode nav ul li a {
+    color: #ddd;
+}
+
+body.dark-mode nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .button-container {
+        flex-direction: column;
+        top: 10px;
+        right: 10px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    .welcome-content {
+        padding: 20px;
+    }
+
+    form input[type="text"],
+    form input[type="password"] {
+        width: 90%;
+    }
+}
+
+.center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 280px); /* Adjust height to take full available space minus header and footer */
+    text-align: center;
 }
