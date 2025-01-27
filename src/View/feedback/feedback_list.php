@@ -4,23 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des feedbacks</title>
+    <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/styles.css"> 
+    <style>
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
+    <header class="fade-in">
         <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php';">🏠 Accueil</button>
+        <button class="toggle-dark-mode" onclick="toggleDarkMode()">🌙 Mode sombre</button>
     </header>
-    <h1>Liste des feedbacks</h1>
-    <hr>
+    <h1 class="fade-in">Liste des feedbacks</h1>
+    <hr class="fade-in">
 
     <?php
     $feedbackController = new \App\Meteo\Controller\FeedbackController();
     $feedbacks = $feedbackController->listFeedbacks();
 
     if (empty($feedbacks)) {
-        echo "<p>Aucun feedback pour le moment.</p>";
+        echo "<p class='fade-in'>Aucun feedback pour le moment.</p>";
     } else {
         foreach ($feedbacks as $feedback) {
-            echo "<div style='margin-bottom: 20px;'>";
+            echo "<div class='fade-in' style='margin-bottom: 20px;'>";
             echo "<strong>Utilisateur :</strong> " . htmlspecialchars($feedback['name']) . "<br>";
             echo "<strong>Message :</strong> " . htmlspecialchars($feedback['message']) . "<br>";
             echo "<strong>Note :</strong> " . htmlspecialchars($feedback['rating']) . "/5<br>";
@@ -39,9 +53,14 @@
                 echo "</form>";
             }
 
-            echo "</div><hr>";
+            echo "</div><hr class='fade-in'>";
         }
     }
     ?>
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
 </body>
 </html>
