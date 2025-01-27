@@ -6,6 +6,9 @@
     <title>Feedback</title>
 </head>
 <body>
+    <header>
+        <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php';">🏠 Accueil</button>
+    </header>
     <h1>Donnez votre avis</h1>
     <?php if (isset($_GET['success'])): ?>
         <p style="color: green;">Votre feedback a été soumis avec succès !</p>
