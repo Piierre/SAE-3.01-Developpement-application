@@ -150,7 +150,6 @@ window.onload = function() {
         </div>
     </div>
 
-    <button class="chart-type-button" id="showChartsButton">📊 Afficher les graphiques</button>
 
 <div id="charts" style="display: none;">
     <div class="chart-container">

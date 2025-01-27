@@ -141,7 +141,7 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
                             <strong>Météothèque :<br> <?= htmlspecialchars($meteotheque['titre']) ?></strong>
                             <p>Date : <?= htmlspecialchars($meteotheque['date_creation']) ?></p>
                             <p>Créateur: <?= htmlspecialchars($meteotheque['creator_login']) ?> </p>
-                            <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=recherche&station_name=<?= urlencode($meteotheque['station_name']) ?>&date=<?= urlencode($meteotheque['search_date']) ?>">🔍 Rechercher cette station</a>
+                            <a href="/SAE-3.01-Developpement-application/src/View/map/search.php?station_name=<?= urlencode($meteotheque['station_name']) ?>&date=<?= urlencode($meteotheque['search_date']) ?>&redirect=true">🔍 Rechercher cette station</a>
                             <?php if (isset($_SESSION['login'])): ?>
                                 <?php if (FavorisModel::isFavori($_SESSION['user_id'], $meteotheque['id'])): ?>
                                     <form method="post" action="/SAE-3.01-Developpement-application/src/View/meteotheque/remove_from_favorites.php">
