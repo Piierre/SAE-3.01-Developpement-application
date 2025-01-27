@@ -16,8 +16,12 @@ class AuthController {
         if ($user && password_verify($password, $user['mdp'])) {
             if ($user['status'] === 'pending') {
                 MessageFlash::ajouter('warning', 'Votre compte est en attente d\'approbation.');
+                header("Location: ../../web/frontController.php?page=login");
+                exit();
             } elseif ($user['status'] === 'banned') {
                 MessageFlash::ajouter('danger', 'Votre compte a été banni.');
+                header("Location: ../../web/frontController.php?page=login");
+                exit();
             } else {
                 Auth::startSession($user);
                 header("Location: ../../web/frontController.php?page=index");
@@ -25,6 +29,8 @@ class AuthController {
             }
         } else {
             MessageFlash::ajouter('danger', 'Login ou mot de passe incorrect.');
+            header("Location: ../../web/frontController.php?page=login");
+            exit();
         }
     }
 

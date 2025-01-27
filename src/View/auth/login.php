@@ -52,52 +52,6 @@
                 darkModeButton.innerHTML = '🌙 Mode sombre';
             }
         }
-
-        // Add animations to elements on load
-        document.addEventListener('DOMContentLoaded', function() {
-            const elements = document.querySelectorAll('h1, h2, form, .welcome-buttons, footer');
-            elements.forEach((el, index) => {
-                el.style.opacity = 0;
-                el.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-                    el.style.opacity = 1;
-                    el.style.transform = 'translateY(0)';
-                }, index * 200);
-            });
-        });
-
-        // Add hover effect to buttons
-        const buttons = document.querySelectorAll('.btn');
-        buttons.forEach(button => {
-            button.addEventListener('mouseover', () => {
-                button.style.transform = 'scale(1.1)';
-            });
-            button.addEventListener('mouseout', () => {
-                button.style.transform = 'scale(1)';
-            });
-        });
-
-        // Particle effect
-        particlesJS("particles-js", {
-            "particles": {
-                "number": {
-                    "value": 80,
-                    "density": { "enable": true, "value_area": 800 }
-                },
-                "color": { "value": "#ffffff" },
-                "shape": { "type": "circle" },
-                "opacity": { "value": 0.5, "random": false },
-                "size": { "value": 3, "random": true },
-                "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
-                "move": { "enable": true, "speed": 3, "direction": "none", "random": false, "straight": false }
-            },
-            "interactivity": {
-                "events": {
-                    "onhover": { "enable": true, "mode": "repulse" }
-                }
-            }
-        });
     </script>
 </body>
 </html>
