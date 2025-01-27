@@ -13,6 +13,7 @@ require_once(ROOT . '/src/Controller/SearchController.php');
 require_once(ROOT . '/src/Controller/DashboardController.php');
 require_once(ROOT . '/src/Controller/MeteothequeController.php');
 require_once(ROOT . '/src/View/station/station_data.php');
+require_once(ROOT . '/src/Controller/FeedbackController.php');/* HARRY */
 
 use App\Meteo\Controller\SearchController;
 use App\Meteo\Controller\MeteothequeController;
@@ -40,6 +41,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
     $meteothequeController->addMeteotheque($userId, $titre, $description, $stationName, $searchDate);
 
     header('Location: /SAE-3.01-Developpement-application/web/frontController.php?page=meteotheque');
+    exit;
+}
+
+// Gestion des soumissions de feedback
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'submitFeedback') {
+    $username = $_POST['username'] ?? 'Anonyme'; // Nom de l'utilisateur (ou Anonyme si non connecté)
+    $message = $_POST['message'] ?? '';          // Message du feedback
+    $rating = (int)($_POST['rating'] ?? 0);      // Note (par exemple, sur 5)
+
+    if (!empty($message)) {
+        $feedbackController = new FeedbackController();
+        $feedbackController->submitFeedback($username, $message, $rating);
+
+        header('Location: /SAE-3.01-Developpement-application/web/frontController.php?page=feedback&success=1');
+    } else {
+        header('Location: /SAE-3.01-Developpement-application/web/frontController.php?page=feedback&error=1');
+    }
     exit;
 }
 
@@ -94,6 +112,14 @@ switch ($page) {
     case 'details_meteotheque':
         require(ROOT . '/src/View/meteotheque/details_meteotheque.php');
         break;
+    /* HARRY */
+    case 'feedback': // Nouvelle page pour le feedback
+        require(ROOT . '/src/View/feedback/feedback_form.php');
+        break;
+    case 'list_feedback':
+        require(ROOT . '/src/View/feedback/feedback_list.php');
+        break;
+    /**/ 
     default:
         require(ROOT . '/src/View/home/index.php');
         break;

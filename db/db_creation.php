@@ -81,6 +81,15 @@ try {
             date_ajout TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (user_id) REFERENCES Utilisateur(id) ON DELETE CASCADE,
             FOREIGN KEY (meteotheque_id) REFERENCES Meteotheque(id) ON DELETE CASCADE
+        )",
+
+        // Table Feedback ajoutée
+        "CREATE TABLE IF NOT EXISTS Feedback (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            email VARCHAR(255) NOT NULL,
+            message TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )"
     ];
 
