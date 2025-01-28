@@ -1,25 +1,26 @@
 <?php
 namespace App\Meteo\Model;
 
-require_once __DIR__ . '/../Config/Conf.php'; // Ensure this path is correct
-use App\Meteo\Config\Conf; // Ensure this class exists and is correctly namespaced
+require_once __DIR__ . '/../Config/Conf.php'; // Assurez-vous que le chemin est correct
+use App\Meteo\Config\Conf; // Assurez-vous que cette classe existe et est correctement nommée
 use PDO;
 use PDOException;
 
 class MeteothequeModel {
+    // Récupère toutes les entrées de la Météothèque
     public static function getAllMeteotheques() {
-    $pdo = Conf::getPDO();
-    $stmt = $pdo->prepare("
-        SELECT m.id, m.titre, m.description, m.station_name, m.search_date, m.date_creation,
-               u.id AS creator_id, u.login AS creator_login
-        FROM Meteotheque m
-        INNER JOIN Utilisateur u ON m.user_id = u.id
-    ");
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+        $pdo = Conf::getPDO();
+        $stmt = $pdo->prepare("
+            SELECT m.id, m.titre, m.description, m.station_name, m.search_date, m.date_creation,
+                   u.id AS creator_id, u.login AS creator_login
+            FROM Meteotheque m
+            INNER JOIN Utilisateur u ON m.user_id = u.id
+        ");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
-
+    // Récupère les entrées de la Météothèque pour un utilisateur spécifique
     public static function getMeteothequesByUser($userId) {
         if ($userId === null) {
             return [];
@@ -30,6 +31,7 @@ class MeteothequeModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
+    // Récupère une entrée de la Météothèque par son ID
     public static function getMeteothequeById($meteothequeId) {
         $pdo = Conf::getPDO();
         $stmt = $pdo->prepare("SELECT * FROM Meteotheque WHERE id = ?");
@@ -37,7 +39,7 @@ class MeteothequeModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     
-
+    // Crée une nouvelle entrée dans la Météothèque
     public static function createMeteotheque($userId, $titre, $description, $stationName, $searchDate) {
         $pdo = Conf::getPDO();
     
@@ -68,6 +70,7 @@ class MeteothequeModel {
         }
     }
     
+    // Supprime une entrée de la Météothèque par son ID
     public static function deleteMeteotheque($meteothequeId) {
         $pdo = Conf::getPDO();
         $stmt = $pdo->prepare("DELETE FROM Meteotheque WHERE id = ?");

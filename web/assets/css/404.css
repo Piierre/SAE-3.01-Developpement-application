@@ -10,19 +10,19 @@ body {
     margin-top: 50px;
 }
 
-/* Header */
+/* En-tête */
 h1 {
     font-size: 3em;
     color: #2C3E50; /* Couleur du titre */
     font-family: 'Poppins', cursive;
 }
 
-/* Paragraph */
+/* Paragraphe */
 p {
     font-size: 1.2em;
 }
 
-/* Links */
+/* Liens */
 a {
     text-decoration: none;
     color: #3498db;
