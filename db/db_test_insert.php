@@ -130,7 +130,7 @@ try {
 
             echo "Station insérée ou mise à jour : {$fields['numer_sta']}<br>";
             
-            // Vérifier si 'numer_sta' existe
+            // Vérifier si 'code_dep' existe
             if (empty($fields['code_dep'])) {
                 continue; // Ignorer les stations sans ID
             }
@@ -142,7 +142,7 @@ try {
                 ':code_reg' => $fields['code_reg']
             ]);
 
-            // Vérifier si 'numer_sta' existe
+            // Vérifier si 'code_dep' existe
             if (empty($fields['codegeo'])) {
                 continue; // Ignorer les stations sans ID
             }
@@ -152,7 +152,7 @@ try {
                 ':code_dep' => $fields['code_dep']
             ]);
 
-            // Vérifier si 'numer_sta' existe
+            // Vérifier si 'code_dep' existe
             if (empty($fields['code_dep'])) {
                 continue; // Ignorer les stations sans ID
             }
@@ -163,7 +163,7 @@ try {
                 ':code_reg' => $fields['code_reg']
             ]);
             
-             // Vérifier si 'numer_sta' existe
+             // Vérifier si 'code_dep' existe
              if (empty($fields['code_reg'])) {
                 continue; // Ignorer les stations sans ID
             }
@@ -172,7 +172,7 @@ try {
                 ':nom_reg' => $fields['nom_reg']
             ]);
 
-            // Vérifier si 'numer_sta' existe
+            // Vérifier si 'code_dep' existe
             if (empty($fields['code_dep'])) {
                 continue; // Ignorer les stations sans ID
             }

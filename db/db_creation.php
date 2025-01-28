@@ -11,22 +11,30 @@ try {
 
     // Liste des requêtes pour créer les tables
     $queries = [
+
+        // Table Region
         "CREATE TABLE IF NOT EXISTS Reg (
             code_reg VARCHAR(10) PRIMARY KEY,
             nom_reg VARCHAR(255) NOT NULL
         )",
+
+        // Table Departement
         "CREATE TABLE IF NOT EXISTS Dep (
             code_dep VARCHAR(10) PRIMARY KEY,
             nom_dep VARCHAR(255) NOT NULL,
             code_reg VARCHAR(10),
             FOREIGN KEY (code_reg) REFERENCES Reg(code_reg)
         )",
+
+        // Table Commune
         "CREATE TABLE IF NOT EXISTS Commune (
             code_comm VARCHAR(10) PRIMARY KEY,
             nom_commune VARCHAR(255) NOT NULL,
             code_dep VARCHAR(10),
             FOREIGN KEY (code_dep) REFERENCES Dep(code_dep)
         )",
+
+        // Table Station
         "CREATE TABLE IF NOT EXISTS Station (
             id VARCHAR(10) PRIMARY KEY,
             nom VARCHAR(255),
@@ -40,6 +48,8 @@ try {
             FOREIGN KEY (code_dep) REFERENCES Dep(code_dep),
             FOREIGN KEY (code_reg) REFERENCES Reg(code_reg)
         )",
+
+        // Table Mesure pour faire des tests
         "CREATE TABLE IF NOT EXISTS Mesure (
             id_sta VARCHAR(10),
             date DATE,
@@ -54,6 +64,7 @@ try {
             FOREIGN KEY (id_sta) REFERENCES Station(id)
         )",
 
+        // Table Utilisateur
         "CREATE TABLE IF NOT EXISTS Utilisateur (
             id INT AUTO_INCREMENT PRIMARY KEY,
             login VARCHAR(50) UNIQUE NOT NULL,
@@ -63,6 +74,7 @@ try {
             date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Date de création du compte
         )",
 
+        // Table Meteotheque
         "CREATE TABLE IF NOT EXISTS Meteotheque (
             id INT AUTO_INCREMENT PRIMARY KEY,
             user_id INT NOT NULL,
@@ -74,16 +86,17 @@ try {
             FOREIGN KEY (user_id) REFERENCES Utilisateur(id) ON DELETE CASCADE
         )",
 
+        // Table Favoris
         "CREATE TABLE IF NOT EXISTS Favoris (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            user_id INT NOT NULL, -- Référence à Utilisateur.id
-            meteotheque_id INT NOT NULL, -- Référence à Meteotheque.id
+            user_id INT NOT NULL, 
+            meteotheque_id INT NOT NULL, 
             date_ajout TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (user_id) REFERENCES Utilisateur(id) ON DELETE CASCADE,
             FOREIGN KEY (meteotheque_id) REFERENCES Meteotheque(id) ON DELETE CASCADE
         )",
 
-        // Table Feedback ajoutée
+        // Table Feedback 
         "CREATE TABLE IF NOT EXISTS Feedback (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
