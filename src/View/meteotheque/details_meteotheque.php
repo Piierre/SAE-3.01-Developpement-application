@@ -7,6 +7,7 @@ use App\Meteo\Lib\MessageFlash;
 
 session_start();
 
+// Vérifie si l'utilisateur est connecté
 if (!isset($_SESSION['user_id'])) {
     header('Location: /SAE-3.01-Developpement-application/web/frontController.php?page=login');
     exit;
@@ -14,6 +15,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $userId = $_SESSION['user_id'];
 
+// Vérifie si l'ID de la météothèque est spécifié
 if (!isset($_GET['id'])) {
     MessageFlash::ajouter('danger', 'Aucune météothèque spécifiée.');
     header('Location: /SAE-3.01-Developpement-application/web/frontController.php?page=favoris');
@@ -23,6 +25,7 @@ if (!isset($_GET['id'])) {
 $meteothequeId = intval($_GET['id']);
 $meteotheque = MeteothequeModel::getMeteothequeById($meteothequeId);
 
+// Vérifie si la météothèque existe
 if (!$meteotheque) {
     MessageFlash::ajouter('danger', 'Météothèque non trouvée.');
     header('Location: /SAE-3.01-Developpement-application/web/frontController.php?page=favoris');
@@ -42,6 +45,7 @@ if (!$meteotheque) {
 <body>
     <header>
         <h1>Détails de la Météothèque</h1>
+        <!-- Bouton pour retourner aux favoris -->
         <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php?page=favoris';">🔙 Retour aux favoris</button>
     </header>
     <main>
@@ -50,6 +54,7 @@ if (!$meteotheque) {
             <p><strong>Description :</strong> <?= htmlspecialchars($meteotheque['description']) ?></p>
             <p><strong>Station :</strong> <?= htmlspecialchars($meteotheque['station_name']) ?></p>
             <p><strong>Date de création :</strong> <?= htmlspecialchars($meteotheque['search_date']) ?></p>
+            <!-- Lien pour rechercher cette station -->
             <a href="/SAE-3.01-Developpement-application/src/View/map/search.php?station_name=<?= urlencode($meteotheque['station_name']) ?>&date=<?= urlencode($meteotheque['search_date']) ?>&redirect=true">🔍 Rechercher cette station</a>
         </div>
     </main>

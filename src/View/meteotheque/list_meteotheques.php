@@ -7,6 +7,7 @@ use App\Meteo\Model\MeteothequeModel;
 
 Auth::requireAuth();
 
+// Récupère toutes les météothèques
 $meteotheques = MeteothequeModel::getAllMeteotheques();
 ?>
 

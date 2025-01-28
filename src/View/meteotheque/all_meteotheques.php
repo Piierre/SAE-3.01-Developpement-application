@@ -11,6 +11,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Récupère toutes les météothèques
 $meteotheques = MeteothequeModel::getAllMeteotheques();
 ?>
 
@@ -24,7 +25,7 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
     <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/auth.css">
     <style>
         body {
-            overflow-y: auto; /* Ensure the body is scrollable */
+            overflow-y: auto; /* Assure que le corps de la page est défilable */
         }
 
         .grid {
@@ -108,7 +109,7 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
         }
 
         header {
-            padding: 10px; /* Further reduced padding */
+            padding: 10px; /* Réduction du padding */
             background: rgba(43, 42, 42, 0.8);
             position: fixed;
             width: 100%;
@@ -125,6 +126,7 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
     <header>
         <h1>Toutes les Météothèques</h1>
         <?php if (isset($_SESSION['login'])): ?>
+        <!-- Menu déroulant pour naviguer dans les différentes sections de la météothèque -->
         <div class="dropdown">
             <button class="dropbtn">Météothèque</button>
             <div class="dropdown-content">
@@ -134,9 +136,11 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
             </div>
         </div>
         <?php endif; ?>
+        <!-- Bouton pour retourner à l'accueil -->
         <div class="button-home">
             <button class="btn" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
         </div>
+        <!-- Bouton pour activer/désactiver le mode sombre -->
         <div class="button-container">
             <button class="btn" id="darkModeButton" onclick="toggleDarkMode()">🌙 Mode sombre</button>
         </div>
@@ -151,8 +155,10 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
                             <strong>Météothèque :<br> <?= htmlspecialchars($meteotheque['titre']) ?></strong>
                             <p>Date : <?= htmlspecialchars($meteotheque['date_creation']) ?></p>
                             <p>Créateur: <?= htmlspecialchars($meteotheque['creator_login']) ?> </p>
+                            <!-- Lien pour rechercher cette station -->
                             <a href="/SAE-3.01-Developpement-application/src/View/map/search.php?station_name=<?= urlencode($meteotheque['station_name']) ?>&date=<?= urlencode($meteotheque['search_date']) ?>&redirect=true">🔍 Rechercher cette station</a>
                             <?php if (isset($_SESSION['login'])): ?>
+                                <!-- Vérifie si la météothèque est dans les favoris -->
                                 <?php if (FavorisModel::isFavori($_SESSION['user_id'], $meteotheque['id'])): ?>
                                     <form method="post" action="/SAE-3.01-Developpement-application/src/View/meteotheque/remove_from_favorites.php">
                                         <input type="hidden" name="meteotheque_id" value="<?= htmlspecialchars($meteotheque['id']) ?>">
@@ -164,6 +170,7 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
                                         <button type="submit" class="favoris-button">⭐ Ajouter aux favoris</button>
                                     </form>
                                 <?php endif; ?>
+                                <!-- Formulaire pour supprimer la météothèque -->
                                 <form method="post" action="/SAE-3.01-Developpement-application/web/frontController.php?action=deleteMeteotheque">
                                     <input type="hidden" name="meteotheque_id" value="<?= htmlspecialchars($meteotheque['id']) ?>">
                                     <button type="submit" class="delete-button">❌ Supprimer</button>

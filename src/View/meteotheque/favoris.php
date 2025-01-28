@@ -10,6 +10,7 @@ session_start();
 // Vérifie que l'utilisateur est connecté
 Auth::requireAuth();
 
+// Vérifie si l'utilisateur est connecté et récupère son ID
 if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
 } else {
@@ -33,6 +34,7 @@ $favoris = FavorisModel::getFavorisByUser($userId);
     <header>
         <h1>Favoris</h1>
         <?php if (isset($_SESSION['login'])): ?>
+        <!-- Menu déroulant pour naviguer dans les différentes sections de la météothèque -->
         <div class="dropdown">
             <button class="dropbtn">Météothèque</button>
             <div class="dropdown-content">
@@ -42,6 +44,7 @@ $favoris = FavorisModel::getFavorisByUser($userId);
             </div>
         </div>
         <?php endif; ?>
+        <!-- Bouton pour retourner à l'accueil -->
         <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php';">🏠 Accueil</button>
     </header>
     <main>
@@ -51,10 +54,12 @@ $favoris = FavorisModel::getFavorisByUser($userId);
                 <div class="favoris-list">
                     <?php foreach ($favoris as $favori): ?>
                         <div class="favori-item">
+                            <!-- Lien vers les détails de la météothèque favorite -->
                             <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=details_meteotheque&id=<?= htmlspecialchars($favori['id']) ?>">
                                 <?= htmlspecialchars($favori['titre']) ?>
                             </a>
                             <p>Créateur: <?= htmlspecialchars($favori['creator_login']) ?> (ID: <?= htmlspecialchars($favori['creator_id']) ?>)</p>
+                            <!-- Formulaire pour supprimer la météothèque des favoris -->
                             <form method="post" action="/SAE-3.01-Developpement-application/src/View/meteotheque/remove_from_favorites.php">
                                 <input type="hidden" name="meteotheque_id" value="<?= htmlspecialchars($favori['id']) ?>">
                                 <button type="submit" class="remove-button">❌ Supprimer des favoris</button>

@@ -12,6 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 if (!isset($_SESSION['user_id'])) {
+    // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
     header('Location: /SAE-3.01-Developpement-application/web/frontController.php?page=login');
     exit;
 }
@@ -37,6 +38,7 @@ function genererCouleurAleatoire() {
     <title>Météothèque</title>
     <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/styles.css">
     <style>
+        /* Styles pour la page de la météothèque */
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
