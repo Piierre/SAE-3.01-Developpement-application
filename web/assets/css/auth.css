@@ -130,19 +130,22 @@ form input[type="password"] {
 
 form input[type="submit"] {
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.2);
-    color: #fff;
-    padding: 15px 30px;
-    border: 2px solid #fff;
+    background-color: #28a745; /* Match the background color of other buttons */
+    color: white; /* Match the text color of other buttons */
+    padding: 10px 20px; /* Match the padding of other buttons */
+    border: none; /* Remove border to match other buttons */
     border-radius: 5px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 1.2rem;
+    font-size: 1rem; /* Match the font size of other buttons */
+    transition: all 0.3s ease; /* Add transition for hover effect */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Add box-shadow to match other buttons */
+    margin: 10px; /* Add margin to match other buttons */
 }
 
 form input[type="submit"]:hover {
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: #218838; /* Match the hover background color of other buttons */
     transform: scale(1.1);
 }
 
