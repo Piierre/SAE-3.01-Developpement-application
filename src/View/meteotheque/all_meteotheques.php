@@ -92,6 +92,21 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
             background-color: #c82333;
         }
 
+        .delete-button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+
         header {
             padding: 10px; /* Further reduced padding */
             background: rgba(43, 42, 42, 0.8);
@@ -149,6 +164,10 @@ $meteotheques = MeteothequeModel::getAllMeteotheques();
                                         <button type="submit" class="favoris-button">⭐ Ajouter aux favoris</button>
                                     </form>
                                 <?php endif; ?>
+                                <form method="post" action="/SAE-3.01-Developpement-application/web/frontController.php?action=deleteMeteotheque">
+                                    <input type="hidden" name="meteotheque_id" value="<?= htmlspecialchars($meteotheque['id']) ?>">
+                                    <button type="submit" class="delete-button">❌ Supprimer</button>
+                                </form>
                             <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
