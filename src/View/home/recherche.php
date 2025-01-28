@@ -29,6 +29,12 @@ $searchDate = isset($_GET['date']) ? $_GET['date'] : '';
         max-width: 100%;
         max-height: 200px;
     }
+
+    /* Specific styles for recherche.php */
+    body {
+        background-color: #ffffff;
+    }
+    /* Add more specific styles here */
     </style>
 </head>
 <title>Recherche de Station Météo</title>
@@ -113,10 +119,46 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
 
-            fetch(`/SAE-3.01-Developpement-application/src/View/map/search.php?station_name=${encodeURIComponent(stationName)}&date=${encodeURIComponent(date)}`)
-                .then(response => response.text())
+            fetch(`/SAE-3.01-Developpement-application/src/View/map/search_api.php?station_name=${encodeURIComponent(stationName)}&date=${encodeURIComponent(date)}`)
+                .then(response => response.json())
                 .then(data => {
-                    document.getElementById("dataTable").innerHTML = data;
+                    if (data.error) {
+                        alert(data.error);
+                        return;
+                    }
+
+                    let results = data.results || [];
+                    let tableContent = `
+                        <tr>
+                            <th>Date</th>
+                            <th>Pression</th>
+                            <th>Température (°C)</th>
+                            <th>Humidité (%)</th>
+                            <th>Vent (Direction)</th>
+                            <th>Vent (Vitesse) (m/s)</th>
+                            <th>Temp. Min</th>
+                            <th>Temp. Max</th>
+                            <th>Précip. 6h (mm)</th>
+                            <th>Précip. 24h (mm)</th>
+                        </tr>
+                    `;
+
+                    tableContent += results.map(record => `
+                        <tr>
+                            <td>${record.date || 'N/A'}</td>
+                            <td>${record.pmer || 'N/A'}</td>
+                            <td>${record.tc || 'N/A'}</td>
+                            <td>${record.u || 'N/A'}</td>
+                            <td>${record.dd || 'N/A'}</td>
+                            <td>${record.ff || 'N/A'}</td>
+                            <td>${record.tn24 || 'N/A'}</td>
+                            <td>${record.tx24 || 'N/A'}</td>
+                            <td>${record.rr6 || 'N/A'}</td>
+                            <td>${record.rr24 || 'N/A'}</td>
+                        </tr>
+                    `).join('');
+
+                    document.getElementById("dataTable").innerHTML = tableContent;
                 })
                 .catch(error => {
                     console.error('Erreur lors de la récupération des données:', error);

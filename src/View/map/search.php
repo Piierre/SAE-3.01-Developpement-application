@@ -6,8 +6,37 @@ use App\Meteo\Config\Conf;
 use PDO;
 
 $pdo = Conf::getPDO();
-echo '<link rel="stylesheet" type="text/css" href="/SAE-3.01-Developpement-application/web/assets/css/search.css">';
+?>
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recherche de stations</title>
+    <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/search.css">
+    <style>
+    /* Specific styles for search.php */
+    body {
+        background-color: #ADD8E6; /* Light blue background */
+    }
+    /* Add more specific styles here */
+    .btn-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Recherche de stations</h1>
+    </header>
+</body>
+</html>
+
+<?php
 // Recherche des stations par nom
 if (isset($_GET['query'])) {
     $query = $_GET['query'] . '%';
@@ -32,19 +61,18 @@ if (isset($_GET['station_name']) && isset($_GET['date'])) {
     $date = $_GET['date'];
     $redirect = isset($_GET['redirect']) ? $_GET['redirect'] : false;
 
-    // Conversion de la date au format requis par l'API (YYYY/MM/DD)
-    $formattedDate = date("Y/m/d", strtotime($date));
+    // Appel à l'API via search_api.php
+    $apiUrl = "http://localhost/SAE-3.01-Developpement-application/src/View/map/search_api.php?station_name=" . urlencode($stationName) . "&date=" . urlencode($date);
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $apiUrl);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
 
-    // URL de l'API OpenDataSoft avec la station et la date précises
-    $apiUrl = "https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/donnees-synop-essentielles-omm/records?";
-    $apiUrl .= "limit=20&refine=date%3A%22" . urlencode($formattedDate) . "%22";
-    $apiUrl .= "&refine=nom%3A%22" . urlencode($stationName) . "%22";
-
-    // Récupération des données de l'API
-    $response = file_get_contents($apiUrl);
-
-    if (!$response) {
-        echo "<p>Erreur : Impossible de récupérer les données de l'API.</p>";
+    if ($httpCode !== 200 || !$response) {
+        echo "<p>Erreur : Impossible de récupérer les données de l'API. Code HTTP : $httpCode</p>";
         exit;
     }
 
@@ -98,60 +126,37 @@ if (isset($_GET['station_name']) && isset($_GET['date'])) {
     echo '<form method="post" action="/SAE-3.01-Developpement-application/src/View/meteotheque/export_csv.php">
             <input type="hidden" name="station_name" value="' . htmlspecialchars($stationName) . '">
             <input type="hidden" name="date" value="' . htmlspecialchars($date) . '">
-            <button type="submit" class="btn">📄 Exporter en CSV</button>
+            <div class="btn-container">
+                <button type="submit" class="btn_exporter">📄 Exporter en CSV</button>
+                <button type="button" class="btn" onclick="window.location.href=\'/SAE-3.01-Developpement-application/web/frontController.php\'">🏠 Accueil</button>
+            </div>
           </form>';
 
     if ($redirect) {
-        echo '<script>
+        echo '<script type="text/javascript">
             window.onload = function() {
                 document.getElementById("showChartsButton").click();
             };
         </script>';
     }
 
-    echo '<div id="charts" style="display: none;">
-        <div class="chart-container">
+    echo '<div id="charts" style="display: none; flex-direction: row;">
+        <div class="chart-container" style="border: none;">
             <h2>Température</h2>
             <canvas id="temperatureChart"></canvas>
         </div>
-        <div class="chart-container">
+        <div class="chart-container" style="border: none;">
             <h2>Humidité</h2>
             <canvas id="humidityChart"></canvas>
         </div>
-        <div class="chart-container">
+        <div class="chart-container" style="border: none;">
             <h2>Vitesse du vent</h2>
             <canvas id="windChart"></canvas>
         </div>
     </div>';
 
-    /*
-    echo '<style>
-    #charts {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        gap: 10px;
-        margin-top: 20px;
-        overflow-x: auto;
-    }
-
-    .chart-container {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 10px;
-        border-radius: 10px;
-        width: 300px;
-        flex: 0 0 auto;
-    }
-
-    canvas {
-        max-width: 100%;
-        max-height: 200px;
-    }
-    </style>';
-    */
-
     echo '<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>';
-    echo '<script>
+    echo '<script type="text/javascript">
     document.getElementById("showChartsButton").addEventListener("click", function() {
         let stationName = "' . htmlspecialchars($stationName) . '";
         let searchDate = "' . htmlspecialchars($date) . '";
@@ -164,7 +169,7 @@ if (isset($_GET['station_name']) && isset($_GET['date'])) {
                     return;
                 }
 
-                document.getElementById("charts").style.display = "block";
+                document.getElementById("charts").style.display = "flex";
 
                 // Trier les données par heure dans lordre souhaité
                 const sortedData = data.sort((a, b) => {

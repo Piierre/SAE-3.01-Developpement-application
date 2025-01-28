@@ -46,7 +46,6 @@ function genererCouleurAleatoire() {
             <button class="dropbtn">Météothèque</button>
             <div class="dropdown-content">
                 <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=all_meteotheques">Général</a>
-                <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=meteotheque">Vos Météothèques</a>
                 <a href="/SAE-3.01-Developpement-application/web/frontController.php?page=favoris">Favoris</a>
             </div>
         </div>

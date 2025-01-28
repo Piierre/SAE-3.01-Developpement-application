@@ -1,0 +1,270 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Tableau centré et stylisé */
+table {
+    margin: 20px auto;
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+/* En-têtes du tableau */
+table th {
+    background-color: #000000;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Corps du tableau */
+table td {
+    color: black;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Dernière ligne sans bordure */
+table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Graphiques */
+#charts {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-top: 20px;
+    overflow-x: auto;
+    gap: 10px;
+    width: 100%;
+}
+
+#charts .chart-container {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    text-align: center;
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+}
+
+#charts canvas {
+    max-width: 100%;
+    max-height: 300px;
+}
+
+/* Bouton pour afficher les graphiques */
+button#showChartsButton {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #8FBC8F;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 4px 10px rgba(146, 143, 143, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+button#showChartsButton:hover {
+    background-color: #6DAF6D;
+}
+
+body {
+    background: linear-gradient(to right, #aaa8335f, #0c8ab0); /* New gradient colors */
+    color: #333;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1 {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-size: 2.2rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+input[type="text"], input[type="date"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button#darkModeButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.suggestions {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.suggestions div {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestions div:hover {
+    background-color: #f1f1f1;
+}
+
+.error-msg {
+    color: red;
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #000000;
+    color: white;
+    text-align: center;
+}
+
+td {
+    color: black;
+    text-align: center;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+.chart-container {
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    text-align: center;
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+}
+
+.chart-container h2 {
+    text-align: center;
+    color: #444;
+}
+
+canvas {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    max-height: 300px;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background: linear-gradient(to right, #2c3e50, #4ca1af);
+    color: #ddd;
+}
+
+body.dark-mode h1, body.dark-mode footer {
+    color: #ddd;
+}
+
+body.dark-mode .container {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Header styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+header nav {
+    display: flex;
+    gap: 10px;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #007bff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+header nav a:hover {
+    background-color: #0056b3;
+}
+

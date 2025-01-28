@@ -104,7 +104,7 @@
             padding: 15px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.3);
             cursor: pointer;
-            color: #fff;
+            color: #000000;
         }
 
         .suggestions div:hover {
