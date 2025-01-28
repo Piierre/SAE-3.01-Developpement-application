@@ -46,6 +46,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
     exit;
 }
 
+// Suppression d'une météothèque
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'deleteMeteotheque') {
+    $meteothequeId = $_POST['meteotheque_id'];
+
+    $meteothequeController = new MeteothequeController();
+    $meteothequeController->deleteMeteotheque($meteothequeId);
+
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    exit;
+}
+
 // Gestion des soumissions de feedback
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'submitFeedback') {
     $username = $_POST['username'] ?? 'Anonyme'; // Nom de l'utilisateur (ou Anonyme si non connecté)

@@ -22,5 +22,9 @@ class MeteothequeController
         $meteotheques = MeteothequeModel::getAllMeteotheques();
         require __DIR__ . '/../View/meteotheque/all_meteotheques.php';
     }
+
+    public function deleteMeteotheque($meteothequeId) {
+        MeteothequeModel::deleteMeteotheque($meteothequeId);
+    }
 }
 ?>

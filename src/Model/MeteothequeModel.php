@@ -68,5 +68,10 @@ class MeteothequeModel {
         }
     }
     
+    public static function deleteMeteotheque($meteothequeId) {
+        $pdo = Conf::getPDO();
+        $stmt = $pdo->prepare("DELETE FROM Meteotheque WHERE id = ?");
+        $stmt->execute([$meteothequeId]);
+    }
 }
 ?>
