@@ -156,7 +156,7 @@ switch ($page) {
         break;
     /**/ 
     default:
-        require(ROOT . '/src/View/home/index.php');
+        require(ROOT . '/src/View/404.php');
         break;
 }
 ?>
