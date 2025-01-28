@@ -9,6 +9,34 @@ session_start();
     <title>Données Météorologiques SYNOP</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap">
     <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/styles.css">
+    <style>
+        /* Ajoutez les styles CSS ici */
+        nav ul li a {
+            font-size: 1rem; /* Taille de police uniforme */
+            color: #fff; /* Couleur du texte */
+            text-decoration: none; /* Pas de soulignement */
+            padding: 10px 20px; /* Espacement interne */
+            display: inline-block; /* Affichage en ligne */
+        }
+
+        nav ul li a:hover {
+            background-color: #007bff; /* Couleur de fond au survol */
+            color: #fff; /* Couleur du texte au survol */
+        }
+
+        nav ul li.dropdown .dropbtn {
+            font-size: 1rem; /* Taille de police uniforme */
+            color: #fff; /* Couleur du texte */
+            text-decoration: none; /* Pas de soulignement */
+            padding: 10px 20px; /* Espacement interne */
+            display: inline-block; /* Affichage en ligne */
+        }
+
+        nav ul li.dropdown .dropbtn:hover {
+            background-color: #007bff; /* Couleur de fond au survol */
+            color: #fff; /* Couleur du texte au survol */
+        }
+    </style>
 </head>
 <body>
     <div id="particles-js"></div>
@@ -40,7 +68,7 @@ session_start();
                 <?php endif; ?>
             </ul>
         </nav>
-        <button class="toggle-dark-mode" onclick="toggleDarkMode()">🌙 Mode sombre</button>
+        <button class="toggle-dark-mode" id="darkModeButton" onclick="toggleDarkMode()">🌙 Mode sombre</button>
     </header>
 
     <main>
@@ -201,7 +229,24 @@ session_start();
 
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
+            document.documentElement.classList.toggle('dark-mode');
+            const darkModeButton = document.getElementById('darkModeButton');
+            if (document.body.classList.contains('dark-mode')) {
+                darkModeButton.innerHTML = '☀️ Mode clair';
+            } else {
+                darkModeButton.innerHTML = '🌙 Mode sombre';
+            }
         }
+
+        // Set initial state of dark mode button
+        document.addEventListener('DOMContentLoaded', () => {
+            const darkModeButton = document.getElementById('darkModeButton');
+            if (document.body.classList.contains('dark-mode')) {
+                darkModeButton.innerHTML = '☀️ Mode clair';
+            } else {
+                darkModeButton.innerHTML = '🌙 Mode sombre';
+            }
+        });
 
         function toggleNav() {
             const navList = document.getElementById('nav-list');
