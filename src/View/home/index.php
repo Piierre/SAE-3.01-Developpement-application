@@ -104,15 +104,15 @@ session_start();
                     <span class="icon">🔍</span>
                     Recherche
                 </div>
-                <div class="section chart" onclick="window.location.href='../web/frontController.php?page=graphique'">
+                <div class="section chart" onclick="window.location.href='../web/frontController.php?page=all_meteotheques'">
                     <div class="background graph-bg"></div>
                     <div class="background graph-bars">
                         <div class="bar"></div>
                         <div class="bar"></div>
                         <div class="bar"></div>
                     </div>
-                    <span class="icon">📊</span>
-                    Graphiques
+                    <span class="icon">🗃️</span>
+                    Météothèque
                 </div>
             <?php else: ?>
                 <style>
@@ -206,17 +206,6 @@ session_start();
             animateCounter("reports-count", 29200, 100);
         };
 
-        // Remove auto-scroll functionality
-        // let currentIndex = 0;
-        // const sectionsArray = document.querySelectorAll('.section');
-
-        // function autoScroll() {
-        //     sectionsArray[currentIndex].scrollIntoView({ behavior: 'smooth' });
-        //     currentIndex = (currentIndex + 1) % sectionsArray.length;
-        // }
-
-        // setInterval(autoScroll, 5000);
-
         function setThemeByTime() {
             const hours = new Date().getHours();
             if (hours >= 18 || hours < 6) {
@@ -238,7 +227,6 @@ session_start();
             }
         }
 
-        // Set initial state of dark mode button
         document.addEventListener('DOMContentLoaded', () => {
             const darkModeButton = document.getElementById('darkModeButton');
             if (document.body.classList.contains('dark-mode')) {
@@ -286,12 +274,10 @@ session_start();
             }
         });
 
-        // Smooth scroll back-to-top function
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Show/hide back-to-top button
         window.addEventListener('scroll', () => {
             const backToTop = document.getElementById('back-to-top');   
             if (window.scrollY > 200) {
@@ -301,7 +287,6 @@ session_start();
             }
         });
 
-        // Parallax effect for background images
         window.addEventListener('scroll', () => {
             document.querySelectorAll('.background img').forEach(img => {
                 const speed = img.getAttribute('data-speed');

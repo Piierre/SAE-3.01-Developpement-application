@@ -22,12 +22,12 @@
             background: linear-gradient(to right, #a8acaf, #00f2fe);
             color: #fff;
             text-align: center;
-            overflow: auto; /* Ensure the body is scrollable in both directions */
+            overflow: auto; /* Assurer que le corps est défilable dans les deux directions */
         }
 
         h1 {
             margin-top: 20px;
-            font-size: 2.5rem; /* Increased font size */
+            font-size: 2.5rem; /* Taille de police augmentée */
             font-weight: bold;
             text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
         }
@@ -39,7 +39,7 @@
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             position: relative;
-            z-index: 1; /* Ensure these elements are above the particles */
+            z-index: 1; /* Assurer que ces éléments sont au-dessus des particules */
         }
 
         footer {
@@ -76,7 +76,7 @@
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             position: relative;
-            z-index: 1; /* Ensure these elements are above the particles */
+            z-index: 1; /* Assurer que ces éléments sont au-dessus des particules */
         }
 
         .back-button:hover {
@@ -84,22 +84,22 @@
         }
 
         #particles-js {
-            position: fixed; /* Ensure it covers the entire background */
+            position: fixed; /* Assurer qu'il couvre tout l'arrière-plan */
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0; /* Adjust z-index to be just behind the map and texts */
+            z-index: 0; /* Ajuster le z-index pour être juste derrière la carte et les textes */
         }
 
         #dateForm {
             margin: 20px 0;
-            font-size: 1.2em; /* Decreased font size */
+            font-size: 1.2em; /* Taille de police diminuée */
             position: relative;
-            z-index: 1; /* Ensure these elements are above the particles */
+            z-index: 1; /* Assurer que ces éléments sont au-dessus des particules */
         }
         #dateForm label, #dateForm input, #dateForm button {
-            font-size: 1.2em; /* Decreased font size */
+            font-size: 1.2em; /* Taille de police diminuée */
             margin: 5px;
         }
 
@@ -162,15 +162,15 @@
         particlesJS("particles-js", {
             "particles": {
                 "number": {
-                    "value": 120, // Increased number of particles
+                    "value": 120, 
                     "density": { "enable": true, "value_area": 800 }
                 },
                 "color": { "value": "#ffffff" },
                 "shape": { "type": "circle" },
-                "opacity": { "value": 0.7, "random": true }, // Increased opacity
-                "size": { "value": 4, "random": true }, // Increased size
-                "line_linked": { "enable": true, "distance": 100, "color": "#ffffff", "opacity": 0.6, "width": 2 }, // Increased contrast
-                "move": { "enable": true, "speed": 4 } // Increased speed
+                "opacity": { "value": 0.7, "random": true }, 
+                "size": { "value": 4, "random": true }, 
+                "line_linked": { "enable": true, "distance": 100, "color": "#ffffff", "opacity": 0.6, "width": 2 }, 
+                "move": { "enable": true, "speed": 4 } 
             },
             "interactivity": {
                 "events": {
