@@ -1,4 +1,4 @@
-/* Import Roboto font */
+/* Importation de la police Roboto */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 /* Corps global */
@@ -14,12 +14,12 @@ body {
 
 body, html {
     height: 100%;
-    min-height: 100vh; /* Ensure body takes full height */
+    min-height: 100vh; /* Assure que le corps prend toute la hauteur */
     font-family: Arial, sans-serif;
     background: linear-gradient(to right, #a8acaf, #00f2fe);
     color: #fff;
     text-align: center;
-    overflow: hidden; /* Ensure particles are visible */
+    overflow: hidden; /* Assure que les particules sont visibles */
 }
 
 #particles-js {
@@ -28,10 +28,10 @@ body, html {
     height: 100%;
     top: 0;
     left: 0;
-    z-index: -1; /* Ensure particles are behind other content */
+    z-index: -1; /* Assure que les particules sont derrière le contenu */
 }
 
-/* Header */
+/* En-tête */
 header {
     padding: 20px;
     background: rgba(43, 42, 42, 0.8);
@@ -88,8 +88,8 @@ nav ul li a:hover {
 /* Sections */
 main {
     margin-top: 80px;
-    padding-bottom: 200px; /* Further increase padding to ensure footer is more visible */
-    min-height: calc(100vh - 80px); /* Ensure main content takes full height minus header */
+    padding-bottom: 200px; /* Augmente le padding pour assurer que le pied de page soit plus visible */
+    min-height: calc(100vh - 80px); /* Assure que le contenu principal prend toute la hauteur moins l'en-tête */
 }
 
 #welcome {
@@ -130,22 +130,22 @@ form input[type="password"] {
 
 form input[type="submit"] {
     cursor: pointer;
-    background-color: #28a745; /* Match the background color of other buttons */
-    color: white; /* Match the text color of other buttons */
-    padding: 10px 20px; /* Match the padding of other buttons */
-    border: none; /* Remove border to match other buttons */
+    background-color: #28a745; /* Correspond à la couleur de fond des autres boutons */
+    color: white; /* Correspond à la couleur du texte des autres boutons */
+    padding: 10px 20px; /* Correspond au padding des autres boutons */
+    border: none; /* Supprime la bordure pour correspondre aux autres boutons */
     border-radius: 5px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 1rem; /* Match the font size of other buttons */
-    transition: all 0.3s ease; /* Add transition for hover effect */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Add box-shadow to match other buttons */
-    margin: 10px; /* Add margin to match other buttons */
+    font-size: 1rem; /* Correspond à la taille de police des autres boutons */
+    transition: all 0.3s ease; /* Ajoute une transition pour l'effet de survol */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Ajoute une ombre pour correspondre aux autres boutons */
+    margin: 10px; /* Ajoute une marge pour correspondre aux autres boutons */
 }
 
 form input[type="submit"]:hover {
-    background-color: #218838; /* Match the hover background color of other buttons */
+    background-color: #218838; /* Correspond à la couleur de fond au survol des autres boutons */
     transform: scale(1.1);
 }
 
@@ -187,7 +187,7 @@ form input[type="submit"]:hover {
     gap: 10px;
 }
 
-/* Footer */
+/* Pied de page */
 footer {
     padding: 20px;
     background: rgba(0, 0, 0, 0.8);
@@ -196,7 +196,7 @@ footer {
     text-align: center;
 }
 
-/* Footer link hover effect */
+/* Effet de survol pour les liens du pied de page */
 footer a {
     color: #fff;
     text-decoration: none;
@@ -239,7 +239,7 @@ body.dark-mode nav ul li a:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Responsive styles */
+/* Styles responsives */
 @media (max-width: 768px) {
     .button-container {
         flex-direction: column;
@@ -271,6 +271,6 @@ body.dark-mode nav ul li a:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: calc(100vh - 280px); /* Adjust height to take full available space minus header and footer */
+    height: calc(100vh - 280px); /* Ajuste la hauteur pour prendre tout l'espace disponible moins l'en-tête et le pied de page */
     text-align: center;
 }

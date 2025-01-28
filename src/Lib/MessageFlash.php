@@ -10,6 +10,7 @@ class MessageFlash {
     // Les messages sont enregistrés en session associée à la clé suivante
     private static string $cleFlash = "_messagesFlash";
 
+    // Initialise les messages flash en session
     public static function initialiser() : void {
         Session::getInstance()->enregistrer(static::$cleFlash, [
             "success" => [],
@@ -19,7 +20,7 @@ class MessageFlash {
         ]);
     }
     
-    // $type parmi "success", "info", "warning" ou "danger"
+    // Ajoute un message flash de type $type parmi "success", "info", "warning" ou "danger"
     public static function ajouter(string $type, string $message): void
     {
         // On récupère la session
@@ -32,6 +33,7 @@ class MessageFlash {
         $session->enregistrer(static::$cleFlash, $messagesFlash);
     }
 
+    // Lit tous les messages flash
     public static function lireTousMessages(): array
     {
         // On récupère la session
@@ -50,6 +52,7 @@ class MessageFlash {
         return $messagesFlash;
     }
 
+    // Affiche les messages flash
     public static function displayFlashMessages(): void
     {
         $messagesFlash = static::lireTousMessages();
@@ -60,7 +63,7 @@ class MessageFlash {
                 echo '</div>';
             }
         }
-        // Clear flash messages after displaying them
+        // Efface les messages flash après les avoir affichés
         Session::getInstance()->enregistrer(static::$cleFlash, [
             "success" => [],
             "info" => [],
@@ -69,13 +72,14 @@ class MessageFlash {
         ]);
     }
 
+    // Vérifie si un message de type $type existe
     public static function contientMessage(string $type): bool
     {
         $messagesFlash = Session::getInstance()->lire(static::$cleFlash);
         return !empty($messagesFlash[$type]); 
     }
 
-    // Attention : la lecture doit détruire le message
+    // Lit et détruit les messages de type $type
     public static function lireMessages(string $type): array
     {
         // On récupère les messages qui nous intéressent

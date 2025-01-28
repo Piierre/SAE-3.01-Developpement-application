@@ -38,19 +38,19 @@ if ($data && isset($data['records'])) {
 
     <form action="" method="POST">
         <label for="date">Date (AAAA-MM-JJ) :</label>
-        <input type="date" id="date" name="date" required><br><br>
+        <input type="date" id="date" name="date" required><br><br> <!-- Champ de saisie pour la date -->
 
         <label for="measure">Mesure :</label>
-        <select id="measure" name="measure" required>
+        <select id="measure" name="measure" required> <!-- Sélection de la mesure -->
             <option value="temperature">Température</option>
             <option value="precip6">Précipitations sur 6h</option>
             <option value="precip24">Précipitations sur 24h</option>
         </select><br><br>
 
         <label for="station">Station :</label>
-        <input type="text" id="station" name="station" required><br><br>
+        <input type="text" id="station" name="station" required><br><br> <!-- Champ de saisie pour la station -->
 
-        <button type="submit">Rechercher</button>
+        <button type="submit">Rechercher</button> <!-- Bouton pour lancer la recherche -->
     </form>
 
     <?php if (!empty($filteredResults)): ?>
@@ -59,21 +59,21 @@ if ($data && isset($data['records'])) {
                 <tr>
                     <th>Date</th>
                     <th>Station</th>
-                    <th><?php echo ucfirst($measure); ?></th>
+                    <th><?php echo ucfirst($measure); ?></th> <!-- Afficher le nom de la mesure -->
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($filteredResults as $row): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($row['date']); ?></td>
-                        <td><?php echo htmlspecialchars($row['nom']); ?></td>
-                        <td><?php echo htmlspecialchars($row[$measure]); ?></td>
+                        <td><?php echo htmlspecialchars($row['date']); ?></td> <!-- Afficher la date -->
+                        <td><?php echo htmlspecialchars($row['nom']); ?></td> <!-- Afficher le nom de la station -->
+                        <td><?php echo htmlspecialchars($row[$measure]); ?></td> <!-- Afficher la mesure -->
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     <?php else: ?>
-        <p>Aucune donnée trouvée pour cette recherche.</p>
+        <p>Aucune donnée trouvée pour cette recherche.</p> <!-- Message si aucune donnée n'est trouvée -->
     <?php endif; ?>
 </body>
 </html>

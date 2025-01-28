@@ -1,5 +1,5 @@
 <?php
-session_start();
+session_start(); // Démarrer la session
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -39,8 +39,8 @@ session_start();
     </style>
 </head>
 <body>
-    <div id="particles-js"></div>
-    
+    <div id="particles-js"></div> <!-- Conteneur pour l'effet de particules -->
+
     <header>
         <h1>Données Météorologiques SYNOP</h1>
         <nav>
@@ -68,14 +68,14 @@ session_start();
                 <?php endif; ?>
             </ul>
         </nav>
-        <button class="toggle-dark-mode" id="darkModeButton" onclick="toggleDarkMode()">🌙 Mode sombre</button>
+        <button class="toggle-dark-mode" id="darkModeButton" onclick="toggleDarkMode()">🌙 Mode sombre</button> <!-- Bouton pour basculer le mode sombre -->
     </header>
 
     <main>
         <section id="welcome">
             <div class="welcome-content">
                 <h2>Bienvenue</h2>
-                <p class="typing-effect"></p>
+                <p class="typing-effect"></p> <!-- Effet de texte en cours de frappe -->
                 <p>Explorez nos données météorologiques SYNOP de manière interactive.</p>
                 <p>Faites défiler pour découvrir nos fonctionnalités.</p>
 
@@ -92,14 +92,14 @@ session_start();
             <?php if (isset($_SESSION['login'])): ?>
                 <div class="section map" onclick="window.location.href='../web/frontController.php?page=carte'">
                     <div class="background">
-                        <img src="img/carte_france.png" alt="Carte Météo">
+                        <img src="img/carte_france.png" alt="Carte Météo"> <!-- Image de la carte météo -->
                     </div>
                     <span class="icon">🗺️</span>
                     Carte Interactive
                 </div>
                 <div class="section search" onclick="window.location.href='../web/frontController.php?page=recherche'">
                     <div class="background">
-                        <img src="img/undraw_world_bdnk.svg" alt="Recherche Météo">
+                        <img src="img/undraw_world_bdnk.svg" alt="Recherche Météo"> <!-- Image de recherche météo -->
                     </div>
                     <span class="icon">🔍</span>
                     Recherche
@@ -117,7 +117,7 @@ session_start();
             <?php else: ?>
                 <style>
                     .container {
-                        display: none;
+                        display: none; /* Masquer le conteneur si l'utilisateur n'est pas connecté */
                     }
                 </style>
             <?php endif; ?>
@@ -125,17 +125,17 @@ session_start();
 
         <div class="stats">
             <div>
-                <span id="stations-count">0</span>
+                <span id="stations-count">0</span> <!-- Compteur de stations météo -->
                 <p>Stations Météo</p>
             </div>
             <div>
-                <span id="reports-count">0</span>
+                <span id="reports-count">0</span> <!-- Compteur de relevés météo -->
                 <p>Relevés</p>
             </div>
         </div>
     </main>
 
-    <!-- Back-to-top button -->
+    <!-- Bouton retour en haut -->
     <div id="back-to-top" onclick="scrollToTop()">↑</div>
 
     <footer>
@@ -202,26 +202,26 @@ session_start();
         }
 
         window.onload = function () {
-            animateCounter("stations-count", 62, 100);
-            animateCounter("reports-count", 29200, 100);
+            animateCounter("stations-count", 62, 100); // Animer le compteur des stations météo
+            animateCounter("reports-count", 29200, 100); // Animer le compteur des relevés
         };
 
         function setThemeByTime() {
             const hours = new Date().getHours();
             if (hours >= 18 || hours < 6) {
-                document.body.classList.add('dark-mode');
+                document.body.classList.add('dark-mode'); // Activer le mode sombre le soir et la nuit
             } else {
-                document.body.classList.remove('dark-mode');
+                document.body.classList.remove('dark-mode'); // Désactiver le mode sombre le jour
             }
         }
         setThemeByTime();
 
         function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('dark-mode'); // Basculer le mode sombre
             document.documentElement.classList.toggle('dark-mode');
             const darkModeButton = document.getElementById('darkModeButton');
             if (document.body.classList.contains('dark-mode')) {
-                darkModeButton.innerHTML = '☀️ Mode clair';
+                darkModeButton.innerHTML = '☀️ Mode clair'; // Changer le texte du bouton en fonction du mode
             } else {
                 darkModeButton.innerHTML = '🌙 Mode sombre';
             }
@@ -230,7 +230,7 @@ session_start();
         document.addEventListener('DOMContentLoaded', () => {
             const darkModeButton = document.getElementById('darkModeButton');
             if (document.body.classList.contains('dark-mode')) {
-                darkModeButton.innerHTML = '☀️ Mode clair';
+                darkModeButton.innerHTML = '☀️ Mode clair'; // Initialiser le texte du bouton en fonction du mode
             } else {
                 darkModeButton.innerHTML = '🌙 Mode sombre';
             }
@@ -238,7 +238,7 @@ session_start();
 
         function toggleNav() {
             const navList = document.getElementById('nav-list');
-            navList.classList.toggle('active');
+            navList.classList.toggle('active'); // Basculer l'affichage du menu de navigation
         }
 
         // Défilement fluide pour les liens internes
@@ -246,7 +246,7 @@ session_start();
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+                    behavior: 'smooth' // Défilement fluide
                 });
             });
         });
@@ -258,8 +258,8 @@ session_start();
                 const position = section.getBoundingClientRect().top;
                 const windowHeight = window.innerHeight;
                 if (position < windowHeight - 100) {
-                    section.style.opacity = '1';
-                    section.style.transform = 'translateY(0)';
+                    section.style.opacity = '1'; // Rendre la section visible
+                    section.style.transform = 'translateY(0)'; // Réinitialiser la position
                 }
             });
         });
@@ -268,22 +268,22 @@ session_start();
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
             if (window.scrollY > 50) {
-                header.style.background = "rgba(0, 0, 0, 0.9)";
+                header.style.background = "rgba(0, 0, 0, 0.9)"; // Changer la couleur de fond du header
             } else {
                 header.style.background = "rgba(0, 0, 0, 0.8)";
             }
         });
 
         function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: 'smooth' }); // Défilement fluide vers le haut
         }
 
         window.addEventListener('scroll', () => {
             const backToTop = document.getElementById('back-to-top');   
             if (window.scrollY > 200) {
-                backToTop.style.display = 'block';
+                backToTop.style.display = 'block'; // Afficher le bouton retour en haut
             } else {
-                backToTop.style.display = 'none';
+                backToTop.style.display = 'none'; // Masquer le bouton retour en haut
             }
         });
 
@@ -291,7 +291,7 @@ session_start();
             document.querySelectorAll('.background img').forEach(img => {
                 const speed = img.getAttribute('data-speed');
                 const yPos = -(window.scrollY * speed / 100);
-                img.style.transform = `translateY(${yPos}px)`;
+                img.style.transform = `translateY(${yPos}px)`; // Déplacer l'image en fonction du défilement
             });
         });
 
@@ -299,7 +299,7 @@ session_start();
             const icons = document.querySelector('.weather-icons');
             const x = (e.clientX / window.innerWidth) * 100 - 50;
             const y = (e.clientY / window.innerHeight) * 100 - 50;
-            icons.style.transform = `translate(${x}px, ${y}px)`;
+            icons.style.transform = `translate(${x}px, ${y}px)`; // Déplacer les icônes en fonction de la souris
         });
     </script>
 </body>

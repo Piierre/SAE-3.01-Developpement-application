@@ -1,3 +1,4 @@
+// Fonction pour rechercher des stations en fonction de la requête
 function searchStations(query) {
     if (query.length === 0) {
         document.getElementById("suggestions").innerHTML = "";
@@ -13,11 +14,13 @@ function searchStations(query) {
     xhr.send();
 }
 
+// Fonction pour sélectionner une station dans les suggestions
 function selectStation(stationName) {
     document.getElementById("search").value = stationName;
     document.getElementById("suggestions").innerHTML = "";
 }
 
+// Fonction pour rechercher des mesures en fonction du nom de la station et de la date
 function searchMeasures() {
     const stationName = document.getElementById("search").value.trim();
     const date = document.getElementById("date").value.trim();
@@ -39,6 +42,7 @@ function searchMeasures() {
     xhr.send();
 }
 
+// Fonction pour basculer en mode sombre
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
     document.querySelectorAll('.btn').forEach(button => {

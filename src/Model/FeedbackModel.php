@@ -9,6 +9,7 @@ use App\Meteo\Config\Conf;
 
 class FeedbackModel
 {
+    // Ajoute un feedback dans la base de données
     public function addFeedback($name, $message, $rating)
     {
         $pdo = Conf::getPDO();
@@ -22,6 +23,7 @@ class FeedbackModel
         ]);
     }
 
+    // Récupère tous les feedbacks de la base de données
     public function getAllFeedbacks()
     {
         $pdo = Conf::getPDO();
@@ -29,6 +31,7 @@ class FeedbackModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Approuve un feedback
     public function approveFeedback($feedbackId)
     {
         $pdo = Conf::getPDO();
@@ -39,6 +42,7 @@ class FeedbackModel
         ]);
     }
 
+    // Désapprouve un feedback
     public function disapproveFeedback($feedbackId)
     {
         $pdo = Conf::getPDO();

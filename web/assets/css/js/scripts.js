@@ -97,21 +97,21 @@ window.addEventListener('scroll', () => {
     backToTop.style.display = window.scrollY > 200 ? 'block' : 'none';
 });
 
-// Function to toggle dark mode
+// Fonction pour basculer en mode sombre
 function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
-    document.body.classList.toggle('light-mode');
-    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    document.body.classList.toggle('dark-mode'); // Ajoute ou supprime la classe 'dark-mode'
+    document.body.classList.toggle('light-mode'); // Ajoute ou supprime la classe 'light-mode'
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode')); // Sauvegarde l'état du mode sombre dans le localStorage
 }
 
-// Set theme based on user preference
+// Définit le thème en fonction de la préférence de l'utilisateur
 function setThemeByPreference() {
-    const darkMode = localStorage.getItem('darkMode') === 'true';
+    const darkMode = localStorage.getItem('darkMode') === 'true'; // Récupère la préférence du mode sombre depuis le localStorage
     if (darkMode) {
-        document.body.classList.add('dark-mode');
+        document.body.classList.add('dark-mode'); // Ajoute la classe 'dark-mode' si la préférence est pour le mode sombre
     } else {
-        document.body.classList.add('light-mode');
+        document.body.classList.add('light-mode'); // Ajoute la classe 'light-mode' si la préférence est pour le mode clair
     }
 }
 
-setThemeByPreference();
+setThemeByPreference(); // Appelle la fonction pour définir le thème lors du chargement de la page

@@ -2,6 +2,7 @@
 namespace App\Meteo\Lib;
 
 class Auth {
+    // Démarre une session pour l'utilisateur
     public static function startSession($user) {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
@@ -11,6 +12,7 @@ class Auth {
         $_SESSION['role'] = $user['role'];
     }
 
+    // Vérifie si l'utilisateur est authentifié et a le rôle requis
     public static function requireAuth($role = null) {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();

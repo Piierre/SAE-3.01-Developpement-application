@@ -1,26 +1,28 @@
 <?php
 namespace App\Meteo\Controller;
 
-require_once __DIR__ . '/../Config/Conf.php'; // Ensure this path is correct
-use App\Meteo\Config\Conf; // Ensure this class exists and is correctly namespaced
+// Inclure le fichier de configuration 
+require_once __DIR__ . '/../Config/Conf.php';
+use App\Meteo\Config\Conf;
 use PDO;
 
 class CarteController {
 
+    // Méthode pour récupérer toutes les stations météo de la base de données
     public static function getStations() {
         try {
-            // Connexion à la base de données
+            // Établir une connexion à la base de données via PDO
             $pdo = Conf::getPDO();
 
-            // Requête pour récupérer les stations
+            // Préparer et exécuter la requête SQL pour obtenir les informations des stations
             $sql = "SELECT nom, latitude, longitude, altitude FROM station";
             $stmt = $pdo->query($sql);
 
-            // Retourner les données sous forme d'un tableau associatif
+            // Récupérer tous les résultats sous forme de tableau associatif et les retourner
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         } catch (\Exception $e) {
-            // Gestion des erreurs
+            // En cas d'erreur, afficher le message et retourner un tableau vide
             echo "Erreur : " . $e->getMessage();
             return [];
         }

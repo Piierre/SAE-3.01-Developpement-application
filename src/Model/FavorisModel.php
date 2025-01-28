@@ -6,7 +6,9 @@ require_once __DIR__ . '/../config/Conf.php';
 use PDO;
 
 use App\Meteo\Config\Conf;
+
 class FavorisModel {
+    // Récupère les favoris d'un utilisateur
     public static function getFavorisByUser($userId) {
         $pdo = Conf::getPDO();
         $stmt = $pdo->prepare("
@@ -20,18 +22,21 @@ class FavorisModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Ajoute un élément aux favoris d'un utilisateur
     public static function addToFavorites($userId, $meteothequeId) {
         $pdo = Conf::getPDO();
         $stmt = $pdo->prepare("INSERT INTO Favoris (user_id, meteotheque_id) VALUES (?, ?)");
         return $stmt->execute([$userId, $meteothequeId]);
     }
 
+    // Supprime un élément des favoris d'un utilisateur
     public static function removeFromFavorites($userId, $meteothequeId) {
         $pdo = Conf::getPDO();
         $stmt = $pdo->prepare("DELETE FROM Favoris WHERE user_id = ? AND meteotheque_id = ?");
         return $stmt->execute([$userId, $meteothequeId]);
     }
 
+    // Vérifie si un élément est dans les favoris d'un utilisateur
     public static function isFavori($userId, $meteothequeId) {
         $pdo = Conf::getPDO();
         $stmt = $pdo->prepare("SELECT COUNT(*) FROM Favoris WHERE user_id = ? AND meteotheque_id = ?");

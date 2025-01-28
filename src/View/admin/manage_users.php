@@ -1,15 +1,15 @@
 <?php
 session_start();
 if ($_SESSION['role'] !== 'admin') {
-    header("Location: ../home/index.php");
+    header("Location: ../home/index.php"); // Rediriger si l'utilisateur n'est pas admin
     exit();
 }
 
 require_once __DIR__ . '/../../../src/Model/UserModel.php';
 use App\Meteo\Model\UserModel;
 
-$pendingUsers = UserModel::getPendingUsers();
-$allUsers = UserModel::getAllUsers();
+$pendingUsers = UserModel::getPendingUsers(); // Récupérer les utilisateurs en attente
+$allUsers = UserModel::getAllUsers(); // Récupérer tous les utilisateurs
 ?>
 
 <!DOCTYPE html>
@@ -21,8 +21,8 @@ $allUsers = UserModel::getAllUsers();
     <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/styles.css"> 
     <style>
         .back-button {
-            padding: 15px 30px; /* Increased padding */
-            font-size: 1.2rem; /* Increased font size */
+            padding: 15px 30px; /* Augmenter le padding */
+            font-size: 1.2rem; /* Augmenter la taille de la police */
             background-color: #28a745;
             color: white;
             border: none;
@@ -40,8 +40,8 @@ $allUsers = UserModel::getAllUsers();
         }
 
         .toggle-dark-mode {
-            padding: 15px 30px; /* Increased padding */
-            font-size: 1.2rem; /* Increased font size */
+            padding: 15px 30px; /* Augmenter le padding */
+            font-size: 1.2rem; /* Augmenter la taille de la police */
             background-color: #343a40;
             color: white;
             border: none;
@@ -64,28 +64,28 @@ $allUsers = UserModel::getAllUsers();
 
         .fade-in {
             opacity: 0;
-            animation: fadeIn 1.5s ease-in-out forwards; /* Fade in animation */
+            animation: fadeIn 1.5s ease-in-out forwards; /* Animation de fondu */
         }
 
         header h1 {
-            font-size: 3rem; /* Increased font size */
-            animation: slideDown 1s ease-in-out; /* Slide down animation */
+            font-size: 3rem; /* Augmenter la taille de la police */
+            animation: slideDown 1s ease-in-out; /* Animation de glissement vers le bas */
         }
 
         main {
-            animation: fadeIn 1.5s ease-in-out; /* Fade in animation */
+            animation: fadeIn 1.5s ease-in-out; /* Animation de fondu */
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            font-size: 1.2rem; /* Increased font size */
-            animation: fadeIn 1.5s ease-in-out; /* Fade in animation */
+            font-size: 1.2rem; /* Augmenter la taille de la police */
+            animation: fadeIn 1.5s ease-in-out; /* Animation de fondu */
         }
 
         th, td {
-            padding: 15px; /* Increased padding */
+            padding: 15px; /* Augmenter le padding */
             border: 1px solid #ddd;
         }
 
@@ -96,29 +96,29 @@ $allUsers = UserModel::getAllUsers();
 
         td {
             background-color: #f8f9fa;
-            color: #343a40; /* Changed text color to dark */
+            color: #343a40; /* Changer la couleur du texte en sombre */
         }
 
         .action-buttons button {
-            padding: 15px 30px; /* Increased padding */
-            font-size: 1.2rem; /* Increased font size */
+            padding: 15px 30px; /* Augmenter le padding */
+            font-size: 1.2rem; /* Augmenter la taille de la police */
             margin: 5px;
-            color: #343a40; /* Changed text color to dark */
+            color: #343a40; /* Changer la couleur du texte en sombre */
         }
 
         .action-buttons button[type="submit"][value="ban"] {
-            background-color: #dc3545; /* Red background for ban button */
-            color: white; /* White text color */
+            background-color: #dc3545; /* Fond rouge pour le bouton de bannissement */
+            color: white; /* Texte blanc */
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background 0.3s ease;
-            padding: 20px 40px; /* Further increased padding */
-            font-size: 1.5rem; /* Further increased font size */
+            padding: 20px 40px; /* Augmenter encore le padding */
+            font-size: 1.5rem; /* Augmenter encore la taille de la police */
         }
 
         .action-buttons button[type="submit"][value="ban"]:hover {
-            background-color: #c82333; /* Darker red on hover */
+            background-color: #c82333; /* Rouge plus foncé au survol */
         }
 
         @keyframes slideDown {
@@ -135,8 +135,8 @@ $allUsers = UserModel::getAllUsers();
 <body>
     <header class="fade-in">
         <h1>Gérer les utilisateurs</h1>
-        <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
-        <button class="toggle-dark-mode" onclick="toggleDarkMode()">🌙 Mode sombre</button>
+        <button class="back-button" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button> <!-- Bouton pour retourner à l'accueil -->
+        <button class="toggle-dark-mode" onclick="toggleDarkMode()">🌙 Mode sombre</button> <!-- Bouton pour basculer le mode sombre -->
     </header>
     <main class="fade-in">
         <section>
@@ -151,18 +151,18 @@ $allUsers = UserModel::getAllUsers();
                 <tbody>
                     <?php foreach ($pendingUsers as $user): ?>
                         <tr>
-                            <td><?= htmlspecialchars($user['login']) ?></td>
+                            <td><?= htmlspecialchars($user['login']) ?></td> <!-- Afficher le nom d'utilisateur -->
                             <td>
                                 <div class="action-buttons">
                                     <form method="POST" action="/SAE-3.01-Developpement-application/src/Controller/UserController.php">
                                         <input type="hidden" name="action" value="approve">
                                         <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
-                                        <button type="submit">Accepter</button>
+                                        <button type="submit">Accepter</button> <!-- Bouton pour accepter l'utilisateur -->
                                     </form>
                                     <form method="POST" action="/SAE-3.01-Developpement-application/src/Controller/UserController.php">
                                         <input type="hidden" name="action" value="reject">
                                         <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
-                                        <button type="submit">Refuser</button>
+                                        <button type="submit">Refuser</button> <!-- Bouton pour refuser l'utilisateur -->
                                     </form>
                                 </div>
                             </td>
@@ -178,24 +178,24 @@ $allUsers = UserModel::getAllUsers();
                 <thead>
                     <tr>
                         <th>Nom d'utilisateur</th>
-                        <th>Action</th> <!-- Removed Status column -->
+                        <th>Action</th> <!-- Enlever la colonne Statut -->
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($allUsers as $user): ?>
                         <tr>
-                            <td><?= htmlspecialchars($user['login']) ?></td>
+                            <td><?= htmlspecialchars($user['login']) ?></td> <!-- Afficher le nom d'utilisateur -->
                             <td>
                                 <?php if ($user['status'] !== 'banned'): ?>
                                     <form method="POST" action="/SAE-3.01-Developpement-application/src/Controller/UserController.php">
                                         <input type="hidden" name="action" value="ban">
                                         <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
                                         <button type="submit" value="ban" style="background-color: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer; padding: 20px 40px; font-size: 1.5rem;">
-    Bannir
-</button>
+                                            Bannir <!-- Bouton pour bannir l'utilisateur -->
+                                        </button>
                                     </form>
                                 <?php else: ?>
-                                    <span>Banni</span>
+                                    <span>Banni</span> <!-- Afficher "Banni" si l'utilisateur est banni -->
                                 <?php endif; ?>
                             </td>
                         </tr>
@@ -209,7 +209,7 @@ $allUsers = UserModel::getAllUsers();
     </footer>
     <script>
         function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('dark-mode'); // Basculer le mode sombre
         }
     </script>
 </body>
