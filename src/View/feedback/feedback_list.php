@@ -21,7 +21,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-            overflow-y: auto; /* Ensure the body is scrollable */
+            overflow-y: auto; /* Assurer que le corps est défilable */
         }
 
         h1 {
@@ -105,7 +105,7 @@
             font-size: 0.9rem;
         }
 
-        /* Dark mode styles */
+        /* Styles pour le mode sombre */
         body.dark-mode {
             background: linear-gradient(to right, #2c3e50, #4ca1af);
             color: #ddd;
@@ -140,39 +140,39 @@
     <header>
         <h1>Liste des feedbacks</h1>
         <div class="button-home">
-            <button class="btn" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
+            <button class="btn" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button> <!-- Bouton pour retourner à l'accueil -->
         </div>
         <div class="button-container">
-            <button class="btn" id="darkModeButton" onclick="toggleDarkMode()">🌙 Mode sombre</button>
+            <button class="btn" id="darkModeButton" onclick="toggleDarkMode()">🌙 Mode sombre</button> <!-- Bouton pour basculer le mode sombre -->
         </div>
     </header>
     <main>
         <?php
         $feedbackController = new \App\Meteo\Controller\FeedbackController();
-        $feedbacks = $feedbackController->listFeedbacks();
+        $feedbacks = $feedbackController->listFeedbacks(); // Récupérer la liste des feedbacks
 
         if (empty($feedbacks)) {
-            echo "<p class='fade-in'>Aucun feedback pour le moment.</p>";
+            echo "<p class='fade-in'>Aucun feedback pour le moment.</p>"; // Message si aucun feedback n'est trouvé
         } else {
             foreach ($feedbacks as $feedback) {
                 echo "<div class='feedback fade-in'>";
                 echo "<div class='feedback-content'>";
-                echo "<strong>Utilisateur :</strong> " . htmlspecialchars($feedback['name']) . "<br>";
-                echo "<strong>Message :</strong> " . htmlspecialchars($feedback['message']) . "<br>";
-                echo "<strong>Note :</strong> " . htmlspecialchars($feedback['rating']) . "/5<br>";
-                echo "<em>Envoyé le : " . htmlspecialchars($feedback['created_at']) . "</em><br>";
-                echo "<strong>Status :</strong> " . htmlspecialchars($feedback['status']) . "<br>";
+                echo "<strong>Utilisateur :</strong> " . htmlspecialchars($feedback['name']) . "<br>"; // Afficher le nom de l'utilisateur
+                echo "<strong>Message :</strong> " . htmlspecialchars($feedback['message']) . "<br>"; // Afficher le message
+                echo "<strong>Note :</strong> " . htmlspecialchars($feedback['rating']) . "/5<br>"; // Afficher la note
+                echo "<em>Envoyé le : " . htmlspecialchars($feedback['created_at']) . "</em><br>"; // Afficher la date d'envoi
+                echo "<strong>Status :</strong> " . htmlspecialchars($feedback['status']) . "<br>"; // Afficher le statut
                 echo "</div>";
 
                 if ($feedback['status'] === 'pending') {
                     echo "<form method='post' action='/SAE-3.01-Developpement-application/web/frontController.php?action=approveFeedback'>";
                     echo "<input type='hidden' name='feedback_id' value='" . htmlspecialchars($feedback['id']) . "'>";
-                    echo "<button type='submit'>Approuver</button>";
+                    echo "<button type='submit'>Approuver</button>"; // Bouton pour approuver le feedback
                     echo "</form>";
                 } elseif ($feedback['status'] === 'approved') {
                     echo "<form method='post' action='/SAE-3.01-Developpement-application/web/frontController.php?action=disapproveFeedback'>";
                     echo "<input type='hidden' name='feedback_id' value='" . htmlspecialchars($feedback['id']) . "'>";
-                    echo "<button type='submit'>Désapprouver</button>";
+                    echo "<button type='submit'>Désapprouver</button>"; // Bouton pour désapprouver le feedback
                     echo "</form>";
                 }
 
@@ -187,11 +187,11 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('dark-mode'); // Basculer le mode sombre
             document.documentElement.classList.toggle('dark-mode');
             const darkModeButton = document.getElementById('darkModeButton');
             if (document.body.classList.contains('dark-mode')) {
-                darkModeButton.innerHTML = '☀️ Mode clair';
+                darkModeButton.innerHTML = '☀️ Mode clair'; // Changer le texte du bouton en fonction du mode
             } else {
                 darkModeButton.innerHTML = '🌙 Mode sombre';
             }

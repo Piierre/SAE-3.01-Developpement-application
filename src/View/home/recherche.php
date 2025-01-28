@@ -1,6 +1,6 @@
 <?php
-$stationName = isset($_GET['station_name']) ? $_GET['station_name'] : '';
-$searchDate = isset($_GET['date']) ? $_GET['date'] : '';
+$stationName = isset($_GET['station_name']) ? $_GET['station_name'] : ''; // Récupérer le nom de la station depuis les paramètres GET
+$searchDate = isset($_GET['date']) ? $_GET['date'] : ''; // Récupérer la date de recherche depuis les paramètres GET
 ?>
 
 <head>
@@ -14,7 +14,7 @@ $searchDate = isset($_GET['date']) ? $_GET['date'] : '';
         justify-content: space-between;
         gap: 10px;
         margin-top: 20px;
-        overflow-x: auto;
+        overflow-x: auto; /* Permettre le défilement horizontal */
     }
 
     .chart-container {
@@ -22,7 +22,7 @@ $searchDate = isset($_GET['date']) ? $_GET['date'] : '';
         padding: 10px;
         border-radius: 10px;
         width: 300px;
-        flex: 0 0 auto;
+        flex: 0 0 auto; /* Empêcher le redimensionnement */
     }
 
     canvas {
@@ -30,11 +30,11 @@ $searchDate = isset($_GET['date']) ? $_GET['date'] : '';
         max-height: 200px;
     }
 
-    /* Specific styles for recherche.php */
+    /* Styles spécifiques pour recherche.php */
     body {
         background-color: #ffffff;
     }
-    /* Add more specific styles here */
+    /* Ajouter d'autres styles spécifiques ici */
     </style>
 </head>
 <title>Recherche de Station Météo</title>
@@ -48,8 +48,8 @@ document.addEventListener("DOMContentLoaded", function() {
         let searchDate = document.getElementById('date').value.trim();
         
         if (!stationName || !searchDate) {
-            alert("Veuillez remplir tous les champs avant d'ajouter à la Météothèque.");
-            event.preventDefault();
+            alert("Veuillez remplir tous les champs avant d'ajouter à la Météothèque."); // Alerte si les champs ne sont pas remplis
+            event.preventDefault(); // Empêcher l'envoi du formulaire
         }
     });
 });
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </head>
 <body>
     <button class="btn" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
-    <button class="btn" id="darkModeButton" style="right: 160px;" onclick="toggleDarkMode()">🌙 Mode sombre</button>
+    <button class="btn" id="darkModeButton" style="right: 160px;" onclick="toggleDarkMode()">🌙 Mode sombre</button> <!-- Bouton pour basculer le mode sombre -->
 
     <h1>Recherche de Station Météo</h1>
     <div class="container">
@@ -66,48 +66,47 @@ document.addEventListener("DOMContentLoaded", function() {
             type="text" 
             id="search" 
             placeholder="Rechercher une station..." 
-            value="<?= htmlspecialchars($stationName) ?>"
-            onkeyup="searchStations(this.value)"
+            value="<?= htmlspecialchars($stationName) ?>" <!-- Pré-remplir le champ avec le nom de la station -->
+            onkeyup="searchStations(this.value)" <!-- Appeler la fonction de recherche en temps réel -->
         >
-        <div id="suggestions" class="suggestions"></div>
+        <div id="suggestions" class="suggestions"></div> <!-- Conteneur pour les suggestions -->
 
         <input 
             type="date" 
             id="date"   
             placeholder="Sélectionner une date"
-            value="<?= htmlspecialchars($searchDate) ?>"
+            value="<?= htmlspecialchars($searchDate) ?>" <!-- Pré-remplir le champ avec la date de recherche -->
         >
-        <button onclick="searchMeasures()">Rechercher</button>
+        <button onclick="searchMeasures()">Rechercher</button> <!-- Bouton pour lancer la recherche -->
 
         <form action="/SAE-3.01-Developpement-application/web/frontController.php?action=addMeteotheque" method="post" onsubmit="return validateForm()">
-    <input type="hidden" name="titre" id="hiddenTitre">
-    <input type="hidden" name="description" id="hiddenDescription">
-    <input type="hidden" name="station_name" id="hiddenStation">
-    <input type="hidden" name="search_date" id="hiddenDate">
-    <input type="hidden" name="redirect" value="true">  <!-- Ajout du paramètre de redirection -->
+            <input type="hidden" name="titre" id="hiddenTitre">
+            <input type="hidden" name="description" id="hiddenDescription">
+            <input type="hidden" name="station_name" id="hiddenStation">
+            <input type="hidden" name="search_date" id="hiddenDate">
+            <input type="hidden" name="redirect" value="true">  <!-- Ajout du paramètre de redirection -->
 
-    <button type="submit">Ajouter cette recherche à ma Météothèque</button>
-</form>
-
+            <button type="submit">Ajouter cette recherche à ma Météothèque</button> <!-- Bouton pour ajouter la recherche à la Météothèque -->
+        </form>
 
         <script>
         function validateForm() {
-    let stationName = document.getElementById('search').value.trim();
-    let searchDate = document.getElementById('date').value.trim();
+            let stationName = document.getElementById('search').value.trim();
+            let searchDate = document.getElementById('date').value.trim();
 
-    if (stationName === '' || searchDate === '') {
-        alert("Veuillez remplir tous les champs avant d'ajouter à la Météothèque.");
-        return false;
-    }
+            if (stationName === '' || searchDate === '') {
+                alert("Veuillez remplir tous les champs avant d'ajouter à la Météothèque.");
+                return false;
+            }
 
-    // Mettre à jour les valeurs des champs cachés avant l'envoi
-    document.getElementById('hiddenTitre').value = `Recherche: ${stationName}`;
-    document.getElementById('hiddenDescription').value = `Recherche pour la station ${stationName} à la date ${searchDate}`;
-    document.getElementById('hiddenStation').value = stationName;
-    document.getElementById('hiddenDate').value = searchDate;
+            // Mettre à jour les valeurs des champs cachés avant l'envoi
+            document.getElementById('hiddenTitre').value = `Recherche: ${stationName}`;
+            document.getElementById('hiddenDescription').value = `Recherche pour la station ${stationName} à la date ${searchDate}`;
+            document.getElementById('hiddenStation').value = stationName;
+            document.getElementById('hiddenDate').value = searchDate;
 
-    return true;
-}
+            return true;
+        }
 
 
         function searchMeasures() {
