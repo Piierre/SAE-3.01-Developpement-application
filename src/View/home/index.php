@@ -138,7 +138,7 @@ session_start();
             }
         });
 
-        const textArray = ["Explorez nos données...", "Analysez les tendances météo...", "Préparez vos prévisions !"];
+        const textArray = ["Explorez l'historique météo...", "Analysez les tendances passées...", "Revivez les données climatiques..."];
         let textIndex = 0;
         let charIndex = 0;
         const typingElement = document.querySelector('.typing-effect');

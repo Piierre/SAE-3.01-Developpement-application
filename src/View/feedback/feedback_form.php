@@ -53,6 +53,10 @@
         form button:hover {
             background-color: #218838;
         }
+
+        body {
+            overflow-y: auto; /* Ensure the body is scrollable */
+        }
     </style>
 </head>
 <body>

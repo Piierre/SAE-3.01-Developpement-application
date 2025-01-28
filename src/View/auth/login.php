@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/styles.css"> <!-- Lien vers le CSS -->
     <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/auth.css"> <!-- Lien vers le CSS -->
     <title>Connexion</title>
+    <style>
+        body {
+            overflow-y: auto; /* Ensure the body is scrollable */
+        }
+    </style>
 </head>
 <body>
     <div id="particles-js"></div>

@@ -6,13 +6,20 @@
     <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/styles.css"> <!-- Lien vers le CSS -->
     <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/auth.css"> <!-- Lien vers le CSS -->
     <title>Inscription</title>
+    <style>
+        body {
+            overflow-y: auto; /* Ensure the body is scrollable */
+        }
+    </style>
 </head>
 <body>
     <div id="particles-js"></div>
     <header>
         <h1>Inscription</h1>
-        <div class="button-container">
+        <div class="button-home">
             <button class="btn" onclick="window.location.href='/SAE-3.01-Developpement-application/web/frontController.php'">🏠 Accueil</button>
+        </div>
+        <div class="button-container">
             <button class="btn" id="darkModeButton" onclick="toggleDarkMode()">🌙 Mode sombre</button>
         </div>
     </header>

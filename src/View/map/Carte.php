@@ -30,6 +30,7 @@ $stations = CarteController::getStations();
             background: linear-gradient(to right, #a8acaf, #00f2fe);
             color: #fff;
             text-align: center;
+            overflow: auto; /* Ensure the body is scrollable in both directions */
         }
 
         h1 {

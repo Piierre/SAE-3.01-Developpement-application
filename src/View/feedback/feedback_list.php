@@ -21,6 +21,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            overflow-y: auto; /* Ensure the body is scrollable */
         }
 
         h1 {
