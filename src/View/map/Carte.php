@@ -18,6 +18,7 @@ $stations = CarteController::getStations();
     <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/auth.css"> <!-- Lien vers le CSS -->
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
     <style>
+        /* Styles de base pour la page */
         * {
             margin: 0;
             padding: 0;
@@ -30,7 +31,7 @@ $stations = CarteController::getStations();
             background: linear-gradient(to right, #a8acaf, #00f2fe);
             color: #fff;
             text-align: center;
-            overflow: auto; /* Ensure the body is scrollable in both directions */
+            overflow: auto; /* Assurer que le corps est défilable dans les deux directions */
         }
 
         h1 {
@@ -47,7 +48,7 @@ $stations = CarteController::getStations();
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             position: relative;
-            z-index: 1; /* Ensure these elements are above the particles */
+            z-index: 1; /* Assurer que ces éléments sont au-dessus des particules */
         }
 
         footer {
@@ -55,7 +56,7 @@ $stations = CarteController::getStations();
             font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.7);
             position: relative;
-            z-index: 1; /* Ensure these elements are above the particles */
+            z-index: 1; /* Assurer que ces éléments sont au-dessus des particules */
         }
 
         /* Style des popups Leaflet */
@@ -84,7 +85,7 @@ $stations = CarteController::getStations();
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             position: relative;
-            z-index: 1; /* Ensure these elements are above the particles */
+            z-index: 1; /* Assurer que ces éléments sont au-dessus des particules */
         }
 
         .back-button:hover {
@@ -92,12 +93,12 @@ $stations = CarteController::getStations();
         }
 
         #particles-js {
-            position: fixed; /* Ensure it covers the entire background */
+            position: fixed; /* Assurer qu'il couvre tout l'arrière-plan */
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0; /* Adjust z-index to be just behind the map and texts */
+            z-index: 0; /* Ajuster le z-index pour être juste derrière la carte et les textes */
         }
 
         body.dark-mode, html.dark-mode {
@@ -143,18 +144,19 @@ $stations = CarteController::getStations();
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
+        // Configuration des particules
         particlesJS("particles-js", {
             "particles": {
                 "number": {
-                    "value": 120, // Increased number of particles
+                    "value": 120, // Nombre de particules augmenté
                     "density": { "enable": true, "value_area": 800 }
                 },
                 "color": { "value": "#ffffff" },
                 "shape": { "type": "circle" },
-                "opacity": { "value": 0.7, "random": true }, // Increased opacity
-                "size": { "value": 4, "random": true }, // Increased size
-                "line_linked": { "enable": true, "distance": 100, "color": "#ffffff", "opacity": 0.6, "width": 2 }, // Increased contrast
-                "move": { "enable": true, "speed": 4 } // Increased speed
+                "opacity": { "value": 0.7, "random": true }, // Opacité augmentée
+                "size": { "value": 4, "random": true }, // Taille augmentée
+                "line_linked": { "enable": true, "distance": 100, "color": "#ffffff", "opacity": 0.6, "width": 2 }, // Contraste augmenté
+                "move": { "enable": true, "speed": 4 } // Vitesse augmentée
             },
             "interactivity": {
                 "events": {
@@ -163,6 +165,7 @@ $stations = CarteController::getStations();
             }
         });
 
+        // Fonction pour basculer le mode sombre
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
             document.documentElement.classList.toggle('dark-mode');
@@ -174,14 +177,17 @@ $stations = CarteController::getStations();
             }
         }
 
+        // Initialisation de la carte Leaflet
         var map = L.map('map').setView([46.8566, 5.3522], 6);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
         }).addTo(map);
 
+        // Récupérer les données des stations depuis PHP
         var stations = <?php echo json_encode($stations); ?>;
 
+        // Fonction pour obtenir les données météo
         function getWeather(lat, lon, callback) {
             var apiKey = '75f79aeac04ab3de89f8045bc648d492';
             var url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
@@ -192,6 +198,7 @@ $stations = CarteController::getStations();
                 .catch(error => console.log("Erreur météo :", error));
         }
 
+        // Fonction pour traduire les descriptions météo
         function translateWeather(description) {
             if (description.includes("clear")) return "Ciel dégagé";
             if (description.includes("clouds")) return "Nuageux";
@@ -202,6 +209,7 @@ $stations = CarteController::getStations();
             return description;
         }
 
+        // Fonction pour obtenir les emojis météo
         function getWeatherEmoji(description) {
             if (description.includes("clear")) return "☀️";
             if (description.includes("clouds")) return "☁️";
@@ -212,6 +220,7 @@ $stations = CarteController::getStations();
             return "";
         }
 
+        // Ajouter des marqueurs pour chaque station sur la carte
         stations.forEach(function(station) {
             getWeather(station.latitude, station.longitude, function(weatherData) {
                 var temperature = Math.floor(weatherData.main.temp);

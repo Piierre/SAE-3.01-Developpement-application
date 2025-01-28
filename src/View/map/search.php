@@ -5,6 +5,7 @@ require_once __DIR__ . '/../../config/Conf.php';
 use App\Meteo\Config\Conf;
 use PDO;
 
+// Connexion à la base de données
 $pdo = Conf::getPDO();
 ?>
 
@@ -16,11 +17,11 @@ $pdo = Conf::getPDO();
     <title>Recherche de stations</title>
     <link rel="stylesheet" href="/SAE-3.01-Developpement-application/web/assets/css/search.css">
     <style>
-    /* Specific styles for search.php */
+    /* Styles spécifiques pour search.php */
     body {
-        background-color: #ADD8E6; /* Light blue background */
+        background-color: #ADD8E6; /* Fond bleu clair */
     }
-    /* Add more specific styles here */
+    /* Ajouter plus de styles spécifiques ici */
     .btn-container {
         display: flex;
         justify-content: center;

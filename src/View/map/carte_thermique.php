@@ -159,6 +159,7 @@
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
+        // Initialisation des particules d'arrière-plan
         particlesJS("particles-js", {
             "particles": {
                 "number": {
@@ -179,6 +180,7 @@
             }
         });
 
+        // Fonction pour basculer entre le mode clair et le mode sombre
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
             document.documentElement.classList.toggle('dark-mode');
@@ -190,6 +192,7 @@
             }
         }
 
+        // Initialisation de la carte Leaflet
         var map = L.map('map').setView([46.603354, 1.888334], 6);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
@@ -204,6 +207,7 @@
                 return;
             }
 
+            // Requête pour obtenir les données météo pour la date sélectionnée
             fetch(`/SAE-3.01-Developpement-application/src/View/map/get_meteo_data.php?date=${encodeURIComponent(selectedDate)}`)
                 .then(response => response.json())
                 .then(data => {
@@ -242,6 +246,7 @@
                     alert("Une erreur est survenue, veuillez réessayer.");
                 });
 
+            // Fonction pour mettre à jour la carte thermique
             function updateHeatMap(heatData) {
                 if (window.heatLayer) {
                     map.removeLayer(window.heatLayer);

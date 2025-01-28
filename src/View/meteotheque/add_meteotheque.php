@@ -9,6 +9,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Vérifie si l'utilisateur est connecté
 if (!isset($_SESSION['id'])) {
     MessageFlash::ajouter('danger', 'Vous devez être connecté pour ajouter une météothèque.');
     header('Location: /SAE-3.01-Developpement-application/web/frontController.php?page=login');
@@ -22,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $searchDate = isset($_POST['search_date']) ? trim($_POST['search_date']) : null;
     $redirect = isset($_POST['redirect']) ? true : false;
 
+    // Vérifie si les champs station et date sont remplis
     if (empty($stationName) || empty($searchDate)) {
         MessageFlash::ajouter('danger', 'Veuillez spécifier une station et une date valides.');
         header('Location: /SAE-3.01-Developpement-application/web/frontController.php?page=recherche');

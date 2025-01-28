@@ -17,8 +17,10 @@ function clusterStations($stations, $distanceThreshold = 0.2) {
     foreach ($stations as $station) {
         $added = false;
         foreach ($clusters as &$cluster) {
+            // Calcul de la distance entre la station et le cluster
             $dist = sqrt(pow($cluster['lat'] - $station['latitude'], 2) + pow($cluster['lon'] - $station['longitude'], 2));
             if ($dist < $distanceThreshold) {
+                // Ajout de la température de la station au cluster existant
                 $cluster['temp_sum'] += $station['temperature'];
                 $cluster['count']++;
                 $added = true;
@@ -26,6 +28,7 @@ function clusterStations($stations, $distanceThreshold = 0.2) {
             }
         }
         if (!$added) {
+            // Création d'un nouveau cluster si aucune correspondance trouvée
             $clusters[] = [
                 'lat' => $station['latitude'], 
                 'lon' => $station['longitude'], 
@@ -35,6 +38,7 @@ function clusterStations($stations, $distanceThreshold = 0.2) {
         }
     }
     foreach ($clusters as &$cluster) {
+        // Calcul de la température moyenne pour chaque cluster
         $cluster['avg_temp'] = $cluster['temp_sum'] / $cluster['count'];
         unset($cluster['temp_sum'], $cluster['count']);
     }
@@ -58,9 +62,11 @@ try {
         exit;
     }
 
+    // Clustering des stations et retour des données en JSON
     $clusters = clusterStations($stations);
     echo json_encode($clusters);
 } catch (PDOException $e) {
+    // Gestion des erreurs de la base de données
     echo json_encode(["error" => $e->getMessage()]);
 }
 ?>

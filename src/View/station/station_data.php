@@ -14,6 +14,7 @@ if (isset($_GET['station_name']) && isset($_GET['date'])) {
     $data = StationController::getStationData($stationName, $formattedDate);
 
     if (empty($data)) {
+        // Retourne une réponse JSON vide si aucune donnée n'est trouvée
         header('Content-Type: application/json');
         echo json_encode([]);
         exit;
@@ -21,6 +22,7 @@ if (isset($_GET['station_name']) && isset($_GET['date'])) {
 
     $processedData = [];
     foreach ($data as $record) {
+        // Traitement des données pour inclure uniquement les champs nécessaires
         $processedData[] = [
             'date' => $record['date'],
             'tc' => $record['tc'] ?? null,  // Température (°C)
@@ -29,6 +31,7 @@ if (isset($_GET['station_name']) && isset($_GET['date'])) {
         ];
     }
 
+    // Retourne les données traitées au format JSON
     header('Content-Type: application/json');
     echo json_encode($processedData);
     exit;

@@ -14,6 +14,7 @@ if (isset($_SESSION['user'])) {
     $userId = null;
 }
 
+// Récupère les météothèques de l'utilisateur connecté
 $mesMeteotheques = MeteothequeModel::getMeteothequesByUser($userId);
 ?>
 
