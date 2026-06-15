@@ -1,0 +1,39 @@
+# VS Code
+.vscode/
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# PHP
+*.log
+composer.lock
+
+# Database
+*.sql
+
+# Environment variables
+.env
+.env.local
+
+# Node modules (si utilisation de npm)
+node_modules/
+package-lock.json
+
+# Cache
+__pycache__/
+*.pyc
+
+# Backup files
+*.bak
+*.backup
+
+# Temporary files
+tmp/
+temp/
