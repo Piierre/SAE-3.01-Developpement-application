@@ -13,7 +13,7 @@ class Conf {
         'hostname' => 'localhost', // Nom d'hôte
         'database' => 'meteoDB',   // Nom de la base de données
         'login' => 'root',         // Identifiant utilisateur
-        'password' => '123'           // Mot de passe
+        'password' => ''           // Mot de passe
     );
 
     // Propriété statique pour stocker la connexion PDO
@@ -41,7 +41,7 @@ class Conf {
 
     // Méthode statique pour obtenir une connexion PDO
     static public function getPDO() : PDO {
-        $dsn = "mysql:host=" . static::getHostname() . ";dbname=" . static::getDatabase();
+        $dsn = "mysql:host=" . static::getHostname() . ";dbname=" . static::getDatabase() . ";charset=utf8mb4";
         return new PDO($dsn, static::getLogin(), static::getPassword());
     }
 }
